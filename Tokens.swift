@@ -1,71 +1,70 @@
 //
-//  SpreadsheetGrammar.swift
+//  Token.swift
 //  COSC346 Assignment 1
 //
 //  Created by David Eyers on 24/07/17.
 //  Copyright © 2017 David Eyers. All rights reserved.
 //
+//  Subclasses of GrammarRule that assist reading "tokens" from input, such as literal strings, and integers.
 
 import Foundation
 
-// Simplified example grammar
-// (Rules are also shown next to their parsing classes, in this file)
-//
-// Spreadsheet -> Expression | Epsilon
-// Expression -> Integer ExpressionTail
-// ExpressionTail -> [+] Integer
-//
-// This code shows the key aspects of recursive descent parsing. Also, note how the object oriented structure matches the grammar. Having said that, this code is by no means optimal / neat / nice!
-
-/** The top-level GrammarRule.
- This GrammarRule handles Spreadsheet -> Expression | Epsilon
- Note that it uses the GrammarRule's default parse method
+/**
+ A Token is a GrammarRule that parses tokens from the input string using regular expressions.
+ This is more convenient than developing a complete recursive descent parser down to the character level of the input string.
  */
-class GRSpreadsheet : GrammarRule {
-    let myGRExpression = GRExpression()
-    init(){
-        super.init(rhsRules: [[myGRExpression], [Epsilon.theEpsilon]])
-    }
-}
-
-/// A GrammarRule for handling: Expression -> Integer ExpressionTail
-class GRExpression : GrammarRule {
-    let num = GRInteger()
-    let exprTail = GRExpressionTail()
+class Token : GrammarRule {
+    /// The regular expression that this Token instance uses
+    let regExp : NSRegularExpression
     
-    init(){
-        super.init(rhsRule: [num,exprTail])
-    }
-    override func parse(input: String) -> String? {
-        let rest = super.parse(input:input)
-        if rest != nil {
-            self.calculatedValue = num.calculatedValue! + exprTail.calculatedValue!
-        }
-        return rest
-    }
-}
-
-/// A GrammarRule for handling: ExpressionTail -> "+" Integer
-class GRExpressionTail : GrammarRule {
-    let plus = GRLiteral(literal: "+")
-    let num = GRInteger()
-    
-    init(){
-        super.init(rhsRule: [plus,num])
+    /// The initialiser requires a regular expression pattern, and optionally some options to the NSRegularExpression system
+    init(regExpPattern:String, options:NSRegularExpression.Options = []){
+        self.regExp = try! NSRegularExpression(pattern: regExpPattern, options: options)
+        super.init(rhsRule: [])
     }
     
     override func parse(input: String) -> String? {
-        if let rest = super.parse(input: input) {
-            self.calculatedValue =  Int(num.stringValue!)
-            return rest
+        // Trim off whitespace
+        let trimmedInput = input.trimmingCharacters(in: .whitespacesAndNewlines)
+        // Find the first match
+        let rangeOfFirstMatch = regExp.rangeOfFirstMatch(in: trimmedInput, options: [], range: NSRange(location: 0, length: trimmedInput.characters.count))
+        
+        // We require the regular expression to match right at the start of the whitespace-trimmed input string
+        if(rangeOfFirstMatch.location != 0){
+            return nil //no match
         }
-        return nil
+        
+        // Determine where the match finishes and the start of the restOfInput begins
+        let index = trimmedInput.index(trimmedInput.startIndex, offsetBy: rangeOfFirstMatch.length)
+        let match = trimmedInput.substring(to: index)
+        // The string value of this Token is the text that matched
+        self.stringValue = match
+
+        let restOfInput = trimmedInput.substring(from: index)
+        return restOfInput
     }
 }
 
-class GRRelativeCell : GrammarRule {
-    let row = GRInteger()
-    let col = GRInteger()
-    
-    
+/// A Token subclass for parsing integers
+class GRInteger : Token {
+    init(){
+        // parse integers
+        super.init(regExpPattern: "-?[0-9]+")
+    }
+    override func parse(input:String) -> String? {
+        let returnValue = super.parse(input: input)
+        if let strVal = self.stringValue {
+            // if a stringValue has been parsed, we should be able to record the integer value too
+            self.calculatedValue = Int(strVal)
+        }
+        return returnValue
+    }
+}
+
+/// A Token subclass for parsing specific string tokens
+class GRLiteral : Token {
+    /// literal is the string token we want this GRLiteral to match
+    init(literal:String){
+        super.init(regExpPattern: literal, options: NSRegularExpression.Options.ignoreMetacharacters )
+    }
 }
