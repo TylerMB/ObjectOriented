@@ -7,10 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5454D0081F43B553003DF16D /* Tokens.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5454D0071F43B553003DF16D /* Tokens.swift */; };
-		546159151F42726E005F970A /* GrammarRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 546159111F42726E005F970A /* GrammarRule.swift */; };
-		546159161F42726E005F970A /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 546159121F42726E005F970A /* main.swift */; };
 		546159171F42726E005F970A /* SpreadsheetGrammar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 546159131F42726E005F970A /* SpreadsheetGrammar.swift */; };
+		549F2A831F43BF54002E2C99 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 549F2A821F43BF54002E2C99 /* main.swift */; };
+		549F2A851F43BF5C002E2C99 /* GrammarRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 549F2A841F43BF5C002E2C99 /* GrammarRule.swift */; };
+		549F2A871F43C00D002E2C99 /* Tokens.swift in Sources */ = {isa = PBXBuildFile; fileRef = 549F2A861F43C00D002E2C99 /* Tokens.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -26,11 +26,11 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		5454D0071F43B553003DF16D /* Tokens.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tokens.swift; sourceTree = "<group>"; };
 		546159071F427252005F970A /* Spreadsheet */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Spreadsheet; sourceTree = BUILT_PRODUCTS_DIR; };
-		546159111F42726E005F970A /* GrammarRule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GrammarRule.swift; path = ../GrammarRule.swift; sourceTree = "<group>"; };
-		546159121F42726E005F970A /* main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = main.swift; path = ../main.swift; sourceTree = "<group>"; };
 		546159131F42726E005F970A /* SpreadsheetGrammar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpreadsheetGrammar.swift; sourceTree = SOURCE_ROOT; };
+		549F2A821F43BF54002E2C99 /* main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = SOURCE_ROOT; };
+		549F2A841F43BF5C002E2C99 /* GrammarRule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GrammarRule.swift; sourceTree = SOURCE_ROOT; };
+		549F2A861F43C00D002E2C99 /* Tokens.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tokens.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,10 +63,10 @@
 		546159091F427252005F970A /* Spreadsheet */ = {
 			isa = PBXGroup;
 			children = (
-				546159111F42726E005F970A /* GrammarRule.swift */,
-				546159121F42726E005F970A /* main.swift */,
+				549F2A821F43BF54002E2C99 /* main.swift */,
+				549F2A841F43BF5C002E2C99 /* GrammarRule.swift */,
 				546159131F42726E005F970A /* SpreadsheetGrammar.swift */,
-				5454D0071F43B553003DF16D /* Tokens.swift */,
+				549F2A861F43C00D002E2C99 /* Tokens.swift */,
 			);
 			path = Spreadsheet;
 			sourceTree = "<group>";
@@ -130,10 +130,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				546159151F42726E005F970A /* GrammarRule.swift in Sources */,
 				546159171F42726E005F970A /* SpreadsheetGrammar.swift in Sources */,
-				5454D0081F43B553003DF16D /* Tokens.swift in Sources */,
-				546159161F42726E005F970A /* main.swift in Sources */,
+				549F2A831F43BF54002E2C99 /* main.swift in Sources */,
+				549F2A851F43BF5C002E2C99 /* GrammarRule.swift in Sources */,
+				549F2A871F43C00D002E2C99 /* Tokens.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
