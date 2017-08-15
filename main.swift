@@ -34,7 +34,7 @@ let bGRLiteral = GRLiteral(literal: "b")
 testGrammarRule(rule: bGRLiteral,input:"2")
 testGrammarRule(rule: bGRLiteral,input:" b+a")
 
-print("--- Test GRExpression parsing")
+print("--- Test GRExpression parsing hello")
 let myExpr = GRExpression()
 testGrammarRule(rule: myExpr, input: " 1+ 2  ")
 if let result = myExpr.parse(input: " 1 + 2 ") {
