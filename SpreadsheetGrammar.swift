@@ -116,19 +116,26 @@ class GRAbsoluteCell : GrammarRule {
 }
 
 
-//class GRRelativeCell : GrammarRule {
-//    let r = GRLiteral(literal: "r")
-//    let c = GRLiteral(literal: "c")
-//    let row = GRInteger()
-//    let col = GRInteger()
-//    
-//    init() {
-//        super.init(rhsRule: [row,col])
-//    }
-//    override func parse(input: String) -> String? {
-//        
-//    }
-//}
+class GRRelativeCell : GrammarRule {
+    let r = GRLiteral(literal: "r")
+    let c = GRLiteral(literal: "c")
+    let row = GRInteger()
+    let col = GRInteger()
+    
+    init() {
+        super.init(rhsRule: [row,col])
+    }
+    override func parse(input: String) -> String? {
+        if let rest = super.parse(input: input) {
+            self.stringValue?.append(r.stringValue!)
+            self.stringValue?.append(row.stringValue!)
+            self.stringValue?.append(c.stringValue!)
+            self.stringValue?.append(col.stringValue!)
+            return rest
+        }
+        return nil
+    }
+}
 
 
 
