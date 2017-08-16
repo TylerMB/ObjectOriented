@@ -42,7 +42,17 @@ testGrammarRule(rule: myGRPositiveInteger,input:"  1200-r3f")
 // should not be able to be parsed
 testGrammarRule(rule: myGRPositiveInteger,input:"NaN")
 
+print("\n\n--- Test GRCellReference parsing ---")
+let myGRCellReference = GRCellReference()
 
+// should parse the complete string
+testGrammarRule(rule: myGRCellReference,input:"-2")
+// should parse just the initial integer
+testGrammarRule(rule: myGRCellReference,input:"AA12")
+// should not be able to be parsed
+testGrammarRule(rule: myGRCellReference,input:"N5N")
+// should parse just the initial integer
+testGrammarRule(rule: myGRCellReference,input:"r3c8sa")
 
 print("\n\n--- Test GRAbsoluteCell parsing ---")
 let myGRAbsoluteCell = GRAbsoluteCell()

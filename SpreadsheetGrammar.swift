@@ -137,6 +137,26 @@ class GRRelativeCell : GrammarRule {
     }
 }
 
+class GRCellReference : GrammarRule {
+    let abs = GRAbsoluteCell()
+    let rel = GRRelativeCell()
+
+    
+    init() {
+        super.init(rhsRules: [[abs],[rel]])
+    }
+    override func parse(input: String) -> String? {
+        if let rest = super.parse(input: input) {
+            if abs.stringValue != nil {
+                self.stringValue?.append(abs.stringValue!)
+            } else if rel.stringValue != nil {
+                self.stringValue?.append(rel.stringValue!)
+            }
+            return rest
+        }
+        return nil
+    }
+}
 
 
 
