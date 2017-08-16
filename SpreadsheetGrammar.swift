@@ -45,6 +45,7 @@ class GRExpression : GrammarRule {
     }
 }
 
+
 /// A GrammarRule for handling: ExpressionTail -> "+" Integer
 class GRExpressionTail : GrammarRule {
     let plus = GRLiteral(literal: "+")
@@ -63,34 +64,55 @@ class GRExpressionTail : GrammarRule {
     }
 }
 
-
-//AbsoluteCell
-
-class GRAbsoluteCell : GrammarRule{
+class GRProductTerm : GrammarRule {
+    let value = GRInteger()
+    let productTail = GRProductTermTail()
     
-    let row = GRColumnLabel()
-    let col = GRPositiveInteger()
+    init(){
+        super.init(rhsRule: [value,productTail])
+    }
+    override func parse(input: String) -> String? {
+        let rest = super.parse(input:input)
+        if rest != nil {
+            self.calculatedValue = value.calculatedValue! + productTail.calculatedValue!
+        }
+        return rest
+    }
 }
 
+class GRProductTermTail : GrammarRule {
+    let times = GRLiteral(literal: "*")
+    let value = GRInteger()
+    
+    init(){
+        super.init(rhsRule: [times,value])
+    }
+    
+    override func parse(input: String) -> String? {
+        if let rest = super.parse(input: input) {
+            self.calculatedValue =  Int(value.stringValue!)
+            return rest
+        }
+        return nil
+    }
+}
 
-
-//class GRRelativeCell : GrammarRule {
-//    let row = GRInteger()
-//    let col = GRInteger()
+//class GRAbsoluteCell : GrammarRule {
+//    let row = GRColumnLabel()
+//    let col = GRPositiveInteger()
+//    var returnValue: String
 //    
-//    let rc = GRRelativeCell()
-//    
-//    init(){
-//        super.init(rhsRule: [row, col])
+//    init() {
+//        super.init(rhsRule: [row,col])
 //    }
 //    
-// 
 //    override func parse(input: String) -> String? {
-//        
-//        }
-//        return nil
+//        returnValue = super.parse(input: input)!
 //    }
+//    
+//    return returnValue
 //    
 //}
+
 
 

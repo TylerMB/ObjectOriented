@@ -8,6 +8,7 @@
 //  Some basic tests that aim to assist understanding of the GrammarRules.
 //  As noted, this code should be replaced by you doing something better.
 
+
 import Foundation
 
 print("The code in main.swift is just a basic exercise of the classes that you have been provided with. It is not an example of well structured and/or thoroughly tested code, so you should probably replace it with an improved version!\n\n")
@@ -54,9 +55,6 @@ testGrammarRule(rule: myGRColumnLabel,input:"  AA12")
 testGrammarRule(rule: myGRColumnLabel,input:"NaN")
 
 
-
-
-
 print("\n\n--- Test GRLiteral parsing ----")
 let bGRLiteral = GRLiteral(literal: "b")
 testGrammarRule(rule: bGRLiteral,input:"2")
@@ -74,6 +72,15 @@ if let result = myExpr.parse(input: " 1 + 2 ") {
     // if the parsing was successful, then an GRExpression should contain a calculatedValue, hence the (not ideal) unsafe optional forcing here.
     print("myExpr.calculatedValue is \(myExpr.calculatedValue!)")
 }
+
+print("\n\n--- Test GRProductTerm parsing ----")
+let myProduct = GRProductTerm()
+testGrammarRule(rule: myProduct, input: " 1* 2  ")
+if let result = myProduct.parse(input: " 1 * 2 ") {
+    // if the parsing was successful, then an GRExpression should contain a calculatedValue, hence the (not ideal) unsafe optional forcing here.
+    print("myExpr.calculatedValue is \(myProduct.calculatedValue!)")
+}
+
 
 print("\n\n--- Test GRSpreadsheet parsing ----")
 let mySpreadsheet = GRSpreadsheet()
