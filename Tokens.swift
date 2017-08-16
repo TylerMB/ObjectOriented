@@ -77,6 +77,24 @@ class GRPositiveInteger : Token {
     }
 }
 
+
+/// A Token subclass for parsing integers
+class GRColumnLabel : Token {
+    init(){
+        // parse Letters
+        super.init(regExpPattern: "[A-Z]+")
+    }
+    override func parse(input:String) -> String? {
+        let returnValue = super.parse(input: input)
+        if let strVal = self.stringValue {
+            // if a stringValue has been parsed, we should be able to record the integer value too
+            self.calculatedValue = Int(strVal)
+        }
+        return returnValue
+    }
+}
+
+
 /// A Token subclass for parsing specific string tokens
 class GRLiteral : Token {
     /// literal is the string token we want this GRLiteral to match

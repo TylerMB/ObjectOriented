@@ -47,7 +47,10 @@
 		546158FE1F427252005F970A = {
 			isa = PBXGroup;
 			children = (
-				546159091F427252005F970A /* Spreadsheet */,
+				549F2A821F43BF54002E2C99 /* main.swift */,
+				549F2A841F43BF5C002E2C99 /* GrammarRule.swift */,
+				546159131F42726E005F970A /* SpreadsheetGrammar.swift */,
+				549F2A861F43C00D002E2C99 /* Tokens.swift */,
 				546159081F427252005F970A /* Products */,
 			);
 			sourceTree = "<group>";
@@ -58,17 +61,6 @@
 				546159071F427252005F970A /* Spreadsheet */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		546159091F427252005F970A /* Spreadsheet */ = {
-			isa = PBXGroup;
-			children = (
-				549F2A821F43BF54002E2C99 /* main.swift */,
-				549F2A841F43BF5C002E2C99 /* GrammarRule.swift */,
-				546159131F42726E005F970A /* SpreadsheetGrammar.swift */,
-				549F2A861F43C00D002E2C99 /* Tokens.swift */,
-			);
-			path = Spreadsheet;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

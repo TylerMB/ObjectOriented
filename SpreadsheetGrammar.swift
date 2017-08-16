@@ -63,14 +63,34 @@ class GRExpressionTail : GrammarRule {
     }
 }
 
-class GRRelativeCell : GrammarRule {
-    let row = GRInteger()
-    let col = GRInteger()
+
+//AbsoluteCell
+
+class GRAbsoluteCell : GrammarRule{
     
-    init() {
-        super.in
-    }
-    
+    let row = GRColumnLabel()
+    let col = GRPositiveInteger()
 }
+
+
+
+//class GRRelativeCell : GrammarRule {
+//    let row = GRInteger()
+//    let col = GRInteger()
+//    
+//    let rc = GRRelativeCell()
+//    
+//    init(){
+//        super.init(rhsRule: [row, col])
+//    }
+//    
+// 
+//    override func parse(input: String) -> String? {
+//        
+//        }
+//        return nil
+//    }
+//    
+//}
 
 
