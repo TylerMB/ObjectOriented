@@ -123,7 +123,7 @@ class GRRelativeCell : GrammarRule {
     let col = GRInteger()
     
     init() {
-        super.init(rhsRule: [row,col])
+        super.init(rhsRule: [r,row,c,col])
     }
     override func parse(input: String) -> String? {
         if let rest = super.parse(input: input) {

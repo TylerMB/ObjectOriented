@@ -56,6 +56,18 @@ testGrammarRule(rule: myGRAbsoluteCell,input:"N5N")
 // should parse just the initial integer
 testGrammarRule(rule: myGRAbsoluteCell,input:"  b13")
 
+print("\n\n--- Test GRRelativeCell parsing ---")
+let myGRRelativeCell = GRRelativeCell()
+
+// should parse the complete string
+testGrammarRule(rule: myGRRelativeCell,input:"-2")
+// should parse just the initial integer
+testGrammarRule(rule: myGRRelativeCell,input:"r1c0")
+// should not be able to be parsed
+testGrammarRule(rule: myGRRelativeCell,input:"N5N")
+// should parse just the initial integer
+testGrammarRule(rule: myGRRelativeCell,input:"r8c3hj")
+
 
 print("\n\n--- Test GRColumnLabel parsing ---")
 let myGRColumnLabel = GRColumnLabel()
