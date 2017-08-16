@@ -97,21 +97,23 @@ class GRProductTermTail : GrammarRule {
     }
 }
 
-//class GRAbsoluteCell : GrammarRule {
-//    let row = GRColumnLabel()
-//    let col = GRPositiveInteger()
-//    
-//    init() {
-//        super.init(rhsRule: [row,col])
-//    }
-//    
-//    override func parse(input: String) -> String? {
-//        let returnValue = super.parse(input: input)
-//    }
-//    
-//    return returnValue
-//    
-//}
+class GRAbsoluteCell : GrammarRule {
+    let row = GRColumnLabel()
+    let col = GRPositiveInteger()
+    
+    init() {
+        super.init(rhsRule: [row,col])
+    }
+    
+    override func parse(input: String) -> String? {
+        if let rest = super.parse(input: input) {
+            self.stringValue?.append(row.stringValue!)
+            self.stringValue?.append(col.stringValue!)
+            return rest
+        }
+        return nil
+    }
+}
 
 
 //class GRRelativeCell : GrammarRule {

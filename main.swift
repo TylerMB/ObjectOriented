@@ -44,6 +44,19 @@ testGrammarRule(rule: myGRPositiveInteger,input:"NaN")
 
 
 
+print("\n\n--- Test GRAbsoluteCell parsing ---")
+let myGRAbsoluteCell = GRAbsoluteCell()
+
+// should parse the complete string
+testGrammarRule(rule: myGRAbsoluteCell,input:"-2")
+// should parse just the initial integer
+testGrammarRule(rule: myGRAbsoluteCell,input:"  AA12")
+// should not be able to be parsed
+testGrammarRule(rule: myGRAbsoluteCell,input:"N5N")
+// should parse just the initial integer
+testGrammarRule(rule: myGRAbsoluteCell,input:"  b13")
+
+
 print("\n\n--- Test GRColumnLabel parsing ---")
 let myGRColumnLabel = GRColumnLabel()
 
