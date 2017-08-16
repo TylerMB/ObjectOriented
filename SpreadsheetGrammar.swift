@@ -74,7 +74,7 @@ class GRProductTerm : GrammarRule {
     override func parse(input: String) -> String? {
         let rest = super.parse(input:input)
         if rest != nil {
-            self.calculatedValue = value.calculatedValue! + productTail.calculatedValue!
+            self.calculatedValue = value.calculatedValue! * productTail.calculatedValue!
         }
         return rest
     }
@@ -100,19 +100,34 @@ class GRProductTermTail : GrammarRule {
 //class GRAbsoluteCell : GrammarRule {
 //    let row = GRColumnLabel()
 //    let col = GRPositiveInteger()
-//    var returnValue: String
 //    
 //    init() {
 //        super.init(rhsRule: [row,col])
 //    }
 //    
 //    override func parse(input: String) -> String? {
-//        returnValue = super.parse(input: input)!
+//        let returnValue = super.parse(input: input)
 //    }
 //    
 //    return returnValue
 //    
 //}
+
+
+//class GRRelativeCell : GrammarRule {
+//    let r = GRLiteral(literal: "r")
+//    let c = GRLiteral(literal: "c")
+//    let row = GRInteger()
+//    let col = GRInteger()
+//    
+//    init() {
+//        super.init(rhsRule: [row,col])
+//    }
+//    override func parse(input: String) -> String? {
+//        
+//    }
+//}
+
 
 
 

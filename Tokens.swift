@@ -77,7 +77,6 @@ class GRPositiveInteger : Token {
     }
 }
 
-
 /// A Token subclass for parsing integers
 class GRColumnLabel : Token {
     init(){
@@ -94,7 +93,6 @@ class GRColumnLabel : Token {
     }
 }
 
-
 /// A Token subclass for parsing specific string tokens
 class GRLiteral : Token {
     /// literal is the string token we want this GRLiteral to match
@@ -108,3 +106,5 @@ class GRStringNoQuote : Token {
         super.init(regExpPattern: string, options: NSRegularExpression.Options.ignoreMetacharacters )
     }
 }
+
+
