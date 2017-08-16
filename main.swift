@@ -54,6 +54,29 @@ testGrammarRule(rule: myGRCellReference,input:"N5N")
 // should parse just the initial integer
 testGrammarRule(rule: myGRCellReference,input:"r3c8sa")
 
+print("\n\n--- Test GRValue parsing ---")
+let myGRValue = GRValue()
+
+// should parse the complete string
+testGrammarRule(rule: myGRValue,input:"-2")
+// should parse just the initial integer
+testGrammarRule(rule: myGRValue,input:"AA12")
+// should not be able to be parsed
+testGrammarRule(rule: myGRValue,input:"N5N")
+// should parse just the initial integer
+testGrammarRule(rule: myGRValue,input:"r3c8sa")
+// should parse just the initial integer
+testGrammarRule(rule: myGRValue,input:"132sa")
+// should parse just the initial integer
+testGrammarRule(rule: myGRValue,input:"A13sa")
+// should parse just the initial integer
+testGrammarRule(rule: myGRValue,input:"rc8sa")
+
+
+
+
+
+
 print("\n\n--- Test GRAbsoluteCell parsing ---")
 let myGRAbsoluteCell = GRAbsoluteCell()
 

@@ -159,4 +159,28 @@ class GRCellReference : GrammarRule {
 }
 
 
+class GRValue : GrammarRule {
+    let val = GRInteger()
+    let ref = GRCellReference()
+    
+    
+    init() {
+        super.init(rhsRules: [[val],[ref]])
+    }
+    
+    
+    override func parse(input: String) -> String? {
+        if let rest = super.parse(input: input) {
+            if val.stringValue != nil {
+                self.calculatedValue? = Int(val.stringValue!)!
+            } else if ref.stringValue != nil {
+                self.stringValue? = ref.stringValue!
+            }
+            return rest
+        }
+        return nil
+    }
+}
+
+
 
