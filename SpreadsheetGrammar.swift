@@ -68,24 +68,31 @@ class GRProductTerm : GrammarRule {
     let value = GRValue()
     let productTail = GRProductTermTail()
     
+    
     init(){
         super.init(rhsRule: [value,productTail])
     }
     override func parse(input: String) -> String? {
-        let rest = super.parse(input:input)
-        print(rest as Any)
-        if productTail.calculatedValue != nil && value.calculatedValue != nil {
-            self.calculatedValue = value.calculatedValue! * productTail.calculatedValue!
-        } else if rest == nil && value.calculatedValue != nil {
-            self.calculatedValue = value.calculatedValue!
-        } else if value.stringValue != nil && productTail.calculatedValue != nil {
-            self.stringValue = value.stringValue! + productTail.calculatedValue!.description
-        } else if value.stringValue != nil && rest == nil {
-            self.stringValue = value.stringValue!
+        if let rest = super.parse(input:input){
+            print(rest as Any)
+            if productTail.calculatedValue != nil && value.calculatedValue != nil {
+                self.calculatedValue = value.calculatedValue! * productTail.calculatedValue!
+            } else if rest == "" && value.calculatedValue != nil {
+                self.calculatedValue = value.calculatedValue!
+            } else if value.stringValue != nil && productTail.calculatedValue != nil {
+                self.stringValue = value.stringValue! + productTail.calculatedValue!.description
+            } else if value.stringValue != nil && rest == "" {
+                self.stringValue = value.stringValue!
+            }
+            return rest
         }
-        return rest
+        return nil
     }
+    
+    
 }
+
+
 
 class GRProductTermTail : GrammarRule {
     let times = GRLiteral(literal: "*")
@@ -105,8 +112,9 @@ class GRProductTermTail : GrammarRule {
                 let tail = GRProductTermTail()
                 _ = tail.parse(input: rest)
                 self.calculatedValue =  value.calculatedValue! * tail.calculatedValue!
-                return rest
+                
             }
+            return rest
         }
         return nil
     }

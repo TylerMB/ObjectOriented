@@ -140,7 +140,7 @@ if let result = myExpr.parse(input: " 1 + 2 ") {
 print("\n\n--- Test GRProductTerm parsing ----")
 let myProduct = GRProductTerm()
 testGrammarRule(rule: myProduct, input: " 3* 2  ")
-if let result = myProduct.parse(input: " 3 * 2 ") {
+if let result = myProduct.parse(input: "3* 2") {
     // if the parsing was successful, then an GRExpression should contain a calculatedValue, hence the (not ideal) unsafe optional forcing here.
     print("myProduct.calculatedValue is \(myProduct.calculatedValue!)")
 }
