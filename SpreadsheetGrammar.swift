@@ -75,30 +75,43 @@ class GRProductTerm : GrammarRule {
     override func parse(input: String) -> String? {
         print("HERE ONE -----------")
         let rest = super.parse(input:input)
-        print(rest)
-        if rest != nil && value.calculatedValue != nil {
+        print(rest as Any)
+        if productTail.calculatedValue != nil && value.calculatedValue != nil {
             print("HERE TWO -----------")
-            self.calculatedValue = value.val.calculatedValue! * productTail.calculatedValue!
-        } else if rest != nil && value.stringValue != nil {
+            self.calculatedValue = value.calculatedValue! * productTail.calculatedValue!
+        } else if rest == nil && value.calculatedValue != nil {
             print("HERE THREE --------")
+            self.calculatedValue = value.calculatedValue!
+        } else if value.stringValue != nil && productTail.calculatedValue != nil {
             self.stringValue = value.stringValue! + productTail.calculatedValue!.description
+        } else if value.stringValue != nil && rest == nil {
+            self.stringValue = value.stringValue!
         }
+        
         return rest
     }
 }
 
 class GRProductTermTail : GrammarRule {
     let times = GRLiteral(literal: "*")
-    let value = GRInteger()
+    let value = GRValue()
     
     init(){
-        super.init(rhsRule: [times,value])
+        super.init(rhsRules: [[times,value], [Epsilon.theEpsilon]])
     }
     
     override func parse(input: String) -> String? {
         if let rest = super.parse(input: input) {
-            self.calculatedValue =  Int(value.stringValue!)
-            return rest
+            
+            if rest == "" {
+                
+                self.calculatedValue = value.calculatedValue!
+            } else {
+                let tail = GRProductTermTail()
+                var result = tail.parse(input: rest)
+                self.calculatedValue =  value.calculatedValue! * tail.calculatedValue!
+                return rest
+            }
         }
         return nil
     }
