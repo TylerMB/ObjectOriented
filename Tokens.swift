@@ -102,8 +102,17 @@ class GRLiteral : Token {
 }
 
 class GRStringNoQuote : Token {
-    init(string:String){
-        super.init(regExpPattern: string, options: NSRegularExpression.Options.ignoreMetacharacters )
+    init(){
+        super.init(regExpPattern: "\"(.+?)\"")
+        // "(.*?)" -> Takes everything within a string such as "2", "covefe" and "a+b"
+    }
+    override func parse(input:String) -> String? {
+        let returnValue = super.parse(input: input)
+        if let strVal = self.stringValue {
+            // if a stringValue has been parsed, we should be able to record the integer value too
+            self.stringValue = strVal
+        }
+        return returnValue
     }
 }
 

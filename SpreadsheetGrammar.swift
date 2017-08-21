@@ -30,7 +30,6 @@ class GRSpreadsheet : GrammarRule {
 
 /// A GrammarRule for handling: Expression -> Integer ExpressionTail
 class GRExpression : GrammarRule {
-    let abs = GRAbsoluteCell()
     let num = GRInteger()
     let exprTail = GRExpressionTail()
 
@@ -73,21 +72,17 @@ class GRProductTerm : GrammarRule {
         super.init(rhsRule: [value,productTail])
     }
     override func parse(input: String) -> String? {
-        print("HERE ONE -----------")
         let rest = super.parse(input:input)
         print(rest as Any)
         if productTail.calculatedValue != nil && value.calculatedValue != nil {
-            print("HERE TWO -----------")
             self.calculatedValue = value.calculatedValue! * productTail.calculatedValue!
         } else if rest == nil && value.calculatedValue != nil {
-            print("HERE THREE --------")
             self.calculatedValue = value.calculatedValue!
         } else if value.stringValue != nil && productTail.calculatedValue != nil {
             self.stringValue = value.stringValue! + productTail.calculatedValue!.description
         } else if value.stringValue != nil && rest == nil {
             self.stringValue = value.stringValue!
         }
-        
         return rest
     }
 }
@@ -108,7 +103,7 @@ class GRProductTermTail : GrammarRule {
                 self.calculatedValue = value.calculatedValue!
             } else {
                 let tail = GRProductTermTail()
-                var result = tail.parse(input: rest)
+                _ = tail.parse(input: rest)
                 self.calculatedValue =  value.calculatedValue! * tail.calculatedValue!
                 return rest
             }
@@ -196,6 +191,26 @@ class GRValue : GrammarRule {
             } else if ref.stringValue != nil {
                 self.stringValue = ref.stringValue!
             }
+            return rest
+        }
+        return nil
+    }
+}
+
+
+class GRQoutedString : GrammarRule {
+    let quote = GRLiteral(literal: "\"")
+    let string = GRStringNoQuote()
+    
+    
+    init() {
+        super.init(rhsRule: [quote, string, quote])
+    }
+    override func parse(input: String) -> String? {
+        if let rest = super.parse(input: input) {
+            self.stringValue?.append(quote.stringValue!)
+            self.stringValue?.append(string.stringValue!)
+            self.stringValue?.append(quote.stringValue!)
             return rest
         }
         return nil

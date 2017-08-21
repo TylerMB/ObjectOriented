@@ -119,9 +119,15 @@ testGrammarRule(rule: bGRLiteral,input:"2")
 testGrammarRule(rule: bGRLiteral,input:" b+a")
 
 print("\n\n--- Test GRStringNoQuote parsing ----")
-let bGRStringNoQuote = GRStringNoQuote(string: "b")
+let bGRStringNoQuote = GRStringNoQuote()
 testGrammarRule(rule: bGRStringNoQuote,input: "2")
-testGrammarRule(rule: bGRStringNoQuote,input:" b+a")
+testGrammarRule(rule: bGRStringNoQuote,input:"b+a")
+testGrammarRule(rule: bGRStringNoQuote,input: "\"covefe\"")
+if let result = bGRStringNoQuote.parse(input: "\"covefe\"") {
+    // if the parsing was successful, then an GRExpression should contain a calculatedValue, hence the (not ideal) unsafe optional forcing here.
+    print("string no quote value is \(bGRStringNoQuote.stringValue!)")
+}
+testGrammarRule(rule: bGRStringNoQuote,input:"")
 
 print("\n\n--- Test GRExpression parsing ----")
 let myExpr = GRExpression()
