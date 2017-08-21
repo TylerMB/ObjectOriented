@@ -76,7 +76,7 @@ class GRProductTerm : GrammarRule {
         print("HERE ONE -----------")
         let rest = super.parse(input:input)
         print(rest)
-        if rest != nil && value.val.calculatedValue != nil {
+        if rest != nil && value.calculatedValue != nil {
             print("HERE TWO -----------")
             self.calculatedValue = value.val.calculatedValue! * productTail.calculatedValue!
         } else if rest != nil && value.stringValue != nil {
@@ -179,9 +179,9 @@ class GRValue : GrammarRule {
     override func parse(input: String) -> String? {
         if let rest = super.parse(input: input) {
             if val.stringValue != nil {
-                self.calculatedValue? = val.calculatedValue!
+                self.calculatedValue = val.calculatedValue!
             } else if ref.stringValue != nil {
-                self.stringValue? = ref.stringValue!
+                self.stringValue = ref.stringValue!
             }
             return rest
         }
