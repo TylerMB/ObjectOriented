@@ -30,6 +30,7 @@ class GRSpreadsheet : GrammarRule {
 
 /// A GrammarRule for handling: Expression -> Integer ExpressionTail
 class GRExpression : GrammarRule {
+    let abs = GRAbsoluteCell()
     let num = GRInteger()
     let exprTail = GRExpressionTail()
 
@@ -65,16 +66,22 @@ class GRExpressionTail : GrammarRule {
 }
 
 class GRProductTerm : GrammarRule {
-    let value = GRInteger()
+    let value = GRValue()
     let productTail = GRProductTermTail()
     
     init(){
         super.init(rhsRule: [value,productTail])
     }
     override func parse(input: String) -> String? {
+        print("HERE ONE -----------")
         let rest = super.parse(input:input)
-        if rest != nil {
-            self.calculatedValue = value.calculatedValue! * productTail.calculatedValue!
+        print(rest)
+        if rest != nil && value.val.calculatedValue != nil {
+            print("HERE TWO -----------")
+            self.calculatedValue = value.val.calculatedValue! * productTail.calculatedValue!
+        } else if rest != nil && value.stringValue != nil {
+            print("HERE THREE --------")
+            self.stringValue = value.stringValue! + productTail.calculatedValue!.description
         }
         return rest
     }
@@ -172,7 +179,7 @@ class GRValue : GrammarRule {
     override func parse(input: String) -> String? {
         if let rest = super.parse(input: input) {
             if val.stringValue != nil {
-                self.calculatedValue? = Int(val.stringValue!)!
+                self.calculatedValue? = val.calculatedValue!
             } else if ref.stringValue != nil {
                 self.stringValue? = ref.stringValue!
             }
