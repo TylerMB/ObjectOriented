@@ -105,15 +105,19 @@ class GRProductTermTail : GrammarRule {
     override func parse(input: String) -> String? {
         if let rest = super.parse(input: input) {
             
-            if rest == "" {
-                
+            
+            if self.value.calculatedValue == nil {
+                return nil
+            }
+            let tail = GRProductTermTail()
+            
+            if tail.parse(input: rest) == nil{
                 self.calculatedValue = value.calculatedValue!
             } else {
-                let tail = GRProductTermTail()
                 _ = tail.parse(input: rest)
                 self.calculatedValue =  value.calculatedValue! * tail.calculatedValue!
-                
             }
+            
             return rest
         }
         return nil
