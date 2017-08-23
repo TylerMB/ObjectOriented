@@ -30,7 +30,7 @@ class GRSpreadsheet : GrammarRule {
 
 /// A GrammarRule for handling: Expression -> Integer ExpressionTail
 class GRExpression : GrammarRule {
-    let num = GRInteger()
+    let num = GRProductTerm()
     let exprTail = GRExpressionTail()
 
     init(){
@@ -72,24 +72,24 @@ class GRProductTerm : GrammarRule {
     init(){
         super.init(rhsRule: [value,productTail])
     }
+
     override func parse(input: String) -> String? {
-        if let rest = super.parse(input:input){
-            print(rest as Any)
-            if productTail.calculatedValue != nil && value.calculatedValue != nil {
-                self.calculatedValue = value.calculatedValue! * productTail.calculatedValue!
-            } else if rest == "" && value.calculatedValue != nil {
+        
+        if let rest = super.parse(input: input ) {
+            
+            if value.calculatedValue != nil {
+                
                 self.calculatedValue = value.calculatedValue!
-            } else if value.stringValue != nil && productTail.calculatedValue != nil {
-                self.stringValue = value.stringValue! + productTail.calculatedValue!.description
-            } else if value.stringValue != nil && rest == "" {
-                self.stringValue = value.stringValue!
+                
+                if productTail.calculatedValue != nil {
+                    self.calculatedValue = value.calculatedValue! * productTail.calculatedValue!
+                }
+                
+                return rest
             }
-            return rest
         }
         return nil
     }
-    
-    
 }
 
 
@@ -103,23 +103,31 @@ class GRProductTermTail : GrammarRule {
     }
     
     override func parse(input: String) -> String? {
-        if let rest = super.parse(input: input) {
+        
+        if var rest = super.parse(input: input) {
             
             
-            if self.value.calculatedValue == nil {
-                return nil
-            }
-            let tail = GRProductTermTail()
             
-            if tail.parse(input: rest) == nil{
-                self.calculatedValue = value.calculatedValue!
-            } else {
-                _ = tail.parse(input: rest)
-                self.calculatedValue =  value.calculatedValue! * tail.calculatedValue!
+            if value.calculatedValue == nil {
+                self.calculatedValue = 1
+                return rest
             }
             
+            self.calculatedValue = value.calculatedValue!
+            
+            let productTail = GRProductTermTail()
+            
+            
+            rest = productTail.parse(input: rest)!
+            
+            
+            if (productTail.calculatedValue != nil) {
+                self.calculatedValue = value.calculatedValue! * productTail.calculatedValue!
+            }
+            //rules parsed so now send the rest of the string
             return rest
         }
+        //the rules failed, so return nil to indicate failure
         return nil
     }
 }
@@ -198,7 +206,7 @@ class GRValue : GrammarRule {
     
     override func parse(input: String) -> String? {
         if let rest = super.parse(input: input) {
-            if val.stringValue != nil {
+            if val.calculatedValue != nil {
                 self.calculatedValue = val.calculatedValue!
             } else if ref.stringValue != nil {
                 self.stringValue = ref.stringValue!
