@@ -37,11 +37,19 @@ class GRExpression : GrammarRule {
         super.init(rhsRule: [num,exprTail])
     }
     override func parse(input: String) -> String? {
+        
         let rest = super.parse(input:input)
-        if rest != nil {
-            self.calculatedValue = num.calculatedValue! + exprTail.calculatedValue!
+        
+        if num.calculatedValue != nil {
+            
+            self.calculatedValue = num.calculatedValue!
+            
+            if exprTail.calculatedValue != nil {
+                self.calculatedValue = num.calculatedValue! + exprTail.calculatedValue!
+            }
+            return rest
         }
-        return rest
+        return nil
     }
 }
 
@@ -49,20 +57,51 @@ class GRExpression : GrammarRule {
 /// A GrammarRule for handling: ExpressionTail -> "+" Integer
 class GRExpressionTail : GrammarRule {
     let plus = GRLiteral(literal: "+")
-    let num = GRInteger()
+    let product = GRProductTerm()
     
     init(){
-        super.init(rhsRule: [plus,num])
+        super.init(rhsRule: [plus,product])
     }
     
     override func parse(input: String) -> String? {
-        if let rest = super.parse(input: input) {
-            self.calculatedValue =  Int(num.stringValue!)
+        
+            if var rest = super.parse(input: input) {
+                
+                
+                
+                if product.calculatedValue == nil {
+                    self.calculatedValue = 0
+                    return rest
+                }
+                
+                self.calculatedValue = product.calculatedValue!
+                
+                let exprTail = GRExpressionTail()
+                if !rest.isEmpty {
+                    rest = exprTail.parse(input: rest)!
+                    if (exprTail.calculatedValue != nil) {
+                        self.calculatedValue = product.calculatedValue! + exprTail.calculatedValue!
+                    }
+
+                }
+                
+                
+                
+                
+                
+                
             return rest
         }
         return nil
     }
 }
+
+
+
+
+
+
+
 
 class GRProductTerm : GrammarRule {
     let value = GRValue()
@@ -84,6 +123,8 @@ class GRProductTerm : GrammarRule {
                 if productTail.calculatedValue != nil {
                     self.calculatedValue = value.calculatedValue! * productTail.calculatedValue!
                 }
+                
+                
                 
                 return rest
             }

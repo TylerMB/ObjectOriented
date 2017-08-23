@@ -136,10 +136,36 @@ if let result = myExpr.parse(input: " 1 + 10 ") {
     // if the parsing was successful, then an GRExpression should contain a calculatedValue, hence the (not ideal) unsafe optional forcing here.
     print("myExpr.calculatedValue is \(myExpr.calculatedValue!)")
 }
-testGrammarRule(rule: myExpr, input: " 3 * 2 + 7 ")
-if let result = myExpr.parse(input: " 3 * 2 + 7 ") {
+let myExpr1 = GRExpression()
+testGrammarRule(rule: myExpr1, input: " 3 * 2 + 7 ")
+if let result = myExpr1.parse(input: " 3 * 2 + 7 ") {
     // if the parsing was successful, then an GRExpression should contain a calculatedValue, hence the (not ideal) unsafe optional forcing here.
-    print("myExpr.calculatedValue is \(myExpr.calculatedValue!)")
+    print("myExpr.calculatedValue is \(myExpr1.calculatedValue!)")
+}
+let myExpr2 = GRExpression()
+testGrammarRule(rule: myExpr2, input: " 3 + 2 * 7 ")
+if let result = myExpr2.parse(input: " 3 + 2 * 7 ") {
+    // if the parsing was successful, then an GRExpression should contain a calculatedValue, hence the (not ideal) unsafe optional forcing here.
+    print("myExpr.calculatedValue is \(myExpr2.calculatedValue!)")
+}
+let myExpr3 = GRExpression()
+testGrammarRule(rule: myExpr3, input: "2 + 3 * 2 * 7 + 3")
+if let result = myExpr3.parse(input: "2 + 3 * 2 * 7 + 3 ") {
+    // if the parsing was successful, then an GRExpression should contain a calculatedValue, hence the (not ideal) unsafe optional forcing here.
+    print("myExpr.calculatedValue is \(myExpr3.calculatedValue!)")
+}
+let myExpr4 = GRExpression()
+testGrammarRule(rule: myExpr4, input: " 3 * 2 + 7 * 0 * 3 ")
+if let result = myExpr4.parse(input: " 3 * 2 + 7 * 0 * 3") {
+    // if the parsing was successful, then an GRExpression should contain a calculatedValue, hence the (not ideal) unsafe optional forcing here.
+    print("myExpr.calculatedValue is \(myExpr4.calculatedValue!)")
+}
+
+let myExpr5 = GRExpression()
+testGrammarRule(rule: myExpr5, input: " 3 * 2 * 7 + 3 ")
+if let result = myExpr5.parse(input: " 3 * 2 * 7 + 3") {
+    // if the parsing was successful, then an GRExpression should contain a calculatedValue, hence the (not ideal) unsafe optional forcing here.
+    print("myExpr.calculatedValue is \(myExpr5.calculatedValue!)")
 }
 
 
@@ -169,6 +195,24 @@ testGrammarRule(rule: myProduct4, input: " 17 ")
 if let result = myProduct4.parse(input: " 17") {
     // if the parsing was successful, then an GRExpression should contain a calculatedValue, hence the (not ideal) unsafe optional forcing here.
     print("myProduct.calculatedValue is \(myProduct4.calculatedValue!)")
+}
+let myProduct5 = GRProductTerm()
+testGrammarRule(rule: myProduct5, input: " 17 + 5 * 3 ")
+if let result = myProduct5.parse(input: " 17 + 5 * 3") {
+    // if the parsing was successful, then an GRExpression should contain a calculatedValue, hence the (not ideal) unsafe optional forcing here.
+    print("myProduct.calculatedValue is \(myProduct5.calculatedValue!)")
+}
+let myProduct6 = GRProductTerm()
+testGrammarRule(rule: myProduct6, input: " 17 * 5")
+if let result = myProduct6.parse(input: " 17 * 5") {
+    // if the parsing was successful, then an GRExpression should contain a calculatedValue, hence the (not ideal) unsafe optional forcing here.
+    print("myProduct.calculatedValue is \(myProduct6.calculatedValue!)")
+}
+let myProduct7 = GRProductTerm()
+testGrammarRule(rule: myProduct7, input: " 17 + 5")
+if let result = myProduct7.parse(input: " 17 + 5") {
+    // if the parsing was successful, then an GRExpression should contain a calculatedValue, hence the (not ideal) unsafe optional forcing here.
+    print("myProduct.calculatedValue is \(myProduct7.calculatedValue!)")
 }
 
 
