@@ -24,6 +24,9 @@ class GrammarRule {
     /// The list of possible right-hand-side options, each of which is a GrammarRule list (Swift will require it to be initialised).
     let rhs : [[GrammarRule]]
     
+    var dictionaryValue = [String: String]()
+    var dictionaryExpr = [String: String]()
+    
     /**
      This initaliser takes in a list of the possible right-hand-side options.
      Each option is itself a GrammarRule list.

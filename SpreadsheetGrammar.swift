@@ -28,13 +28,83 @@ class GRSpreadsheet : GrammarRule {
     }
 }
 
+class GRAssignment : GrammarRule {
+    let abs = GRAbsoluteCell()
+    let sign = GRLiteral(literal: ":=")
+    let expr = GRExpression()
+    let spread = GRSpreadsheet()
+    
+    
+    init() {
+        super.init(rhsRule: [abs,sign,expr,spread])
+    }
+    
+    override func parse(input: String) -> String? {
+        let rest = super.parse(input: input)
+        
+        var strExpr : String = ""
+        if let range = input.range(of: ":= ") {
+            strExpr = input.substring(from: range.upperBound) // Splitting the input string in order to get the expression (not the calculatedValue)
+        }
+        print(strExpr)
+        
+        var key = abs.row.stringValue!
+        key.append(abs.col.stringValue!) // Absolute cell doesnt currently make abs.stringValue = A1 have to do it manually
+        
+        print("Expression value: \(expr.calculatedValue!)")
+        print("Row value: \(abs.row.stringValue!)")
+        print("Col value: \(abs.col.stringValue!)")
+        print("Key is \(key)")
+        
+        print(expr.calculatedValue!)
+        
+        self.dictionaryValue[key] = String(expr.calculatedValue!.description)
+        self.dictionaryExpr[key] = strExpr
+        
+        print("DictionaryExpr for A1: \(self.dictionaryExpr["A1"]!)")
+        print("DictionaryExpr for A2: \(String(describing: self.dictionaryExpr["A2"]))")
+        print("DictionaryExpr for A3: \(String(describing: self.dictionaryExpr["A3"]))")
+        
+        print("DictionaryValue for A1: \(String(describing: self.dictionaryValue["A1"]))")
+        print("DictionaryValue for A2: \(String(describing: self.dictionaryValue["A2"]))")
+        print("DictionaryValue for A3: \(String(describing: self.dictionaryValue["A3"]))")
+        
+        
+        return rest
+    }
+}
+
+class GRPrint : GrammarRule{
+    let printValue = GRLiteral(literal: "print_value")
+    let printExpr = GRLiteral(literal: "print_expr")
+    let expr = GRExpression()
+    let spread = GRSpreadsheet()
+    
+    init() {
+        super.init(rhsRules: [[printValue,expr,spread],[printExpr,expr,spread]])
+    }
+    
+    override func parse(input: String) -> String? {
+        
+        let rest = super.parse(input:input)
+        
+        //If first ruleset use dictionaryValue
+        //If second ruleset use dictionaryExpr
+        
+        return rest
+        }
+    
+    
+    }
+
+
 /// A GrammarRule for handling: Expression -> Integer ExpressionTail
 class GRExpression : GrammarRule {
     let num = GRProductTerm()
     let exprTail = GRExpressionTail()
 
     init(){
-        super.init(rhsRule: [num,exprTail])
+        super.init(rhsRule: [num, exprTail])
     }
     override func parse(input: String) -> String? {
         
@@ -47,6 +117,11 @@ class GRExpression : GrammarRule {
             if exprTail.calculatedValue != nil {
                 self.calculatedValue = num.calculatedValue! + exprTail.calculatedValue!
             }
+            
+            if exprTail.calculatedValue == nil {
+                self.calculatedValue = num.calculatedValue!
+            }
+            
             return rest
         }
         return nil
@@ -85,11 +160,7 @@ class GRExpressionTail : GrammarRule {
 
                 }
                 
-                
-                
-                
-                
-                
+
             return rest
         }
         return nil
@@ -150,7 +221,7 @@ class GRProductTermTail : GrammarRule {
             
             
             if value.calculatedValue == nil {
-                self.calculatedValue = 1
+                self.calculatedValue = 1 //Doing this so you can * the product tail by 1?
                 return rest
             }
             

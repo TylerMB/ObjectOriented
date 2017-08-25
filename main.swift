@@ -11,7 +11,7 @@
 
 import Foundation
 
-print("The code in main.swift is just a basic exercise of the classes that you have been provided with. It is not an example of well structured and/or thoroughly tested code, so you should probably replace it with an improved version!\n\n")
+
 
 func testGrammarRule(rule:GrammarRule, input:String) {
     if let remainingInput = rule.parse(input: input){
@@ -20,6 +20,22 @@ func testGrammarRule(rule:GrammarRule, input:String) {
         print("Was unable to parse input=\"\(input)\"")
     }
 }
+
+print("\n\n--- Test GRAssignment parsing ---")
+
+let myGRAssignment = GRAssignment()
+let myGRAssignment1 = GRAssignment()
+let myGRAssignment2 = GRAssignment()
+// should parse the complete string
+testGrammarRule(rule: myGRAssignment,input:"A1 := 1 + 2")
+print("\n----- New GRAssignment -----\n")
+testGrammarRule(rule: myGRAssignment1,input:"A2 := 5*3")
+print("\n----- New GRAssignment -----\n")
+testGrammarRule(rule: myGRAssignment2,input:"A3 := 3+5*2")
+
+
+
+
 
 print("\n\n--- Test GRInteger parsing ---")
 
@@ -81,7 +97,7 @@ print("\n\n--- Test GRAbsoluteCell parsing ---")
 let myGRAbsoluteCell = GRAbsoluteCell()
 
 // should parse the complete string
-testGrammarRule(rule: myGRAbsoluteCell,input:"-2")
+testGrammarRule(rule: myGRAbsoluteCell,input:"A1")
 // should parse just the initial integer
 testGrammarRule(rule: myGRAbsoluteCell,input:"  AA12")
 // should not be able to be parsed
@@ -114,9 +130,9 @@ testGrammarRule(rule: myGRColumnLabel,input:"NaN")
 
 
 print("\n\n--- Test GRLiteral parsing ----")
-let bGRLiteral = GRLiteral(literal: "b")
-testGrammarRule(rule: bGRLiteral,input:"2")
-testGrammarRule(rule: bGRLiteral,input:" b+a")
+let bGRLiteral = GRLiteral(literal: ":=")
+testGrammarRule(rule: bGRLiteral,input:" := ")
+testGrammarRule(rule: bGRLiteral,input:" := 1")
 
 print("\n\n--- Test GRStringNoQuote parsing ----")
 let bGRStringNoQuote = GRStringNoQuote()
@@ -131,8 +147,8 @@ testGrammarRule(rule: bGRStringNoQuote,input:"")
 
 print("\n\n--- Test GRExpression parsing ----")
 let myExpr = GRExpression()
-testGrammarRule(rule: myExpr, input: " 1+ 10  ")
-if let result = myExpr.parse(input: " 1 + 10 ") {
+testGrammarRule(rule: myExpr, input: " 1")
+if let result = myExpr.parse(input: " 1 ") {
     // if the parsing was successful, then an GRExpression should contain a calculatedValue, hence the (not ideal) unsafe optional forcing here.
     print("myExpr.calculatedValue is \(myExpr.calculatedValue!)")
 }
@@ -176,8 +192,8 @@ let myProduct1 = GRProductTerm()
 let myProduct2 = GRProductTerm()
 let myProduct3 = GRProductTerm()
 let myProduct4 = GRProductTerm()
-testGrammarRule(rule: myProduct, input: " 3* 11  ")
-if let result = myProduct.parse(input: "3* 11") {
+testGrammarRule(rule: myProduct, input: " 3  ")
+if let result = myProduct.parse(input: "3") {
     // if the parsing was successful, then an GRExpression should contain a calculatedValue, hence the (not ideal) unsafe optional forcing here.
     print("myProduct.calculatedValue is \(myProduct.calculatedValue!)")
 }
