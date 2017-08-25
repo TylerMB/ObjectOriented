@@ -61,7 +61,7 @@ class GRAssignment : GrammarRule {
         self.dictionaryValue[key] = String(expr.calculatedValue!.description)
         self.dictionaryExpr[key] = strExpr
         
-        print("DictionaryExpr for A1: \(self.dictionaryExpr["A1"]!)")
+        print("DictionaryExpr for A1: \(self.dictionaryExpr["A1"])")
         print("DictionaryExpr for A2: \(String(describing: self.dictionaryExpr["A2"]))")
         print("DictionaryExpr for A3: \(String(describing: self.dictionaryExpr["A3"]))")
         
@@ -135,33 +135,32 @@ class GRExpressionTail : GrammarRule {
     let product = GRProductTerm()
     
     init(){
-        super.init(rhsRule: [plus,product])
+        super.init(rhsRules: [[plus,product],[Epsilon.theEpsilon]])
     }
     
     override func parse(input: String) -> String? {
-        
             if var rest = super.parse(input: input) {
                 
-                
-                
-                if product.calculatedValue == nil {
-                    self.calculatedValue = 0
+
+                if rest == input {
+                    self.calculatedValue = nil
+                    self.stringValue = nil
                     return rest
                 }
                 
                 self.calculatedValue = product.calculatedValue!
                 
                 let exprTail = GRExpressionTail()
-                if !rest.isEmpty {
-                    rest = exprTail.parse(input: rest)!
-                    if (exprTail.calculatedValue != nil) {
-                        self.calculatedValue = product.calculatedValue! + exprTail.calculatedValue!
-                    }
-
-                }
+                rest = exprTail.parse(input: rest)!
                 
-
-            return rest
+                if exprTail.calculatedValue != nil {
+                
+                    self.calculatedValue = product.calculatedValue! + exprTail.calculatedValue!
+                    
+                } else {
+                    self.calculatedValue = product.calculatedValue!
+                }
+                return rest
         }
         return nil
     }
@@ -194,9 +193,6 @@ class GRProductTerm : GrammarRule {
                 if productTail.calculatedValue != nil {
                     self.calculatedValue = value.calculatedValue! * productTail.calculatedValue!
                 }
-                
-                
-                
                 return rest
             }
         }
@@ -211,30 +207,30 @@ class GRProductTermTail : GrammarRule {
     let value = GRValue()
     
     init(){
-        super.init(rhsRules: [[times,value], [Epsilon.theEpsilon]])
+        super.init(rhsRules: [[times,value],[Epsilon.theEpsilon]])
     }
     
     override func parse(input: String) -> String? {
-        
         if var rest = super.parse(input: input) {
             
-            
-            
-            if value.calculatedValue == nil {
-                self.calculatedValue = 1 //Doing this so you can * the product tail by 1?
+            //checks if ProductTermTail is an Epsilon
+            if rest == input {
+                self.stringValue = nil
+                self.calculatedValue = nil
                 return rest
             }
-            
-            self.calculatedValue = value.calculatedValue!
-            
+
+            //else check if there is another ProductTermTail
+
             let productTail = GRProductTermTail()
-            
-            
             rest = productTail.parse(input: rest)!
             
-            
+            //if there is, make self equal to the product of the both of you
             if (productTail.calculatedValue != nil) {
                 self.calculatedValue = value.calculatedValue! * productTail.calculatedValue!
+            } else {
+                //else make self equal just your GRValue
+                self.calculatedValue = value.calculatedValue!
             }
             //rules parsed so now send the rest of the string
             return rest
