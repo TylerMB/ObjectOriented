@@ -47,8 +47,7 @@ class GRAssignment : GrammarRule {
             strExpr = input.substring(from: range.upperBound) // Splitting the input string in order to get the expression (not the calculatedValue)
         }
         
-        var key = abs.row.stringValue!
-        key.append(abs.col.stringValue!) // Absolute cell doesnt currently make abs.stringValue = A1 have to do it manually
+        let key = abs.stringValue! // Absolute cell doesnt currently make abs.stringValue = A1 have to do it manually
         
         
         GrammarRule.dictionaryValue[key] = String(expr.calculatedValue!.description)
@@ -187,6 +186,9 @@ class GRProductTerm : GrammarRule {
         
         if let rest = super.parse(input: input ) {
             
+            
+        
+            
             if value.calculatedValue != nil {
                 
                 self.calculatedValue = value.calculatedValue!
@@ -251,7 +253,7 @@ class GRAbsoluteCell : GrammarRule {
     
     override func parse(input: String) -> String? {
         if let rest = super.parse(input: input) {
-            self.stringValue?.append(row.stringValue!)
+            self.stringValue = row.stringValue!
             self.stringValue?.append(col.stringValue!)
             return rest
         }
@@ -271,7 +273,7 @@ class GRRelativeCell : GrammarRule {
     }
     override func parse(input: String) -> String? {
         if let rest = super.parse(input: input) {
-            self.stringValue?.append(r.stringValue!)
+            self.stringValue = r.stringValue!
             self.stringValue?.append(row.stringValue!)
             self.stringValue?.append(c.stringValue!)
             self.stringValue?.append(col.stringValue!)
@@ -292,9 +294,9 @@ class GRCellReference : GrammarRule {
     override func parse(input: String) -> String? {
         if let rest = super.parse(input: input) {
             if abs.stringValue != nil {
-                self.stringValue?.append(abs.stringValue!)
+                self.stringValue = abs.stringValue!
             } else if rel.stringValue != nil {
-                self.stringValue?.append(rel.stringValue!)
+                self.stringValue = rel.stringValue!
             }
             return rest
         }

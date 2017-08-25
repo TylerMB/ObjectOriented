@@ -24,18 +24,20 @@ func testGrammarRule(rule:GrammarRule, input:String) {
 print("\n\n--- Test GRAssignment parsing ---")
 
 let myGRAssignment = GRAssignment()
+let myGRAssignment2 = GRAssignment()
+let myGRAssignment3 = GRAssignment()
 // should parse the complete string
 testGrammarRule(rule: myGRAssignment,input:"A1 := 1 + 2")
 print("\n----- New GRAssignment -----\n")
-testGrammarRule(rule: myGRAssignment,input:"A2 := 5*3")
+testGrammarRule(rule: myGRAssignment2,input:"A2 := 5*3")
 print("\n----- New GRAssignment -----\n")
-testGrammarRule(rule: myGRAssignment,input:"A3 := 3+5*2")
+testGrammarRule(rule: myGRAssignment3,input:"A3 := A1+A2")
 
 print("\n\n--- Test GRPrint parsing ---")
 
 let myGRPrint = GRPrint()
 // should parse the complete string
-testGrammarRule(rule: myGRPrint,input:"print_value A1")
+testGrammarRule(rule: myGRPrint,input:"print_value A3")
 
 
 print("\n\n--- Test GRInteger parsing ---")
