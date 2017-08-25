@@ -3,11 +3,6 @@ osx_image: xcode8.3
 
 xcode_project: Spreadsheet.xcodeproj
 
-branches:
-        -travis
-        -master
+xcode_scheme: Spreadsheet
 
-install: true
-
-script:
-- xcodebuild clean && xcodebuild -project Spreadsheet.xcodeproj
+xcode_sdk: macosx10.12
