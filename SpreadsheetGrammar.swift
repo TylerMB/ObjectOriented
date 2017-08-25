@@ -51,13 +51,12 @@ class GRAssignment : GrammarRule {
         key.append(abs.col.stringValue!) // Absolute cell doesnt currently make abs.stringValue = A1 have to do it manually
         
         
-        self.dictionaryValue[key] = String(expr.calculatedValue!.description)
-        self.dictionaryExpr[key] = strExpr
+        GrammarRule.dictionaryValue[key] = String(expr.calculatedValue!.description)
+        GrammarRule.dictionaryExpr[key] = strExpr
         
+        print("DictionaryExpr for \(key): \(String(describing: GrammarRule.dictionaryExpr[key]!))")
         
-        print("DictionaryExpr for A2: \(String(describing: self.dictionaryExpr[key]!))")
-        
-        print("DictionaryValue for A2: \(String(describing: self.dictionaryValue[key]!))")
+        print("DictionaryValue for \(key): \(String(describing: GrammarRule.dictionaryValue[key]!))")
         
         return rest
     }
@@ -66,11 +65,11 @@ class GRAssignment : GrammarRule {
 class GRPrint : GrammarRule{
     let printValue = GRLiteral(literal: "print_value")
     let printExpr = GRLiteral(literal: "print_expr")
-    let expr = GRAbsoluteCell()
+    let abs = GRAbsoluteCell()
     let spread = GRSpreadsheet()
     
     init() {
-        super.init(rhsRules: [[printValue,expr,spread],[printExpr,expr,spread]])
+        super.init(rhsRules: [[printValue,abs,spread],[printExpr,abs,spread]])
     }
     
     override func parse(input: String) -> String? {
@@ -78,7 +77,21 @@ class GRPrint : GrammarRule{
         let rest = super.parse(input:input)
         
         
+        if input.characters.contains("v") {
+            
+            var key = abs.row.stringValue!
+            key.append(abs.col.stringValue!)
+            print(key)
         
+            print("DictionaryValue for \(key): \(String(describing: GrammarRule.dictionaryValue[key]!))")
+        
+        } else if input.characters.contains("e") {
+            
+            var key = abs.row.stringValue!
+            key.append(abs.col.stringValue!)
+            
+            print("DictionaryExpr for \(key): \(String(describing: GrammarRule.dictionaryExpr[key]!))")
+        }
         return rest
     }
     
