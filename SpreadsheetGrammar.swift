@@ -306,14 +306,29 @@ class GRCellReference : GrammarRule {
             } else if rel.stringValue != nil {
                 
                 
-                var colVal : String = GrammarRule.currentCell.stringValue!
+                var colName : String = GrammarRule.currentCell.stringValue!
                 
                 let decimalCharacters = CharacterSet.decimalDigits
-                var decimalRange = colVal.rangeOfCharacter(from: decimalCharacters)
+                var decimalRange = colName.rangeOfCharacter(from: decimalCharacters)
                 while decimalRange != nil {
-                    colVal = String(colVal.characters.dropLast())
-                    decimalRange = colVal.rangeOfCharacter(from: decimalCharacters)
+                    colName = String(colName.characters.dropLast())
+                    decimalRange = colName.rangeOfCharacter(from: decimalCharacters)
                 }
+                
+                var colChars: Array = Array(colName.characters)
+                var colVals: Array = [Int](repeating: 0, count: colChars.count)
+                let alphabet = [" ","A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q",
+                                "R","S","T","U","V","W","X","Y","Z"]
+                
+                //var index:Int = colChars.count
+                
+                for index in stride(from: colChars.count-1, to: -1, by: -1) {
+                    colVals[index] = alphabet.index(of: String(colChars[index]))!
+                }
+                
+                print(colVals)
+                print(colName)
+                print(alphabet)
                 
                 
                 

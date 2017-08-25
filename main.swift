@@ -26,12 +26,20 @@ print("\n\n--- Test GRAssignment parsing ---")
 let myGRAssignment = GRAssignment()
 let myGRAssignment2 = GRAssignment()
 let myGRAssignment3 = GRAssignment()
+let myGRAssignment4 = GRAssignment()
+let myGRAssignment5 = GRAssignment()
 // should parse the complete string
 testGrammarRule(rule: myGRAssignment,input:"A1 := 1 + 2")
 print("\n----- New GRAssignment -----\n")
 testGrammarRule(rule: myGRAssignment2,input:"A2 := 5*3")
 print("\n----- New GRAssignment -----\n")
 testGrammarRule(rule: myGRAssignment3,input:"A3 := A1+A2")
+print("\n----- New GRAssignment -----\n")
+testGrammarRule(rule: myGRAssignment4,input:"A5 := 10")
+print("\n----- New GRAssignment -----\n")
+testGrammarRule(rule: myGRAssignment4,input:"A4 := A1+r0c1")
+
+
 
 print("\n\n--- Test GRPrint parsing ---")
 
