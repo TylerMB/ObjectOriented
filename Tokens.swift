@@ -103,7 +103,7 @@ class GRLiteral : Token {
 
 class GRStringNoQuote : Token {
     init(){
-        super.init(regExpPattern: "\"(.+?)\"")
+        super.init(regExpPattern: "[^\"]+")
         // "(.*?)" -> Takes everything within a string such as "2", "covefe" and "a+b"
     }
     override func parse(input:String) -> String? {

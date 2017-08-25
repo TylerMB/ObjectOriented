@@ -317,8 +317,13 @@ class GRValue : GrammarRule {
         if let rest = super.parse(input: input) {
             if val.calculatedValue != nil {
                 self.calculatedValue = val.calculatedValue!
+                self.stringValue = nil
+                
+                
             } else if ref.stringValue != nil {
-                self.stringValue = ref.stringValue!
+                
+                self.calculatedValue = Int(GrammarRule.dictionaryValue[ref.stringValue!]!)
+                self.stringValue = nil
             }
             return rest
         }
