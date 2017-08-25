@@ -1,0 +1,13 @@
+language: objective-c
+osx_image: xcode8.3
+
+xcode_project: Spreadsheet.xcodeproj
+
+branches:
+        -travis
+        -master
+
+install: true
+
+script:
+- xcodebuild clean && xcodebuild -project Spreadsheet.xcodeproj
