@@ -46,29 +46,18 @@ class GRAssignment : GrammarRule {
         if let range = input.range(of: ":= ") {
             strExpr = input.substring(from: range.upperBound) // Splitting the input string in order to get the expression (not the calculatedValue)
         }
-        print(strExpr)
         
         var key = abs.row.stringValue!
         key.append(abs.col.stringValue!) // Absolute cell doesnt currently make abs.stringValue = A1 have to do it manually
         
-        print("Expression value: \(expr.calculatedValue!)")
-        print("Row value: \(abs.row.stringValue!)")
-        print("Col value: \(abs.col.stringValue!)")
-        print("Key is \(key)")
-        
-        print(expr.calculatedValue!)
         
         self.dictionaryValue[key] = String(expr.calculatedValue!.description)
         self.dictionaryExpr[key] = strExpr
         
-        print("DictionaryExpr for A1: \(self.dictionaryExpr["A1"])")
-        print("DictionaryExpr for A2: \(String(describing: self.dictionaryExpr["A2"]))")
-        print("DictionaryExpr for A3: \(String(describing: self.dictionaryExpr["A3"]))")
         
-        print("DictionaryValue for A1: \(String(describing: self.dictionaryValue["A1"]))")
-        print("DictionaryValue for A2: \(String(describing: self.dictionaryValue["A2"]))")
-        print("DictionaryValue for A3: \(String(describing: self.dictionaryValue["A3"]))")
+        print("DictionaryExpr for A2: \(String(describing: self.dictionaryExpr[key]!))")
         
+        print("DictionaryValue for A2: \(String(describing: self.dictionaryValue[key]!))")
         
         return rest
     }
@@ -77,7 +66,7 @@ class GRAssignment : GrammarRule {
 class GRPrint : GrammarRule{
     let printValue = GRLiteral(literal: "print_value")
     let printExpr = GRLiteral(literal: "print_expr")
-    let expr = GRExpression()
+    let expr = GRAbsoluteCell()
     let spread = GRSpreadsheet()
     
     init() {
@@ -88,14 +77,13 @@ class GRPrint : GrammarRule{
         
         let rest = super.parse(input:input)
         
-        //If first ruleset use dictionaryValue
-        //If second ruleset use dictionaryExpr
+        
         
         return rest
-        }
-    
-    
     }
+    
+    
+}
 
 
 /// A GrammarRule for handling: Expression -> Integer ExpressionTail
