@@ -26,6 +26,8 @@ class GrammarRule {
     
     static var dictionaryValue = [String: String]()
     static var dictionaryExpr = [String: String]()
+    static  var currentCell = GRAbsoluteCell()
+
     
     /**
      This initaliser takes in a list of the possible right-hand-side options.

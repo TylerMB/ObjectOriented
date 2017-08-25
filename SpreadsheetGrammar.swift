@@ -29,14 +29,14 @@ class GRSpreadsheet : GrammarRule {
 }
 
 class GRAssignment : GrammarRule {
-    let abs = GRAbsoluteCell()
+    
     let sign = GRLiteral(literal: ":=")
     let expr = GRExpression()
     let spread = GRSpreadsheet()
     
     
     init() {
-        super.init(rhsRule: [abs,sign,expr,spread])
+        super.init(rhsRule: [GrammarRule.currentCell,sign,expr,spread])
     }
     
     override func parse(input: String) -> String? {
@@ -47,7 +47,7 @@ class GRAssignment : GrammarRule {
             strExpr = input.substring(from: range.upperBound) // Splitting the input string in order to get the expression (not the calculatedValue)
         }
         
-        let key = abs.stringValue! // Absolute cell doesnt currently make abs.stringValue = A1 have to do it manually
+        let key = GrammarRule.currentCell.stringValue! 
         
         
         GrammarRule.dictionaryValue[key] = String(expr.calculatedValue!.description)
@@ -268,6 +268,9 @@ class GRRelativeCell : GrammarRule {
     let row = GRInteger()
     let col = GRInteger()
     
+    
+    
+    
     init() {
         super.init(rhsRule: [r,row,c,col])
     }
@@ -283,6 +286,11 @@ class GRRelativeCell : GrammarRule {
     }
 }
 
+
+
+
+
+
 class GRCellReference : GrammarRule {
     let abs = GRAbsoluteCell()
     let rel = GRRelativeCell()
@@ -296,7 +304,22 @@ class GRCellReference : GrammarRule {
             if abs.stringValue != nil {
                 self.stringValue = abs.stringValue!
             } else if rel.stringValue != nil {
+                
+                
+                var colVal : String = GrammarRule.currentCell.stringValue!
+                
+                let decimalCharacters = CharacterSet.decimalDigits
+                var decimalRange = colVal.rangeOfCharacter(from: decimalCharacters)
+                while decimalRange != nil {
+                    colVal = String(colVal.characters.dropLast())
+                    decimalRange = colVal.rangeOfCharacter(from: decimalCharacters)
+                }
+                
+                
+                
                 self.stringValue = rel.stringValue!
+                
+                
             }
             return rest
         }
