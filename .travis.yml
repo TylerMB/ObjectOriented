@@ -1,0 +1,8 @@
+language: objective-c
+osx_image: xcode8.3
+
+script: xcodebuild clean && xcodebuild build -project Spreadsheet.xcodeproj - scheme Spreadsheet
+
+xcode_project: Spreadsheet.xcodeproj
+xcode_scheme: Spreadsheet
+xcode_sdk: macosx10.12
