@@ -12,6 +12,7 @@
 import Foundation
 
 
+print("Adding Travis commit")
 
 func testGrammarRule(rule:GrammarRule, input:String) {
     if let remainingInput = rule.parse(input: input){
