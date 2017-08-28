@@ -37,7 +37,7 @@ testGrammarRule(rule: myGRAssignment3,input:"B4 := A1+A2")
 print("\n----- New GRAssignment -----\n")
 testGrammarRule(rule: myGRAssignment4,input:"A3 := 10")
 print("\n----- New GRAssignment -----\n")
-testGrammarRule(rule: myGRAssignment5,input:"A4 := A1+r0c1")
+testGrammarRule(rule: myGRAssignment5,input:"A4 := A1+r1c1")
 
 
 
