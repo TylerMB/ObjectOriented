@@ -47,7 +47,7 @@ class GRAssignment : GrammarRule {
             strExpr = input.substring(from: range.upperBound) // Splitting the input string in order to get the expression (not the calculatedValue)
         }
         
-        let key = GrammarRule.currentCell.stringValue! 
+        let key = GrammarRule.currentCell.stringValue!
         
         
         GrammarRule.dictionaryValue[key] = String(expr.calculatedValue!.description)
@@ -81,9 +81,9 @@ class GRPrint : GrammarRule{
             var key = abs.row.stringValue!
             key.append(abs.col.stringValue!)
             print(key)
-        
+            
             print("DictionaryValue for \(key): \(String(describing: GrammarRule.dictionaryValue[key]!))")
-        
+            
         } else if input.characters.contains("e") {
             
             var key = abs.row.stringValue!
@@ -102,7 +102,7 @@ class GRPrint : GrammarRule{
 class GRExpression : GrammarRule {
     let num = GRProductTerm()
     let exprTail = GRExpressionTail()
-
+    
     init(){
         super.init(rhsRule: [num, exprTail])
     }
@@ -139,28 +139,28 @@ class GRExpressionTail : GrammarRule {
     }
     
     override func parse(input: String) -> String? {
-            if var rest = super.parse(input: input) {
-                
-
-                if rest == input {
-                    self.calculatedValue = nil
-                    self.stringValue = nil
-                    return rest
-                }
-                
-                self.calculatedValue = product.calculatedValue!
-                
-                let exprTail = GRExpressionTail()
-                rest = exprTail.parse(input: rest)!
-                
-                if exprTail.calculatedValue != nil {
-                
-                    self.calculatedValue = product.calculatedValue! + exprTail.calculatedValue!
-                    
-                } else {
-                    self.calculatedValue = product.calculatedValue!
-                }
+        if var rest = super.parse(input: input) {
+            
+            
+            if rest == input {
+                self.calculatedValue = nil
+                self.stringValue = nil
                 return rest
+            }
+            
+            self.calculatedValue = product.calculatedValue!
+            
+            let exprTail = GRExpressionTail()
+            rest = exprTail.parse(input: rest)!
+            
+            if exprTail.calculatedValue != nil {
+                
+                self.calculatedValue = product.calculatedValue! + exprTail.calculatedValue!
+                
+            } else {
+                self.calculatedValue = product.calculatedValue!
+            }
+            return rest
         }
         return nil
     }
@@ -181,13 +181,13 @@ class GRProductTerm : GrammarRule {
     init(){
         super.init(rhsRule: [value,productTail])
     }
-
+    
     override func parse(input: String) -> String? {
         
         if let rest = super.parse(input: input ) {
             
             
-        
+            
             
             if value.calculatedValue != nil {
                 
@@ -222,9 +222,9 @@ class GRProductTermTail : GrammarRule {
                 self.calculatedValue = nil
                 return rest
             }
-
+            
             //else check if there is another ProductTermTail
-
+            
             let productTail = GRProductTermTail()
             rest = productTail.parse(input: rest)!
             
@@ -294,7 +294,7 @@ class GRRelativeCell : GrammarRule {
 class GRCellReference : GrammarRule {
     let abs = GRAbsoluteCell()
     let rel = GRRelativeCell()
-
+    
     
     init() {
         super.init(rhsRules: [[abs],[rel]])
@@ -305,36 +305,75 @@ class GRCellReference : GrammarRule {
                 self.stringValue = abs.stringValue!
             } else if rel.stringValue != nil {
                 
-                
-                var colName : String = GrammarRule.currentCell.stringValue!
-                
-                let decimalCharacters = CharacterSet.decimalDigits
-                var decimalRange = colName.rangeOfCharacter(from: decimalCharacters)
-                while decimalRange != nil {
-                    colName = String(colName.characters.dropLast())
-                    decimalRange = colName.rangeOfCharacter(from: decimalCharacters)
+
+                enum ArrayError: Error {
+                    case OutOfBounds(min: Int, max: Int)
                 }
+                var count = 0
                 
-                var colChars: Array = Array(colName.characters)
-                var colVals: Array = [Int](repeating: 0, count: colChars.count)
+                var rowChars: Array = Array(GrammarRule.currentCell.row.stringValue!.characters)
+                var rowVals: Array = [Int](repeating: 0, count: rowChars.count)
                 let alphabet = [" ","A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q",
                                 "R","S","T","U","V","W","X","Y","Z"]
                 
                 //var index:Int = colChars.count
                 
-                for index in stride(from: colChars.count-1, to: -1, by: -1) {
-                    colVals[index] = alphabet.index(of: String(colChars[index]))!
+                for index in stride(from: rowChars.count-1, to: -1, by: -1) {
+                    rowVals[count] = alphabet.index(of: String(rowChars[index]))!
+                    count += 1
                 }
                 
-                print(colVals)
-                print(colName)
+                rowVals[0] += rel.row.calculatedValue!
+                
+                for index in 0...(rowVals.count-1) {
+                    while rowVals[index] > 26 {
+                        rowVals[index] -= 26
+                        if rowVals[index+1] < (rowVals.count-1) {
+                            rowVals[index+1] += 1
+                        } else {
+                            rowVals.append(1)
+                        }
+                    }
+                    while rowVals[index] < 1 {
+                        rowVals[index] += 26
+                        if rowVals[index+1] < (rowVals.count-1) {
+                            rowVals[index+1] -= 1
+                        } else {
+                            rowVals[index] = 0
+                        }
+                    }
+                }
+                
+                for index in 0...(rowVals.count-1) {
+                    
+                    if rowVals[index] == 0 {
+                        if index == rowVals.count-1 {
+                            rowVals = Array(rowVals.dropLast(1))
+                        } else {
+                            rowVals[index] += 26
+                            rowVals[index+1] -= 1
+                        }
+                    }
+                    count = (rowVals.count-1)
+                    if index < (rowChars.count-1) {
+                        rowChars[index] = Character(alphabet[rowVals[count]])
+                        count -= 1
+                    } else {
+                        rowChars.append(Character(alphabet[rowVals[count]]))
+                        count -= 1
+                    }
+                    
+                }
+                print(rowVals)
+                print(rowChars)
                 print(alphabet)
                 
-                
-                
-                self.stringValue = rel.stringValue!
-                
-                
+                var relCell = ""
+                for index in 0...(rowChars.count-1) {
+                    relCell.append(rowChars[index])
+                }
+                relCell.append(String(GrammarRule.currentCell.col.calculatedValue!+rel.col.calculatedValue!))
+                self.stringValue = relCell
             }
             return rest
         }
