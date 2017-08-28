@@ -21,6 +21,9 @@ import Foundation
  This GrammarRule handles Spreadsheet -> Expression | Epsilon
  Note that it uses the GrammarRule's default parse method
  */
+
+
+
 class GRSpreadsheet : GrammarRule {
     let myGRExpression = GRExpression()
     init(){
@@ -54,12 +57,19 @@ class GRAssignment : GrammarRule {
         GrammarRule.currentCell.row.stringValue = currentCell.row.stringValue!
         let key = GrammarRule.currentCell.stringValue!
         
-        GrammarRule.dictionaryValue[key] = String(expr.calculatedValue!.description)
-        GrammarRule.dictionaryExpr[key] = strExpr
+        if expr.calculatedValue != nil {
+            GrammarRule.dictionaryValue[key] = String(expr.calculatedValue!.description)
+            GrammarRule.dictionaryExpr[key] = strExpr
+            
+        }
+        if expr.qstring.stringValue != nil {
+            GrammarRule.dictionaryValue[key] = String(expr.qstring.stringValue!)
+            GrammarRule.dictionaryExpr[key] = strExpr
+        }
         
-        print("DictionaryExpr for \(key): \(String(describing: GrammarRule.dictionaryExpr[key]!))")
-        
-        print("DictionaryValue for \(key): \(String(describing: GrammarRule.dictionaryValue[key]!))")
+//        print("DictionaryExpr for \(key): \(String(describing: GrammarRule.dictionaryExpr[key]!))")
+//        
+//        print("DictionaryValue for \(key): \(String(describing: GrammarRule.dictionaryValue[key]!))")
         
         return rest
     }
@@ -84,16 +94,17 @@ class GRPrint : GrammarRule{
             
             var key = abs.col.stringValue!
             key.append(abs.row.stringValue!)
-            print(key)
+            //print(key)
             
-            print("DictionaryValue for \(key): \(String(describing: GrammarRule.dictionaryValue[key]!))")
+            print("Value of cell \(key) is \(String(describing: GrammarRule.dictionaryValue[key]!))")
             
         } else if input.characters.contains("e") {
             
-            var key = abs.row.stringValue!
-            key.append(abs.col.stringValue!)
             
-            print("DictionaryExpr for \(key): \(String(describing: GrammarRule.dictionaryExpr[key]!))")
+            var key = abs.col.stringValue!
+            key.append(abs.row.stringValue!)
+            
+            print("Expression in cell \(key) is \(String(describing: GrammarRule.dictionaryExpr[key]!))")
         }
         return rest
     }
@@ -106,9 +117,10 @@ class GRPrint : GrammarRule{
 class GRExpression : GrammarRule {
     let num = GRProductTerm()
     let exprTail = GRExpressionTail()
+    let qstring = GRQoutedString()
     
     init(){
-        super.init(rhsRule: [num, exprTail])
+        super.init(rhsRules: [[num, exprTail],[qstring]])
     }
     override func parse(input: String) -> String? {
         
@@ -128,6 +140,11 @@ class GRExpression : GrammarRule {
             
             return rest
         }
+        
+//        if qstring.stringValue != nil {
+//            print("Here : \(qstring.stringValue!)")  
+//        }
+        
         return nil
     }
 }
@@ -380,9 +397,9 @@ class GRCellReference : GrammarRule {
                     }
                     
                 }
-                print(colVals)
-                print(colChars)
-                print(alphabet)
+                //print(colVals)
+                //print(colChars)
+                //print(alphabet)
                 
                 var relCell = ""
                 //builds the relativeCell final location as an absouteCell
@@ -422,6 +439,7 @@ class GRValue : GrammarRule {
                 
                 if GrammarRule.dictionaryValue[ref.stringValue!] == nil {
                     GrammarRule.dictionaryValue[ref.stringValue!] = "0"
+                    GrammarRule.dictionaryExpr[ref.stringValue!] = ""
                 }
                 self.calculatedValue = Int(GrammarRule.dictionaryValue[ref.stringValue!]!)
                 self.stringValue = nil
@@ -444,7 +462,7 @@ class GRQoutedString : GrammarRule {
     }
     override func parse(input: String) -> String? {
         if let rest = super.parse(input: input) {
-            self.stringValue?.append(quote.stringValue!)
+            self.stringValue = quote.stringValue!
             self.stringValue?.append(string.stringValue!)
             self.stringValue?.append(quote.stringValue!)
             return rest

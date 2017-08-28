@@ -21,6 +21,11 @@ func testGrammarRule(rule:GrammarRule, input:String) {
     }
 }
 
+
+print("Simple Test Case: ")
+let testCase = run()
+testCase
+
 print("\n\n--- Test GRAssignment parsing ---")
 
 let myGRAssignment = GRAssignment()
@@ -29,15 +34,18 @@ let myGRAssignment3 = GRAssignment()
 let myGRAssignment4 = GRAssignment()
 let myGRAssignment5 = GRAssignment()
 // should parse the complete string
-testGrammarRule(rule: myGRAssignment,input:"A1 := 1 + 2")
+testGrammarRule(rule: myGRAssignment,input:"A1 := 4+2*2")
 print("\n----- New GRAssignment -----\n")
-testGrammarRule(rule: myGRAssignment2,input:"A2 := 5*3")
+testGrammarRule(rule: myGRAssignment2,input:"A2 := 1 + A1")
 print("\n----- New GRAssignment -----\n")
 testGrammarRule(rule: myGRAssignment3,input:"B4 := A1+A2")
 print("\n----- New GRAssignment -----\n")
 testGrammarRule(rule: myGRAssignment4,input:"A3 := 10")
 print("\n----- New GRAssignment -----\n")
-testGrammarRule(rule: myGRAssignment5,input:"A4 := A1+r1c1")
+testGrammarRule(rule: myGRAssignment5,input:"A5 := 10")
+print("\n----- New GRAssignment -----\n")
+testGrammarRule(rule: myGRAssignment5,input:"A4 := r1c1 + A2")
+
 
 
 
