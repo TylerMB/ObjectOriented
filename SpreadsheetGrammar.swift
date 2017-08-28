@@ -419,8 +419,13 @@ class GRValue : GrammarRule {
                 
             } else if ref.stringValue != nil {
                 
+                
+                if GrammarRule.dictionaryValue[ref.stringValue!] == nil {
+                    GrammarRule.dictionaryValue[ref.stringValue!] = "0"
+                }
                 self.calculatedValue = Int(GrammarRule.dictionaryValue[ref.stringValue!]!)
                 self.stringValue = nil
+                
             }
             return rest
         }
