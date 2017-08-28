@@ -33,10 +33,12 @@ class GRAssignment : GrammarRule {
     let sign = GRLiteral(literal: ":=")
     let expr = GRExpression()
     let spread = GRSpreadsheet()
+    let currentCell = GrammarRule.currentCell
+    
     
     
     init() {
-        super.init(rhsRule: [GrammarRule.currentCell,sign,expr,spread])
+        super.init(rhsRule: [currentCell,sign,expr,spread])
     }
     
     override func parse(input: String) -> String? {
@@ -46,9 +48,11 @@ class GRAssignment : GrammarRule {
         if let range = input.range(of: ":= ") {
             strExpr = input.substring(from: range.upperBound) // Splitting the input string in order to get the expression (not the calculatedValue)
         }
-        
+        _ = GrammarRule.currentCell.parse(input: currentCell.stringValue!)
+        GrammarRule.currentCell.stringValue = currentCell.stringValue!
+        GrammarRule.currentCell.col.stringValue = currentCell.col.stringValue!
+        GrammarRule.currentCell.row.stringValue = currentCell.row.stringValue!
         let key = GrammarRule.currentCell.stringValue!
-        
         
         GrammarRule.dictionaryValue[key] = String(expr.calculatedValue!.description)
         GrammarRule.dictionaryExpr[key] = strExpr
@@ -78,8 +82,8 @@ class GRPrint : GrammarRule{
         
         if input.characters.contains("v") {
             
-            var key = abs.row.stringValue!
-            key.append(abs.col.stringValue!)
+            var key = abs.col.stringValue!
+            key.append(abs.row.stringValue!)
             print(key)
             
             print("DictionaryValue for \(key): \(String(describing: GrammarRule.dictionaryValue[key]!))")
@@ -244,17 +248,17 @@ class GRProductTermTail : GrammarRule {
 }
 
 class GRAbsoluteCell : GrammarRule {
-    let row = GRColumnLabel()
-    let col = GRPositiveInteger()
+    let col = GRColumnLabel()
+    let row = GRPositiveInteger()
     
     init() {
-        super.init(rhsRule: [row,col])
+        super.init(rhsRule: [col,row])
     }
     
     override func parse(input: String) -> String? {
         if let rest = super.parse(input: input) {
-            self.stringValue = row.stringValue!
-            self.stringValue?.append(col.stringValue!)
+            self.stringValue = col.stringValue!
+            self.stringValue?.append(row.stringValue!)
             return rest
         }
         return nil
@@ -367,7 +371,7 @@ class GRCellReference : GrammarRule {
                     }
                     //works through the calculated values and reverses it back into colChars, with the addition done
                     count = (colVals.count-1)
-                    if index < (colChars.count-1) {
+                    if index <= (colChars.count-1) {
                         colChars[index] = Character(alphabet[colVals[count]])
                         count -= 1
                     } else {

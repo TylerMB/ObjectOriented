@@ -26,7 +26,7 @@ class GrammarRule {
     
     static var dictionaryValue = [String: String]()
     static var dictionaryExpr = [String: String]()
-    static  var currentCell = GRAbsoluteCell()
+    static var currentCell = GRAbsoluteCell()
 
     
     /**
@@ -58,6 +58,7 @@ class GrammarRule {
                 } else {
                     // Failing to parse any GrammarRule within a RHS choice means we failed to parse that RHS choice and should try the next choice (if there is one).
                     continue ruleLoop
+                    
                 }
             }
             return remainingInput

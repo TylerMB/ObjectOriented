@@ -33,11 +33,11 @@ testGrammarRule(rule: myGRAssignment,input:"A1 := 1 + 2")
 print("\n----- New GRAssignment -----\n")
 testGrammarRule(rule: myGRAssignment2,input:"A2 := 5*3")
 print("\n----- New GRAssignment -----\n")
-testGrammarRule(rule: myGRAssignment3,input:"A3 := A1+A2")
+testGrammarRule(rule: myGRAssignment3,input:"B4 := A1+A2")
 print("\n----- New GRAssignment -----\n")
-testGrammarRule(rule: myGRAssignment4,input:"A5 := 10")
+testGrammarRule(rule: myGRAssignment4,input:"A3 := 10")
 print("\n----- New GRAssignment -----\n")
-testGrammarRule(rule: myGRAssignment4,input:"A4 := A1+r0c1")
+testGrammarRule(rule: myGRAssignment5,input:"A4 := A1+r0c1")
 
 
 
