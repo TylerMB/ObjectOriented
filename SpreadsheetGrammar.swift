@@ -25,23 +25,34 @@ import Foundation
 
 
 class GRSpreadsheet : GrammarRule {
-    let myGRExpression = GRExpression()
+    let myGRExpression = GRAssignment()
+    let myGRPrint = GRPrint()
     init(){
-        super.init(rhsRules: [[myGRExpression], [Epsilon.theEpsilon]])
+        super.init(rhsRules: [[myGRExpression],[myGRPrint], [Epsilon.theEpsilon]])
     }
+    override func parse(input: String) -> String? {
+        let rest = super.parse(input: input)
+        if rest == input {
+            self.calculatedValue = nil
+            self.stringValue = nil
+            return rest
+        }
+        return nil
+    }
+    
 }
 
 class GRAssignment : GrammarRule {
     
     let sign = GRLiteral(literal: ":=")
     let expr = GRExpression()
-    let spread = GRSpreadsheet()
+    //let spread = GRSpreadsheet()
     let currentCell = GrammarRule.currentCell
     
     
     
     init() {
-        super.init(rhsRule: [currentCell,sign,expr,spread])
+        super.init(rhsRule: [currentCell,sign,expr])
     }
     
     override func parse(input: String) -> String? {
@@ -67,9 +78,9 @@ class GRAssignment : GrammarRule {
             GrammarRule.dictionaryExpr[key] = strExpr
         }
         
-//        print("DictionaryExpr for \(key): \(String(describing: GrammarRule.dictionaryExpr[key]!))")
-//        
-//        print("DictionaryValue for \(key): \(String(describing: GrammarRule.dictionaryValue[key]!))")
+        //        print("DictionaryExpr for \(key): \(String(describing: GrammarRule.dictionaryExpr[key]!))")
+        //
+        //        print("DictionaryValue for \(key): \(String(describing: GrammarRule.dictionaryValue[key]!))")
         
         return rest
     }
@@ -79,10 +90,10 @@ class GRPrint : GrammarRule{
     let printValue = GRLiteral(literal: "print_value")
     let printExpr = GRLiteral(literal: "print_expr")
     let abs = GRAbsoluteCell()
-    let spread = GRSpreadsheet()
+    //let spread = GRSpreadsheet()
     
     init() {
-        super.init(rhsRules: [[printValue,abs,spread],[printExpr,abs,spread]])
+        super.init(rhsRules: [[printValue,abs],[printExpr,abs]])
     }
     
     override func parse(input: String) -> String? {
@@ -141,9 +152,9 @@ class GRExpression : GrammarRule {
             return rest
         }
         
-//        if qstring.stringValue != nil {
-//            print("Here : \(qstring.stringValue!)")  
-//        }
+        //        if qstring.stringValue != nil {
+        //            print("Here : \(qstring.stringValue!)")
+        //        }
         
         return nil
     }
@@ -326,7 +337,7 @@ class GRCellReference : GrammarRule {
                 self.stringValue = abs.stringValue!
             } else if rel.stringValue != nil {
                 
-
+                
                 
                 
                 //an array of the letters in the the column label for the current cell
@@ -337,7 +348,7 @@ class GRCellReference : GrammarRule {
                 let alphabet = [" ","A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q",
                                 "R","S","T","U","V","W","X","Y","Z"]
                 
-              
+                
                 //reverse through the characters of the label assigning values
                 //reversed so that the last number is the highest valued letter
                 //makes it easy to add and delete the final letter

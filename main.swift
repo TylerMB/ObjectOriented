@@ -24,7 +24,6 @@ func testGrammarRule(rule:GrammarRule, input:String) {
 
 print("Simple Test Case: ")
 let testCase = run()
-testCase
 
 print("\n\n--- Test GRAssignment parsing ---")
 
@@ -250,8 +249,3 @@ if let result = myProduct7.parse(input: " 17 + 5") {
     print("myProduct.calculatedValue is \(myProduct7.calculatedValue!)")
 }
 
-
-print("\n\n--- Test GRSpreadsheet parsing ----")
-let mySpreadsheet = GRSpreadsheet()
-testGrammarRule(rule: mySpreadsheet, input: " 1+ 3 ")
-testGrammarRule(rule: mySpreadsheet, input: "An epsilon GRSpreadsheet match")
