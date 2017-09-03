@@ -66,15 +66,18 @@ class GRAssignment : GrammarRule {
         if expr.calculatedValue != nil {
             GrammarRule.dictionaryValue[key] = String(expr.calculatedValue!.description)
             GrammarRule.dictionaryExpr[key] = strExpr
-            
+            for (updateThisKey, expr) in GrammarRule.dictionaryExpr {
+                if expr.contains(key) {
+                    let update = GRAssignment()
+                       _ = update.parse(input: "\(updateThisKey) := \(expr)")
+                }
+            }
         }
-        
-        if expr.qstring.stringValue != nil {
-            GrammarRule.dictionaryValue[key] = String(expr.qstring.stringValue!)
+        if expr.stringValue != nil {
+            self.stringValue = expr.stringValue!
+            GrammarRule.dictionaryValue[key] = String(expr.stringValue!)
             GrammarRule.dictionaryExpr[key] = strExpr
         }
-        
-        
         return rest
     }
 }
@@ -136,34 +139,31 @@ class GRPrint : GrammarRule{
 class GRExpression : GrammarRule {
     let num = GRProductTerm()
     let exprTail = GRExpressionTail()
-    let qstring = GRQoutedString()
+    let quote = GRQoutedString()
     
     init(){
-        super.init(rhsRules: [[num, exprTail],[qstring]])
+        super.init(rhsRules: [[num, exprTail],[quote]])
     }
     override func parse(input: String) -> String? {
-        
         let rest = super.parse(input:input)
-        
         if num.calculatedValue != nil {
-            
             self.calculatedValue = num.calculatedValue!
-            
             if exprTail.calculatedValue != nil {
                 self.calculatedValue = num.calculatedValue! + exprTail.calculatedValue!
             }
-            
             if exprTail.calculatedValue == nil {
                 self.calculatedValue = num.calculatedValue!
             }
-            
             return rest
         }
-        
-        //        if qstring.stringValue != nil {
-        //            print("Here : \(qstring.stringValue!)")
-        //        }
-        
+        if quote.stringValue != nil && exprTail.stringValue != nil {
+            self.stringValue = quote.stringValue!
+            self.stringValue!.append(exprTail.stringValue!)
+            return rest
+        } else if quote.stringValue != nil {
+            self.stringValue = quote.stringValue!
+            return rest
+        }
         return nil
     }
 }
@@ -180,27 +180,21 @@ class GRExpressionTail : GrammarRule {
     
     override func parse(input: String) -> String? {
         if var rest = super.parse(input: input) {
-            
-            
             if rest == input {
                 self.calculatedValue = nil
                 self.stringValue = nil
                 return rest
             }
-            
-            self.calculatedValue = product.calculatedValue!
-            
             let exprTail = GRExpressionTail()
             rest = exprTail.parse(input: rest)!
             
-            if exprTail.calculatedValue != nil {
-                
+            if  product.calculatedValue != nil && exprTail.calculatedValue != nil {
                 self.calculatedValue = product.calculatedValue! + exprTail.calculatedValue!
-                
-            } else {
+                return rest
+            } else if product.calculatedValue != nil {
                 self.calculatedValue = product.calculatedValue!
+                return rest
             }
-            return rest
         }
         return nil
     }
@@ -223,25 +217,19 @@ class GRProductTerm : GrammarRule {
     }
     
     override func parse(input: String) -> String? {
-        
         if let rest = super.parse(input: input ) {
             
-            
-            
-            
-            if value.calculatedValue != nil {
-                
+            if productTail.calculatedValue != nil && value.calculatedValue != nil {
+                self.calculatedValue = value.calculatedValue! * productTail.calculatedValue!
+            } else if value.calculatedValue != nil {
                 self.calculatedValue = value.calculatedValue!
-                
-                if productTail.calculatedValue != nil {
-                    self.calculatedValue = value.calculatedValue! * productTail.calculatedValue!
-                }
-                return rest
             }
+            return rest
         }
         return nil
     }
 }
+
 
 
 
