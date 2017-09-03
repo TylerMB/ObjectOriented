@@ -17,6 +17,8 @@ import Foundation
 //
 // This code shows the key aspects of recursive descent parsing. Also, note how the object oriented structure matches the grammar. Having said that, this code is by no means optimal / neat / nice!
 
+
+
 /** The top-level GrammarRule.
  This GrammarRule handles Spreadsheet -> Expression | Epsilon
  Note that it uses the GrammarRule's default parse method
@@ -73,8 +75,12 @@ class GRAssignment : GrammarRule {
             GrammarRule.dictionaryExpr[key] = strExpr
             for (updateThisKey, expr) in GrammarRule.dictionaryExpr {
                 if expr.contains(key) {
-                    let update = GRAssignment()
-                       _ = update.parse(input: "\(updateThisKey) := \(expr)")
+                    if key == updateThisKey || GrammarRule.dictionaryExpr[key]!.contains(updateThisKey) && GrammarRule.dictionaryExpr[updateThisKey]!.contains(key)  {
+                        print("recursion occured")
+                    } else {
+                        let update = GRAssignment()
+                        _ = update.parse(input: "\(updateThisKey) := \(expr)")
+                    }
                 }
             }
         }
@@ -111,7 +117,7 @@ class GRPrint : GrammarRule{
             return rest
         }
         
-        if input.characters.contains("v") {
+        if self.printValue.stringValue != nil {
             
             var key = abs.col.stringValue!
             key.append(abs.row.stringValue!)
@@ -122,7 +128,7 @@ class GRPrint : GrammarRule{
             } else {
                 print("Value of cell \(key) is 0")
             }
-        } else if input.characters.contains("e") {
+        } else if self.printExpr.stringValue != nil {
             
             
             var key = abs.col.stringValue!
