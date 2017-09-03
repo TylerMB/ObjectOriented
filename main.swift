@@ -33,7 +33,7 @@ let myGRAssignment3 = GRAssignment()
 let myGRAssignment4 = GRAssignment()
 let myGRAssignment5 = GRAssignment()
 // should parse the complete string
-testGrammarRule(rule: myGRAssignment,input:"A1 := 8")
+testGrammarRule(rule: myGRAssignment,input:" ")
 print("\n----- New GRAssignment -----\n")
 testGrammarRule(rule: myGRAssignment2,input:"AB4 := 2 + A1")
 print("\n----- New GRAssignment -----\n")

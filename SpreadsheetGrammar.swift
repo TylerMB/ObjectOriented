@@ -48,26 +48,33 @@ class GRAssignment : GrammarRule {
     
     override func parse(input: String) -> String? {
         let rest = super.parse(input: input)
-        
         var strExpr : String = ""
+        var key : String = ""
         if let range = input.range(of: ":= ") {
             strExpr = input.substring(from: range.upperBound) // Splitting the input string in order to get the expression (not the calculatedValue)
         }
-        _ = GrammarRule.currentCell.parse(input: currentCell.stringValue!)
-        GrammarRule.currentCell.stringValue = currentCell.stringValue!
-        GrammarRule.currentCell.col.stringValue = currentCell.col.stringValue!
-        GrammarRule.currentCell.row.stringValue = currentCell.row.stringValue!
-        let key = GrammarRule.currentCell.stringValue!
+        
+        
+        if currentCell.stringValue != nil {
+            _ = GrammarRule.currentCell.parse(input: currentCell.stringValue!)
+            GrammarRule.currentCell.stringValue = currentCell.stringValue!
+            GrammarRule.currentCell.col.stringValue = currentCell.col.stringValue!
+            GrammarRule.currentCell.row.stringValue = currentCell.row.stringValue!
+            key = GrammarRule.currentCell.stringValue!
+        }
         
         if expr.calculatedValue != nil {
             GrammarRule.dictionaryValue[key] = String(expr.calculatedValue!.description)
             GrammarRule.dictionaryExpr[key] = strExpr
             
         }
+        
         if expr.qstring.stringValue != nil {
             GrammarRule.dictionaryValue[key] = String(expr.qstring.stringValue!)
             GrammarRule.dictionaryExpr[key] = strExpr
         }
+        
+        
         return rest
     }
 }
@@ -93,27 +100,36 @@ class GRPrint : GrammarRule{
         }
         
         
+        
         if input.characters.contains("v") {
             
             var key = abs.col.stringValue!
             key.append(abs.row.stringValue!)
             //print(key)
             
+            if GrammarRule.dictionaryValue[key] != nil {
             print("Value of cell \(key) is \(String(describing: GrammarRule.dictionaryValue[key]!))")
-            
+            } else {
+                print("Value of cell \(key) is 0")
+            }
         } else if input.characters.contains("e") {
             
             
             var key = abs.col.stringValue!
             key.append(abs.row.stringValue!)
             
+            if GrammarRule.dictionaryExpr[key] != nil {
             print("Expression in cell \(key) is \(String(describing: GrammarRule.dictionaryExpr[key]!))")
+            } else {
+                print("Expression in cell \(key) is 0")
+                }
         }
         return rest
     }
     
     
 }
+
 
 
 /// A GrammarRule for handling: Expression -> Integer ExpressionTail
