@@ -68,11 +68,6 @@ class GRAssignment : GrammarRule {
             GrammarRule.dictionaryValue[key] = String(expr.qstring.stringValue!)
             GrammarRule.dictionaryExpr[key] = strExpr
         }
-        
-        //        print("DictionaryExpr for \(key): \(String(describing: GrammarRule.dictionaryExpr[key]!))")
-        //
-        //        print("DictionaryValue for \(key): \(String(describing: GrammarRule.dictionaryValue[key]!))")
-        
         return rest
     }
 }
@@ -297,18 +292,78 @@ class GRRelativeCell : GrammarRule {
     let row = GRInteger()
     let col = GRInteger()
     
-    
-    
-    
     init() {
         super.init(rhsRule: [r,row,c,col])
     }
+    
     override func parse(input: String) -> String? {
         if let rest = super.parse(input: input) {
-            self.stringValue = r.stringValue!
-            self.stringValue?.append(row.stringValue!)
-            self.stringValue?.append(c.stringValue!)
-            self.stringValue?.append(col.stringValue!)
+            
+            //an array of the letters in the the column label for the current cell
+            var colChars: Array = Array(GrammarRule.currentCell.col.stringValue!.characters)
+            //an empty array of numbers that the label will be converted into
+            var colVals: Array = [Int](repeating: 0, count: colChars.count)
+            //an alphabet of letters matching a number value 1-26
+            let alphabet = [" ","A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q",
+                            "R","S","T","U","V","W","X","Y","Z"]
+            
+            //reverse through the characters of the label assigning values
+            //reversed so that the last number is the highest valued letter
+            //makes it easy to add and delete the final letter
+            var count = 0
+            for index in stride(from: colChars.count-1, to: -1, by: -1) {
+                colVals[count] = alphabet.index(of: String(colChars[index]))!
+                count += 1
+            }
+            colVals[0] += col.calculatedValue!
+            
+            for index in 0...(colVals.count-1) {
+                //if it is greater than 26 (while loop to deal with r0c52)
+                while colVals[index] > 26 {
+                    //reduce that index value
+                    colVals[index] -= 26
+                    if (index+1) < (colVals.count-1) {
+                        //increase the value of the next letter
+                        colVals[index+1] += 1
+                    } else {
+                        //or add one if it doesnt exist
+                        colVals.append(1)
+                    }
+                }
+                //if letter is less than 'A', increase the value and reduce the value of the next letter
+                while colVals[index] < 1 {
+                    if index == (colVals.count-1) {
+                        if colVals[index] == 0 {
+                            colVals = Array(colVals.dropLast(1))
+                        } else {
+                            print("Error: Reference out of bounds")
+                            self.stringValue = nil
+                            return nil
+                        }
+                    } else {
+                        colVals[index] += 26
+                        colVals[index+1] -= 1
+                    }
+                }
+            }
+            count = (colVals.count-1)
+            //works through the calculated values and reverses it back into colChars, with the addition done
+            for index in 0...(colVals.count-1) {
+                if index <= (colChars.count-1) {
+                    colChars[index] = Character(alphabet[colVals[count]])
+                    count -= 1
+                } else {
+                    colChars.append(Character(alphabet[colVals[count]]))
+                    count -= 1
+                }
+            }
+            self.stringValue = ""
+            //builds the relativeCell final location as an absouteCell
+            for index in 0...(colChars.count-1) {
+                self.stringValue!.append(colChars[index])
+            }
+            //adds the row number to the column label, with the addition of the relative row
+            self.stringValue!.append(String(GrammarRule.currentCell.row.calculatedValue!+row.calculatedValue!))
             return rest
         }
         return nil
@@ -316,14 +371,9 @@ class GRRelativeCell : GrammarRule {
 }
 
 
-
-
-
-
 class GRCellReference : GrammarRule {
     let abs = GRAbsoluteCell()
     let rel = GRRelativeCell()
-    
     
     init() {
         super.init(rhsRules: [[abs],[rel]])
@@ -333,90 +383,7 @@ class GRCellReference : GrammarRule {
             if abs.stringValue != nil {
                 self.stringValue = abs.stringValue!
             } else if rel.stringValue != nil {
-                
-                
-                
-                
-                //an array of the letters in the the column label for the current cell
-                var colChars: Array = Array(GrammarRule.currentCell.col.stringValue!.characters)
-                //an empty array of numbers that the label will be converted into
-                var colVals: Array = [Int](repeating: 0, count: colChars.count)
-                //an alphabet of letters matching a number value 1-26
-                let alphabet = [" ","A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q",
-                                "R","S","T","U","V","W","X","Y","Z"]
-                
-                
-                //reverse through the characters of the label assigning values
-                //reversed so that the last number is the highest valued letter
-                //makes it easy to add and delete the final letter
-                var count = 0
-                for index in stride(from: colChars.count-1, to: -1, by: -1) {
-                    colVals[count] = alphabet.index(of: String(colChars[index]))!
-                    count += 1
-                }
-                
-                //adds the r0c0 value to the lowest valued letter
-                colVals[0] += rel.col.calculatedValue!
-                
-                //for each of the indexs in the column values
-                for index in 0...(colVals.count-1) {
-                    //if it is greater than 26 (while loop to deal with r0c52)
-                    //27,1 -> 1,2
-                    while colVals[index] > 26 {
-                        //reduce that index value
-                        colVals[index] -= 26
-                        if (index+1) < (colVals.count-1) {
-                            //increase the value of the next letter
-                            colVals[index+1] += 1
-                        } else {
-                            //or add one if it doesnt exist
-                            colVals.append(1)
-                        }
-                    }
-                    //if letter is less than 'A', increase the value and reduce the value of the next letter
-                    while colVals[index] < 1 {
-                        colVals[index] += 26
-                        if (index+1) < (colVals.count-1) {
-                            colVals[index+1] -= 1
-                        } else {
-                            colVals[index] = 0
-                        }
-                    }
-                }
-                //works through the array dealing with 0 values, if the highest valued letter is 0, deletes it
-                for index in 0...(colVals.count-1) {
-                    
-                    if colVals[index] == 0 {
-                        if index == colVals.count-1 {
-                            colVals = Array(colVals.dropLast(1))
-                        } else {
-                            colVals[index] += 26
-                            colVals[index+1] -= 1
-                        }
-                    }
-                    //works through the calculated values and reverses it back into colChars, with the addition done
-                    count = (colVals.count-1)
-                    if index <= (colChars.count-1) {
-                        colChars[index] = Character(alphabet[colVals[count]])
-                        count -= 1
-                    } else {
-                        colChars.append(Character(alphabet[colVals[count]]))
-                        count -= 1
-                    }
-                    
-                }
-                //print(colVals)
-                //print(colChars)
-                //print(alphabet)
-                
-                var relCell = ""
-                //builds the relativeCell final location as an absouteCell
-                for index in 0...(colChars.count-1) {
-                    relCell.append(colChars[index])
-                }
-                //adds the row number to the column label, with the addition of the relative row
-                relCell.append(String(GrammarRule.currentCell.row.calculatedValue!+rel.row.calculatedValue!))
-                self.stringValue = relCell
+                self.stringValue = rel.stringValue!
             }
             return rest
         }

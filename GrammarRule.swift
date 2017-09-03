@@ -40,7 +40,6 @@ class GrammarRule {
     init(rhsRule : [GrammarRule]) {
         rhs = [rhsRule]
     }
-
     /**
      The GrammarRule parse method will try each right-hand-side GrammarRule in turn until one succeeds, or returns nil otherwise.
      */

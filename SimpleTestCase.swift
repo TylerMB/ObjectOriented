@@ -9,7 +9,7 @@
 import Foundation
 
 func parseInput(rule:GrammarRule, input:String) {
-    let remainingInput = rule.parse(input: input)
+    _ = rule.parse(input: input)
 }
 
 

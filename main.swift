@@ -23,7 +23,7 @@ func testGrammarRule(rule:GrammarRule, input:String) {
 
 
 print("Simple Test Case: ")
-let testCase = run()
+run()
 
 print("\n\n--- Test GRAssignment parsing ---")
 
@@ -33,17 +33,17 @@ let myGRAssignment3 = GRAssignment()
 let myGRAssignment4 = GRAssignment()
 let myGRAssignment5 = GRAssignment()
 // should parse the complete string
-testGrammarRule(rule: myGRAssignment,input:"A1 := 4+2*2")
+testGrammarRule(rule: myGRAssignment,input:"A1 := 8")
 print("\n----- New GRAssignment -----\n")
-testGrammarRule(rule: myGRAssignment2,input:"A2 := 1 + A1")
+testGrammarRule(rule: myGRAssignment2,input:"AB4 := 2 + A1")
 print("\n----- New GRAssignment -----\n")
-testGrammarRule(rule: myGRAssignment3,input:"B4 := A1+A2")
+testGrammarRule(rule: myGRAssignment3,input:"A2 := A1+AB4")
 print("\n----- New GRAssignment -----\n")
 testGrammarRule(rule: myGRAssignment4,input:"A3 := 10")
 print("\n----- New GRAssignment -----\n")
-testGrammarRule(rule: myGRAssignment5,input:"A5 := 10")
+testGrammarRule(rule: myGRAssignment5,input:"A5 := A3 + r-2c1")
 print("\n----- New GRAssignment -----\n")
-testGrammarRule(rule: myGRAssignment5,input:"A4 := r1c1 + A2")
+testGrammarRule(rule: myGRAssignment5,input:"A4 := r1c27 + A1")
 
 
 
@@ -52,7 +52,10 @@ print("\n\n--- Test GRPrint parsing ---")
 
 let myGRPrint = GRPrint()
 // should parse the complete string
-testGrammarRule(rule: myGRPrint,input:"print_value A3")
+testGrammarRule(rule: myGRPrint,input:"print_value A1")
+testGrammarRule(rule: myGRPrint,input:"print_value AB4")
+testGrammarRule(rule: myGRPrint,input:"print_value A4")
+testGrammarRule(rule: myGRPrint,input:"print_value A5")
 
 
 print("\n\n--- Test GRInteger parsing ---")
