@@ -1,0 +1,20 @@
+
+A1 := 5
+A2 := 15
+print_value A1
+print_value A2
+A3 := A1 + A2
+print_expr A3
+print_value A3
+
+A2 := 100
+print_value A1
+print_expr A3
+print_value A3
+
+A1 := \"coffee\"
+print_value A1
+print_expr A1
+A3 := 2*5+2*A2
+print_expr A3
+print_value A3

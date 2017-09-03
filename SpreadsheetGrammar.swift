@@ -27,21 +27,18 @@ import Foundation
 class GRSpreadsheet : GrammarRule {
     let myGRAssign = GRAssignment()
     let myGRPrint = GRPrint()
+    
     init(){
         super.init(rhsRules: [[myGRAssign],[myGRPrint], [Epsilon.theEpsilon]])
     }
-    
 }
 
 class GRAssignment : GrammarRule {
     
     let sign = GRLiteral(literal: ":=")
     let expr = GRExpression()
-    //let spread = GRSpreadsheet()
-    let currentCell = GrammarRule.currentCell
-    
-    
-    
+    let currentCell = GRAbsoluteCell()
+
     init() {
         super.init(rhsRule: [currentCell,sign,expr])
     }
@@ -50,8 +47,16 @@ class GRAssignment : GrammarRule {
         let rest = super.parse(input: input)
         var strExpr : String = ""
         var key : String = ""
-        if let range = input.range(of: ":= ") {
-            strExpr = input.substring(from: range.upperBound) // Splitting the input string in order to get the expression (not the calculatedValue)
+        
+        if rest != nil {
+            
+            
+            if let range = input.range(of: ":= ") {
+                strExpr = input.substring(from: range.upperBound) // Splitting the input string in order to get the expression (not the calculatedValue)
+                if let range1 = strExpr.range(of: rest!) {
+                    strExpr = strExpr.substring(to: range1.lowerBound)
+                }
+            }
         }
         
         
@@ -78,6 +83,10 @@ class GRAssignment : GrammarRule {
             GrammarRule.dictionaryValue[key] = String(expr.stringValue!)
             GrammarRule.dictionaryExpr[key] = strExpr
         }
+        if rest != nil {
+            let spreadsheet = GRSpreadsheet()
+            _ = spreadsheet.parse(input: rest!)
+        }
         return rest
     }
 }
@@ -102,8 +111,6 @@ class GRPrint : GrammarRule{
             return rest
         }
         
-        
-        
         if input.characters.contains("v") {
             
             var key = abs.col.stringValue!
@@ -127,6 +134,10 @@ class GRPrint : GrammarRule{
                 print("Expression in cell \(key) is 0")
                 }
         }
+        if rest != nil {
+            let spreadsheet = GRSpreadsheet()
+            _ = spreadsheet.parse(input: rest!)
+        }
         return rest
     }
     
@@ -146,22 +157,24 @@ class GRExpression : GrammarRule {
     }
     override func parse(input: String) -> String? {
         let rest = super.parse(input:input)
-        if num.calculatedValue != nil {
+        if exprTail.calculatedValue != nil && num.calculatedValue != nil{
+            self.calculatedValue = num.calculatedValue! + exprTail.calculatedValue!
+            self.stringValue = nil
+            return rest
+        } else if num.calculatedValue != nil {
             self.calculatedValue = num.calculatedValue!
-            if exprTail.calculatedValue != nil {
-                self.calculatedValue = num.calculatedValue! + exprTail.calculatedValue!
-            }
-            if exprTail.calculatedValue == nil {
-                self.calculatedValue = num.calculatedValue!
-            }
+            self.stringValue = nil
             return rest
         }
+        
         if quote.stringValue != nil && exprTail.stringValue != nil {
             self.stringValue = quote.stringValue!
             self.stringValue!.append(exprTail.stringValue!)
+            self.calculatedValue = nil
             return rest
         } else if quote.stringValue != nil {
             self.stringValue = quote.stringValue!
+            self.calculatedValue = nil
             return rest
         }
         return nil
@@ -190,20 +203,17 @@ class GRExpressionTail : GrammarRule {
             
             if  product.calculatedValue != nil && exprTail.calculatedValue != nil {
                 self.calculatedValue = product.calculatedValue! + exprTail.calculatedValue!
+                self.stringValue = nil
                 return rest
             } else if product.calculatedValue != nil {
                 self.calculatedValue = product.calculatedValue!
+                self.stringValue = nil
                 return rest
             }
         }
         return nil
     }
 }
-
-
-
-
-
 
 
 
@@ -250,23 +260,18 @@ class GRProductTermTail : GrammarRule {
                 self.calculatedValue = nil
                 return rest
             }
-            
             //else check if there is another ProductTermTail
-            
             let productTail = GRProductTermTail()
             rest = productTail.parse(input: rest)!
-            
             //if there is, make self equal to the product of the both of you
-            if (productTail.calculatedValue != nil) {
+            if (value.calculatedValue != nil && productTail.calculatedValue != nil) {
                 self.calculatedValue = value.calculatedValue! * productTail.calculatedValue!
-            } else {
+            } else if value.calculatedValue != nil {
                 //else make self equal just your GRValue
                 self.calculatedValue = value.calculatedValue!
             }
-            //rules parsed so now send the rest of the string
             return rest
         }
-        //the rules failed, so return nil to indicate failure
         return nil
     }
 }
@@ -408,21 +413,16 @@ class GRValue : GrammarRule {
     
     override func parse(input: String) -> String? {
         if let rest = super.parse(input: input) {
+            
             if val.calculatedValue != nil {
                 self.calculatedValue = val.calculatedValue!
-                self.stringValue = nil
-                
-                
             } else if ref.stringValue != nil {
-                
-                
-                if GrammarRule.dictionaryValue[ref.stringValue!] == nil {
+                if GrammarRule.dictionaryExpr[ref.stringValue!] == nil {
                     GrammarRule.dictionaryValue[ref.stringValue!] = "0"
                     GrammarRule.dictionaryExpr[ref.stringValue!] = ""
+                } else {
+                    self.calculatedValue = Int(GrammarRule.dictionaryValue[ref.stringValue!]!)
                 }
-                self.calculatedValue = Int(GrammarRule.dictionaryValue[ref.stringValue!]!)
-                self.stringValue = nil
-                
             }
             return rest
         }

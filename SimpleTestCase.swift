@@ -12,37 +12,31 @@ func parseInput(rule:GrammarRule, input:String) {
     _ = rule.parse(input: input)
 }
 
-
-
-
 func run() {
-    let assignment1 = GRAssignment()
-    let assignment2 = GRAssignment()
-    let assignment3 = GRAssignment()
-    let assignment4 = GRAssignment()
-    let assignment5 = GRAssignment()
-    
-    let print = GRPrint()
+    let spreadsheet = GRSpreadsheet()
 
+    print("-- Test 1 --")
+    var test: String = "A1 := 5 A2 := 15print_value A1print_value A2A3 := A1 + A2print_expr A3print_value A3A2 := 100print_value A1print_expr A3print_value A3A1 := \"coffee\"print_value A1print_expr A1A3 := 2*5+2*A2print_expr A3print_value A3"
     
-    parseInput(rule: assignment1, input: "A1 := \"hello\"")
-    parseInput(rule: assignment2, input: "A2 := \"covefe\"")
-    parseInput(rule: print, input: "print_expr A1")
-    parseInput(rule: print, input: "print_value A1")
-    parseInput(rule: print, input: "print_expr A2")
-    parseInput(rule: print, input: "print_value A2")
-    parseInput(rule: assignment4, input: "A2 := 2")
-    parseInput(rule: assignment3, input: "A3 := A1 + A2")
-    parseInput(rule: print, input: "print_expr A3")
-    parseInput(rule: print, input: "print_value A3")
-    parseInput(rule: assignment5, input: "A1 := r1c0 + 7") //should be reupdating the value of A3 but isnt
-    parseInput(rule: print, input: "print_expr A1")
-    parseInput(rule: print, input: "print_value A1")
-    parseInput(rule: print, input: "print_expr A2")
-    parseInput(rule: print, input: "print_value A2")
-    parseInput(rule: print, input: "print_expr A3")
-    parseInput(rule: print, input: "print_value A3")
-    
-    
+    parseInput(rule: spreadsheet, input: test)
+//    parseInput(rule: spreadsheet, input: "A2 := 15")
+//    parseInput(rule: print1, input: "print_value A1")
+//    parseInput(rule: print1, input: "print_value A2")
+//    parseInput(rule: spreadsheet, input: "A3 := A1 + A2")
+//    parseInput(rule: print1, input: "print_expr A3")
+//    parseInput(rule: print1, input: "print_value A3")
+//    print("-- Test 2 --")
+//    parseInput(rule: spreadsheet, input: "A2 := 100")
+//    parseInput(rule: print1, input: "print_value A1")
+//    parseInput(rule: print1, input: "print_expr A3")
+//    parseInput(rule: print1, input: "print_value A3")
+//    print("-- Test 3 --")
+//    parseInput(rule: spreadsheet, input: "A1 := \"coffee\"")
+//    parseInput(rule: print1, input: "print_value A1")
+//    parseInput(rule: print1, input: "print_expr A1")
+//    parseInput(rule: spreadsheet, input: "A3 := 2*5+2*A2")    
+//    parseInput(rule: print1, input: "print_expr A3")
+//    parseInput(rule: print1, input: "print_value A3")
+//    
 
 }

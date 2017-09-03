@@ -33,6 +33,7 @@
 		549F2A841F43BF5C002E2C99 /* GrammarRule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GrammarRule.swift; sourceTree = SOURCE_ROOT; };
 		549F2A861F43C00D002E2C99 /* Tokens.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tokens.swift; sourceTree = SOURCE_ROOT; };
 		5B794D7E1F5B7CA300BA4481 /* SimpleTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleTestCase.swift; sourceTree = "<group>"; };
+		5B794D821F5BE93400BA4481 /* SimpleTestCase.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SimpleTestCase.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -50,6 +51,7 @@
 			isa = PBXGroup;
 			children = (
 				5B794D7E1F5B7CA300BA4481 /* SimpleTestCase.swift */,
+				5B794D821F5BE93400BA4481 /* SimpleTestCase.txt */,
 				549F2A821F43BF54002E2C99 /* main.swift */,
 				549F2A841F43BF5C002E2C99 /* GrammarRule.swift */,
 				546159131F42726E005F970A /* SpreadsheetGrammar.swift */,
