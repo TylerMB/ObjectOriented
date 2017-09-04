@@ -88,7 +88,7 @@ class GRAssignment : GrammarRule {
                 //If there is a relative cell in the expression to convert to absolute
                 if (GrammarRule.dictionaryWorking[key]?.contains("r\(expr.num.value.ref.rel.row.stringValue!)c\(expr.num.value.ref.rel.col.stringValue!)"))! {
                     //Then convert the relative cell to an absolute cell in the working dictionary
-                    GrammarRule.dictionaryWorking[key] = GrammarRule.dictionaryWorking[key]?.replacingOccurrences(of: "r\(expr.num.value.ref.rel.row.stringValue!)c\(expr.num.value.ref.rel.col.stringValue!)", with: "key")
+                    GrammarRule.dictionaryWorking[key] = GrammarRule.dictionaryWorking[key]?.replacingOccurrences(of: "r\(expr.num.value.ref.rel.row.stringValue!)c\(expr.num.value.ref.rel.col.stringValue!)", with: expr.num.value.ref.rel.stringValue!)
                 }
             }
             
@@ -111,7 +111,12 @@ class GRAssignment : GrammarRule {
         }
         if rest != nil {
             let spreadsheet = GRSpreadsheet()
+<<<<<<< HEAD
+            rest
+                = spreadsheet.parse(input: rest!)
+=======
             rest = spreadsheet.parse(input: rest!)
+>>>>>>> 0c76dc3064959e1f2cb11b79a816788f122b4f76
         }
         return rest
     }
