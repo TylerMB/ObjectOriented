@@ -35,16 +35,5 @@ if CommandLine.arguments.count>1 {
             stderrPrint("Error opening and reading file with filename [\(filename)].\n")
         }
     }
-    
-} else {
-    func testGrammarRule(rule:GrammarRule, input:String) {
-        if let remainingInput = rule.parse(input: input){
-            print("Was able to parse input=\"\(input)\", with remainingInput=\"\(remainingInput)\"")
-        } else {
-            print("Was unable to parse input=\"\(input)\"")
-        }
-    }
-    print("Simple Test Case: ")
-    run()
 }
 

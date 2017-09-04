@@ -2,8 +2,8 @@
 //  GrammarRule.swift
 //  COSC346 Assignment 1
 //
-//  Created by David Eyers on 24/07/17.
-//  Copyright © 2017 David Eyers. All rights reserved.
+//  Created by Tyler Baker & Ash Cochrane on 24/07/17.
+//  Copyright © 2017 Tyler Baker & Ash Cochrane. All rights reserved.
 //
 //  Provides the top-level classes for recursive descent parsing
 
@@ -24,12 +24,13 @@ class GrammarRule {
     /// The list of possible right-hand-side options, each of which is a GrammarRule list (Swift will require it to be initialised).
     let rhs : [[GrammarRule]]
     
+    /// three static dictionaries that contain data on each cell within the spreadsheet
     static var dictionaryWorking = [String: String]()
     static var dictionaryValue = [String: String]()
     static var dictionaryExpr = [String: String]()
+    /// a static cell location that is used globally to track the current working cell
     static var currentCell = GRAbsoluteCell()
 
-    
     /**
      This initaliser takes in a list of the possible right-hand-side options.
      Each option is itself a GrammarRule list.
@@ -85,7 +86,6 @@ class Epsilon : GrammarRule {
     override private init(rhsRules: [[GrammarRule]]) {
         super.init(rhsRules: [])
     }
-    
     /// theEpsilon is the instantiated singleton; thus is a class property.
     static let theEpsilon = Epsilon()
 }

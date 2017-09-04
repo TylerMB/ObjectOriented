@@ -2,30 +2,16 @@
 //  SpreadsheetGrammar.swift
 //  COSC346 Assignment 1
 //
-//  Created by David Eyers on 24/07/17.
-//  Copyright © 2017 David Eyers. All rights reserved.
+//  Created by Tyler Baker & Ash Cochrane on 24/07/17.
+//  Copyright © 2017 Tyler Baker & Ash Cochrane. All rights reserved.
 //
 
 import Foundation
 
-// Simplified example grammar
-// (Rules are also shown next to their parsing classes, in this file)
-//
-// Spreadsheet -> Expression | Epsilon
-// Expression -> Integer ExpressionTail
-// ExpressionTail -> [+] Integer
-//
-// This code shows the key aspects of recursive descent parsing. Also, note how the object oriented structure matches the grammar. Having said that, this code is by no means optimal / neat / nice!
-
-
 
 /** The top-level GrammarRule.
- This GrammarRule handles Spreadsheet -> Expression | Epsilon
- Note that it uses the GrammarRule's default parse method
+ This GrammarRule handles Spreadsheet -> Assignment | Print | Epsilon
  */
-
-
-
 class GRSpreadsheet : GrammarRule {
     let myGRAssign = GRAssignment()
     let myGRPrint = GRPrint()
@@ -34,9 +20,15 @@ class GRSpreadsheet : GrammarRule {
         super.init(rhsRules: [[myGRAssign],[myGRPrint], [Epsilon.theEpsilon]])
         
     }
+    /*
+     Overrides and then calls super's parse function. This recursively calls GRSpreadsheet
+     while there is still remaining input that hasn't failed to parse.
+     - Parameter input: the remaining string to be processed
+     - Returns: the resulting string after parsing
+     */
     override func parse(input: String) -> String? {
         var rest = super.parse(input: input)
-        
+        //empties the global current cell before each recurive instantiation
         GrammarRule.currentCell.stringValue = nil
         if rest != nil, rest != input {
             let spread = GRSpreadsheet()
@@ -46,29 +38,39 @@ class GRSpreadsheet : GrammarRule {
     }
 }
 
+/*
+ The Assignment GrammarRule.
+ Deals with cells having their contents modified. Assignment -> AbsoluteCell := Expression Spreadsheet
+ */
 class GRAssignment : GrammarRule {
     
     let sign = GRLiteral(literal: ":=")
     let expr = GRExpression()
     let currCell = GRAbsoluteCell()
-
+    
     init() {
         super.init(rhsRule: [currCell,sign,expr])
     }
-    
+    /*
+     Overrides and then calls super's parse function. The global current cell is 
+     also updated and dictionary contents.
+     - Parameter input: the remaining string to be processed
+     - Returns: the resulting string after parsing
+     */
     override func parse(input: String) -> String? {
-        
         var rest = super.parse(input: input)
         var strExpr : String = ""
         var key : String = ""
         if rest != nil {
+            //splits the input into expression and remainder.
             if let range = input.range(of: ":= ") {
-                strExpr = input.substring(from: range.upperBound) // Splitting the input string in order to get the expression (not the calculatedValue)
+                strExpr = input.substring(from: range.upperBound) // shaves the literal and working cell off
                 if let range1 = strExpr.range(of: rest!) {
-                    strExpr = strExpr.substring(to: range1.lowerBound)
+                    strExpr = strExpr.substring(to: range1.lowerBound) // shaves the remaining input off, leaving just expression
                 }
             }
         }
+        //updates the current cell
         if currCell.stringValue != nil {
             _ = GrammarRule.currentCell.parse(input: currCell.stringValue!)
             GrammarRule.currentCell.stringValue = currCell.stringValue!
@@ -76,13 +78,11 @@ class GRAssignment : GrammarRule {
             GrammarRule.currentCell.row.stringValue = currCell.row.stringValue!
             key = GrammarRule.currentCell.stringValue!
         }
-        
+        //updates the dictionaries
         if expr.calculatedValue != nil {
             GrammarRule.dictionaryValue[key] = String(expr.calculatedValue!.description)
             GrammarRule.dictionaryExpr[key] = strExpr
             GrammarRule.dictionaryWorking[key] = strExpr
-            
-            
             //If there is an relative cell to unwrap
             if expr.num.value.ref.rel.row.stringValue != nil && expr.num.value.ref.rel.col.stringValue != nil {
                 //If there is a relative cell in the expression to convert to absolute
@@ -91,8 +91,8 @@ class GRAssignment : GrammarRule {
                     GrammarRule.dictionaryWorking[key] = GrammarRule.dictionaryWorking[key]?.replacingOccurrences(of: "r\(expr.num.value.ref.rel.row.stringValue!)c\(expr.num.value.ref.rel.col.stringValue!)", with: expr.num.value.ref.rel.stringValue!)
                 }
             }
-            
-            
+            // prevents technicalites such as assigning a value to itself repetitively
+            // and other loops i.e. A1 := A2 && A2 := A1
             for (updateThisKey, expr) in GrammarRule.dictionaryWorking {
                 if expr.contains(key) {
                     if key == updateThisKey || GrammarRule.dictionaryWorking[key]!.contains(updateThisKey) && GrammarRule.dictionaryWorking[updateThisKey]!.contains(key)  {
@@ -103,20 +103,27 @@ class GRAssignment : GrammarRule {
                 }
             }
         }
+        //deals with quoted string assignments
         if expr.stringValue != nil {
             self.stringValue = expr.stringValue!
             GrammarRule.dictionaryValue[key] = String(expr.stringValue!)
             GrammarRule.dictionaryExpr[key] = strExpr
         }
+        //clears the current cell after use
+        GrammarRule.currentCell.stringValue = nil
         if rest != nil {
             let spreadsheet = GRSpreadsheet()
             rest = spreadsheet.parse(input: rest!)
         }
         return rest
     }
-    
 }
 
+/*
+ The Print GrammarRule.
+ Deals with printing the value or expression of a cell.
+ Print -> print_value Expression Spreadsheet | print_expr Expression Spreadsheet
+ */
 class GRPrint : GrammarRule{
     let printValue = GRLiteral(literal: "print_value")
     let printExpr = GRLiteral(literal: "print_expr")
@@ -125,38 +132,34 @@ class GRPrint : GrammarRule{
     init() {
         super.init(rhsRules: [[printValue,abs],[printExpr,abs]])
     }
-    
+    /*
+     Overrides and then calls super's parse function. This func prints either the calculated value
+     or the expression contained within a cell.
+     - Parameter input: the remaining string to be processed
+     - Returns: the resulting string after parsing
+     */
     override func parse(input: String) -> String? {
-        
         let rest = super.parse(input:input)
-        
-        if rest == input {
-            self.calculatedValue = nil
-            self.stringValue = nil
-            return rest
-        }
-        
+        //deals with print_value
         if self.printValue.stringValue != nil {
-            
             var key = abs.col.stringValue!
             key.append(abs.row.stringValue!)
-            
+            //prints the dictionary value or a default of "0"
             if GrammarRule.dictionaryValue[key] != nil {
-            print("Value of cell \(key) is \(String(describing: GrammarRule.dictionaryValue[key]!))")
+                print("Value of cell \(key) is \(String(describing: GrammarRule.dictionaryValue[key]!))")
             } else {
                 print("Value of cell \(key) is 0")
             }
+            //deals with print_expr
         } else if self.printExpr.stringValue != nil {
-            
-            
             var key = abs.col.stringValue!
             key.append(abs.row.stringValue!)
-            
+            //prints the dictionary expression or a default of "0"
             if GrammarRule.dictionaryExpr[key] != nil {
-            print("Expression in cell \(key) is \(String(describing: GrammarRule.dictionaryExpr[key]!))")
+                print("Expression in cell \(key) is \(String(describing: GrammarRule.dictionaryExpr[key]!))")
             } else {
                 print("Expression in cell \(key) is 0")
-                }
+            }
         }
         return rest
     }
@@ -164,17 +167,29 @@ class GRPrint : GrammarRule{
 
 
 
-/// A GrammarRule for handling: Expression -> Integer ExpressionTail
+/*
+ The Expression GrammarRule.
+ This class deals with Expression -> ProductTerm ExpressionTail | QuotedString
+ Calculations are completed before being assigned to calculatedValue.
+ */
 class GRExpression : GrammarRule {
     let num = GRProductTerm()
     let exprTail = GRExpressionTail()
     let quote = GRQoutedString()
+    let quoteTail = GRQuoteTail()
     
     init(){
-        super.init(rhsRules: [[num, exprTail],[quote]])
+        super.init(rhsRules: [[num, exprTail],[quote, quoteTail]])
     }
+    /*
+     Overrides and then calls super's parse function. This func computes the expression recursively,
+     or if the expression is a quote it can work as a sentence builder.
+     - Parameter input: the remaining string to be processed
+     - Returns: the resulting string after parsing
+     */
     override func parse(input: String) -> String? {
         let rest = super.parse(input:input)
+        //deals with numerical expressions
         if exprTail.calculatedValue != nil && num.calculatedValue != nil{
             self.calculatedValue = num.calculatedValue! + exprTail.calculatedValue!
             self.stringValue = nil
@@ -184,10 +199,10 @@ class GRExpression : GrammarRule {
             self.stringValue = nil
             return rest
         }
-        
-        if quote.stringValue != nil && exprTail.stringValue != nil {
+        //deals with basic quoted expressions
+        if quote.stringValue != nil && quoteTail.stringValue != nil {
             self.stringValue = quote.stringValue!
-            self.stringValue!.append(exprTail.stringValue!)
+            self.stringValue!.append(quoteTail.stringValue!)
             self.calculatedValue = nil
             return rest
         } else if quote.stringValue != nil {
@@ -199,8 +214,55 @@ class GRExpression : GrammarRule {
     }
 }
 
+/*
+ The QuoteTail GrammarRule.
+ This class is supplementary and deals with stringing quotes together.
+ */
+class GRQuoteTail : GrammarRule {
+    let plus = GRLiteral(literal: "+")
+    let quote = GRQoutedString()
+    
+    init(){
+        super.init(rhsRules: [[plus,quote],[Epsilon.theEpsilon]])
+    }
+    /*
+     Overrides and then calls super's parse function. This func checks recursively if
+     there are additional quotes in an expression and appends them.
+     - Parameter input: the remaining string to be processed
+     - Returns: the resulting string after parsing
+     */
+    override func parse(input: String) -> String? {
+        if var rest = super.parse(input: input) {
+            //terminates recursion if rest fails to parse
+            if rest == input {
+                self.calculatedValue = nil
+                self.stringValue = nil
+                return rest
+            }
+            let quoteTail = GRQuoteTail()
+            rest = quoteTail.parse(input: rest)!
+            //deals with additional quote tails
+            if  quote.stringValue != nil && quoteTail.stringValue != nil {
+                self.stringValue = quote.stringValue!
+                self.stringValue!.append(quoteTail.stringValue!)
+                self.calculatedValue = nil
+                return rest
+            //deals with with end case quoteTail
+            } else if quote.stringValue != nil {
+                self.stringValue = quote.stringValue!
+                self.calculatedValue = nil
+                return rest
+            }
+        }
+        return nil
+    }
+}
 
-/// A GrammarRule for handling: ExpressionTail -> "+" Integer
+
+/*
+ The ExpressionTail GrammarRule.
+ This class deals with addition. ExpressionTail -> + ProductTerm ExpressionTail | Epsilon
+ */
 class GRExpressionTail : GrammarRule {
     let plus = GRLiteral(literal: "+")
     let product = GRProductTerm()
@@ -208,9 +270,15 @@ class GRExpressionTail : GrammarRule {
     init(){
         super.init(rhsRules: [[plus,product],[Epsilon.theEpsilon]])
     }
-    
+    /*
+     Overrides and then calls super's parse function. This func checks recursively if
+     there are additional components in an expression and appends them.
+     - Parameter input: the remaining string to be processed
+     - Returns: the resulting string after parsing
+     */
     override func parse(input: String) -> String? {
         if var rest = super.parse(input: input) {
+            //terminates recursion if rest fails to parse
             if rest == input {
                 self.calculatedValue = nil
                 self.stringValue = nil
@@ -218,11 +286,12 @@ class GRExpressionTail : GrammarRule {
             }
             let exprTail = GRExpressionTail()
             rest = exprTail.parse(input: rest)!
-            
+            //deals with additional expressionTails
             if  product.calculatedValue != nil && exprTail.calculatedValue != nil {
                 self.calculatedValue = product.calculatedValue! + exprTail.calculatedValue!
                 self.stringValue = nil
                 return rest
+                //deals with the end case
             } else if product.calculatedValue != nil {
                 self.calculatedValue = product.calculatedValue!
                 self.stringValue = nil
@@ -233,20 +302,26 @@ class GRExpressionTail : GrammarRule {
     }
 }
 
-
-
+/*
+ The ProductTerm GrammarRule.
+ This class deals with ProductTerm -> Value ProductTermTail
+ Multiplications are completed before being assigned to calculatedValue.
+ */
 class GRProductTerm : GrammarRule {
     let value = GRValue()
     let productTail = GRProductTermTail()
     
-    
     init(){
         super.init(rhsRule: [value,productTail])
     }
-    
+    /*
+     Overrides and then calls super's parse function. This func checks if
+     there is a ProductTermTail in an expression and forms a product with it.
+     - Parameter input: the remaining string to be processed
+     - Returns: the resulting string after parsing
+     */
     override func parse(input: String) -> String? {
         if let rest = super.parse(input: input ) {
-            
             if productTail.calculatedValue != nil && value.calculatedValue != nil {
                 self.calculatedValue = value.calculatedValue! * productTail.calculatedValue!
             } else if value.calculatedValue != nil {
@@ -260,7 +335,10 @@ class GRProductTerm : GrammarRule {
 
 
 
-
+/*
+ The ProductTermTail GrammarRule.
+ This class deals with multiplication tails. ProductTermTail -> * Value ProductTermTail | Epsilon
+ */
 class GRProductTermTail : GrammarRule {
     let times = GRLiteral(literal: "*")
     let value = GRValue()
@@ -268,7 +346,12 @@ class GRProductTermTail : GrammarRule {
     init(){
         super.init(rhsRules: [[times,value],[Epsilon.theEpsilon]])
     }
-    
+    /*
+     Overrides and then calls super's parse function. This func checks recursively if
+     there are additional poductTermTails in an expression and forms a product with them.
+     - Parameter input: the remaining string to be processed
+     - Returns: the resulting string after parsing
+     */
     override func parse(input: String) -> String? {
         if var rest = super.parse(input: input) {
             
@@ -294,6 +377,10 @@ class GRProductTermTail : GrammarRule {
     }
 }
 
+/*
+ The AbsoluteCell GrammarRule.
+ This class is a direct reference to a cell. AbsoluteCell -> ColumnLabel RowNumber
+ */
 class GRAbsoluteCell : GrammarRule {
     let col = GRColumnLabel()
     let row = GRPositiveInteger()
@@ -301,7 +388,12 @@ class GRAbsoluteCell : GrammarRule {
     init() {
         super.init(rhsRule: [col,row])
     }
-    
+    /*
+     Overrides and then calls super's parse function. This func combines a GRColumnLabel
+     and a GRPositiveInteger to form a cell, then initilises it to 0, if it hasn't been discovered.
+     - Parameter input: the remaining string to be processed
+     - Returns: the resulting string after parsing
+     */
     override func parse(input: String) -> String? {
         if let rest = super.parse(input: input) {
             self.stringValue = col.stringValue!
@@ -317,7 +409,11 @@ class GRAbsoluteCell : GrammarRule {
     }
 }
 
-
+/*
+ The RelativeCell GrammarRule.
+ This class converts an indirect cell reference to 
+ a direct reference to a cell. RelativeCell -> r Integer c Integer
+ */
 class GRRelativeCell : GrammarRule {
     let r = GRLiteral(literal: "r")
     let c = GRLiteral(literal: "c")
@@ -327,7 +423,12 @@ class GRRelativeCell : GrammarRule {
     init() {
         super.init(rhsRule: [r,row,c,col])
     }
-    
+    /*
+     Overrides and then calls super's parse function. This func converts a column label to
+     integer to calculate the relative cell. Saved in the format of an AbsoluteCell
+     - Parameter input: the remaining string to be processed
+     - Returns: the resulting string after parsing
+     */
     override func parse(input: String) -> String? {
         if let rest = super.parse(input: input) {
             
@@ -402,7 +503,11 @@ class GRRelativeCell : GrammarRule {
     }
 }
 
-
+/*
+ The CellReference GrammarRule.
+ This class is an umbrella class of both cell reference types.
+ CellReference → AbsoluteCell | RelativeCell
+ */
 class GRCellReference : GrammarRule {
     let abs = GRAbsoluteCell()
     let rel = GRRelativeCell()
@@ -410,6 +515,12 @@ class GRCellReference : GrammarRule {
     init() {
         super.init(rhsRules: [[abs],[rel]])
     }
+    /*
+     Overrides and then calls super's parse function. Sets itself to either form of
+     cell reference.
+     - Parameter input: the remaining string to be processed
+     - Returns: the resulting string after parsing
+     */
     override func parse(input: String) -> String? {
         if let rest = super.parse(input: input) {
             if abs.stringValue != nil {
@@ -423,17 +534,25 @@ class GRCellReference : GrammarRule {
     }
 }
 
-
+/*
+ The Value GrammarRule.
+ This class holds the value of both cell types and Integers.
+ Value -> CellReference | Integer
+ */
 class GRValue : GrammarRule {
     let val = GRInteger()
     let ref = GRCellReference()
-    
     
     init() {
         super.init(rhsRules: [[val],[ref]])
     }
     
-    
+    /*
+     Overrides and then calls super's parse function. Sets itself to the value of a
+     cell reference or GRInteger.
+     - Parameter input: the remaining string to be processed
+     - Returns: the resulting string after parsing
+     */
     override func parse(input: String) -> String? {
         if let rest = super.parse(input: input) {
             
@@ -453,15 +572,24 @@ class GRValue : GrammarRule {
     }
 }
 
-
+/*
+ The QuotedString GrammarRule.
+ This class contains a String within quotation marks.
+ QuotedString -> " StringNoQuote "
+ */
 class GRQoutedString : GrammarRule {
     let quote = GRLiteral(literal: "\"")
     let string = GRStringNoQuote()
     
-    
     init() {
         super.init(rhsRule: [quote, string, quote])
     }
+    /*
+     Overrides and then calls super's parse function. Contains a String within
+     quotation marks.
+     - Parameter input: the remaining string to be processed
+     - Returns: the resulting string after parsing
+     */
     override func parse(input: String) -> String? {
         if let rest = super.parse(input: input) {
             self.stringValue = quote.stringValue!

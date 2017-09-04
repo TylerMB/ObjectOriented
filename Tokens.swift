@@ -2,8 +2,8 @@
 //  Token.swift
 //  COSC346 Assignment 1
 //
-//  Created by David Eyers on 24/07/17.
-//  Copyright © 2017 David Eyers. All rights reserved.
+//  Created by Tyler Baker & Ash Cochrane on 24/07/17.
+//  Copyright © 2017 Tyler Baker & Ash Cochrane. All rights reserved.
 //
 //  Subclasses of GrammarRule that assist reading "tokens" from input, such as literal strings, and integers.
 
@@ -78,6 +78,7 @@ class GRPositiveInteger : Token {
 }
 
 /// A Token subclass for parsing the label of a column
+/// -- NOTE -- this class also covers GRUpperAlphaString
 class GRColumnLabel : Token {
     init(){
         // parse uppercase letters
@@ -115,5 +116,3 @@ class GRStringNoQuote : Token {
         return returnValue
     }
 }
-
-

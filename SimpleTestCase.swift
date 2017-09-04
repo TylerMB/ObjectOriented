@@ -14,23 +14,18 @@ func parseInput(rule:GrammarRule, input:String) {
 
 func run() {
     let spreadsheet = GRSpreadsheet()
-    let spreadsheet2 = GRSpreadsheet()
     let spreadsheet3 = GRSpreadsheet()
     let spreadsheet4 = GRSpreadsheet()
     
     
 
     print("-- Test 1 --")
-    var test: String = "A2 := 2 A1 := r1c0+1 print_value A1"
+    var test: String = "A1 := \"hello\" print_expr A1 A2 := \"goodbye\" print_expr A2 A3 := \"goodbye\"+\"goodbye\" print_expr A3"
     parseInput(rule: spreadsheet, input: test)
     
     
-    print("-- Test 2 --")
-    test = "A6 :=  45 print_value A6 A5 := A6 print_value A5 A6 := A5 print_value A6"
-    parseInput(rule: spreadsheet2, input: test)
     
-    
-    test = "A1 := 11 A2 := 12 A3 := 13 A4 := 14 A5 := 15 print_expr A1 print_expr A2 print_expr A3 print_expr A4 print_expr A5 A6 := r-5c0+r-4c0+r-3c0+r-2c0+r-1c0 A7 := \"A6 is sum\" print_expr A7 print_expr A6 print_value A6"
+    test = "A1 := 11 A2 := 12 A3 := 13 A4 := 14 A5 := 15 print_expr A1 print_expr A2 print_expr A3 print_value A4 print_expr A5 A6 := r-5c0+r-4c0+r-3c0+r-2c0+r-1c0 A7 := \"A6 is sum\" print_expr A7 print_expr A6 print_value A6"
     print("-- Test 3 --")
     parseInput(rule: spreadsheet3, input: test)
     
