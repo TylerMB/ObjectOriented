@@ -58,7 +58,7 @@ class GRAssignment : GrammarRule {
     
     override func parse(input: String) -> String? {
         
-        let rest = super.parse(input: input)
+        var rest = super.parse(input: input)
         var strExpr : String = ""
         var key : String = ""
         if rest != nil {
@@ -111,7 +111,7 @@ class GRAssignment : GrammarRule {
         }
         if rest != nil {
             let spreadsheet = GRSpreadsheet()
-            _ = spreadsheet.parse(input: rest!)
+            rest = spreadsheet.parse(input: rest!)
         }
         return rest
     }
