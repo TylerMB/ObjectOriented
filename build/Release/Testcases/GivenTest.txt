@@ -1,0 +1,13 @@
+A1 := 1
+A2 := 3
+print_expr A1
+print_value A1
+print_expr A2
+print_value A2
+A2 := 2 
+A3 := A1+A2
+print_expr A3
+print_value A3
+A1 := r1c0 + 1
+print_value A3
+

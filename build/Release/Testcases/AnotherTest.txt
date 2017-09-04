@@ -1,0 +1,12 @@
+A2 := 32
+A1 := "coffee"
+B5 := "coffee" + "tea"
+print_expr A1
+A3 := 2*5+2*A2
+print_expr A1
+print_value A1
+print_expr B5
+print_value B5
+print_expr A3
+print_value A3
+

@@ -1,5 +1,0 @@
-
-A1 := r9c0
-A10 := 10
-print_expr A1
-print_value A1

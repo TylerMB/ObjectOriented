@@ -177,9 +177,10 @@ class GRExpression : GrammarRule {
     let exprTail = GRExpressionTail()
     let quote = GRQoutedString()
     let quoteTail = GRQuoteTail()
+    let subTail = GRSubstitutionTail()
     
     init(){
-        super.init(rhsRules: [[num, exprTail],[quote, quoteTail]])
+        super.init(rhsRules: [[num, exprTail],[num,subTail],[quote, quoteTail]])
     }
     /*
      Overrides and then calls super's parse function. This func computes the expression recursively,
@@ -190,7 +191,11 @@ class GRExpression : GrammarRule {
     override func parse(input: String) -> String? {
         let rest = super.parse(input:input)
         //deals with numerical expressions
-        if exprTail.calculatedValue != nil && num.calculatedValue != nil{
+        if subTail.calculatedValue != nil && num.calculatedValue != nil{
+            self.calculatedValue = num.calculatedValue! - subTail.calculatedValue!
+            self.stringValue = nil
+            return rest
+        } else if exprTail.calculatedValue != nil && num.calculatedValue != nil{
             self.calculatedValue = num.calculatedValue! + exprTail.calculatedValue!
             self.stringValue = nil
             return rest
@@ -292,6 +297,47 @@ class GRExpressionTail : GrammarRule {
                 self.stringValue = nil
                 return rest
                 //deals with the end case
+            } else if product.calculatedValue != nil {
+                self.calculatedValue = product.calculatedValue!
+                self.stringValue = nil
+                return rest
+            }
+        }
+        return nil
+    }
+}
+
+/*
+ The SubstitutionTail GrammarRule.
+ This class is suplimentary and deals with subtraction
+ */
+class GRSubstitutionTail : GrammarRule {
+    let minus = GRLiteral(literal: "-")
+    let product = GRProductTerm()
+    
+    init(){
+        super.init(rhsRules: [[minus,product],[Epsilon.theEpsilon]])
+    }
+    /*
+     Overrides and then calls super's parse function. This func checks recursively if
+     there are subtraction components in an expression and negates them.
+     - Parameter input: the remaining string to be processed
+     - Returns: the resulting string after parsing
+     */
+    override func parse(input: String) -> String? {
+        if var rest = super.parse(input: input) {
+            if rest == input {
+                self.calculatedValue = nil
+                self.stringValue = nil
+                return rest
+            }
+            let exprTail = GRExpressionTail()
+            rest = exprTail.parse(input: rest)!
+            
+            if  product.calculatedValue != nil && exprTail.calculatedValue != nil {
+                self.calculatedValue = product.calculatedValue! - exprTail.calculatedValue!
+                self.stringValue = nil
+                return rest
             } else if product.calculatedValue != nil {
                 self.calculatedValue = product.calculatedValue!
                 self.stringValue = nil
