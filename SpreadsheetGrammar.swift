@@ -93,10 +93,9 @@ class GRAssignment : GrammarRule {
             }
             
             
-            for (updateThisKey, expr) in GrammarRule.dictionaryExpr {
+            for (updateThisKey, expr) in GrammarRule.dictionaryWorking {
                 if expr.contains(key) {
-                    if key == updateThisKey || GrammarRule.dictionaryExpr[key]!.contains(updateThisKey) && GrammarRule.dictionaryExpr[updateThisKey]!.contains(key)  {
-                        print("recursion occured")
+                    if key == updateThisKey || GrammarRule.dictionaryWorking[key]!.contains(updateThisKey) && GrammarRule.dictionaryWorking[updateThisKey]!.contains(key)  {
                     } else {
                         let update = GRAssignment()
                         _ = update.parse(input: "\(updateThisKey) := \(expr)")
@@ -111,12 +110,7 @@ class GRAssignment : GrammarRule {
         }
         if rest != nil {
             let spreadsheet = GRSpreadsheet()
-<<<<<<< HEAD
-            rest
-                = spreadsheet.parse(input: rest!)
-=======
             rest = spreadsheet.parse(input: rest!)
->>>>>>> 0c76dc3064959e1f2cb11b79a816788f122b4f76
         }
         return rest
     }
@@ -312,6 +306,11 @@ class GRAbsoluteCell : GrammarRule {
         if let rest = super.parse(input: input) {
             self.stringValue = col.stringValue!
             self.stringValue?.append(row.stringValue!)
+            if GrammarRule.dictionaryValue[self.stringValue!] == nil  {
+                GrammarRule.dictionaryWorking[self.stringValue!] = "0"
+                GrammarRule.dictionaryExpr[self.stringValue!] = "0"
+                GrammarRule.dictionaryValue[self.stringValue!] = "0"
+            }
             return rest
         }
         return nil
@@ -415,7 +414,7 @@ class GRCellReference : GrammarRule {
         if let rest = super.parse(input: input) {
             if abs.stringValue != nil {
                 self.stringValue = abs.stringValue!
-            } else if rel.stringValue != nil {
+            } else {
                 self.stringValue = rel.stringValue!
             }
             return rest

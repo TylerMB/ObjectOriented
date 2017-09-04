@@ -38,6 +38,10 @@ func run() {
     print("-- Test 4 --")
     parseInput(rule: spreadsheet4, input: test)
     
+    test = "C2 := 1+2 print_value C2 C1 := r1c0+1 print_value C1 C2 := 2+2 print_value C2 print_value C1"
+    print("-- Test 4 --")
+    parseInput(rule: spreadsheet4, input: test)
+    
     
 //    parseInput(rule: spreadsheet, input: "A2 := 15")
 //    parseInput(rule: print1, input: "print_value A1")

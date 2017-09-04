@@ -1,0 +1,863 @@
+### Swift dependencies file v0 ###
+provides-top-level:
+- "GRSpreadsheet"
+- "GRAssignment"
+- "GRPrint"
+- "GRExpression"
+- "GRExpressionTail"
+- "GRProductTerm"
+- "GRProductTermTail"
+- "GRAbsoluteCell"
+- "GRRelativeCell"
+- "GRCellReference"
+- "GRValue"
+- "GRQoutedString"
+provides-nominal:
+- "C11Spreadsheet13GRSpreadsheet"
+- "C11Spreadsheet12GRAssignment"
+- "C11Spreadsheet7GRPrint"
+- "C11Spreadsheet12GRExpression"
+- "C11Spreadsheet16GRExpressionTail"
+- "C11Spreadsheet13GRProductTerm"
+- "C11Spreadsheet17GRProductTermTail"
+- "C11Spreadsheet14GRAbsoluteCell"
+- "C11Spreadsheet14GRRelativeCell"
+- "C11Spreadsheet15GRCellReference"
+- "C11Spreadsheet7GRValue"
+- "C11Spreadsheet14GRQoutedString"
+provides-member:
+- ["C11Spreadsheet13GRSpreadsheet", ""]
+- ["C11Spreadsheet12GRAssignment", ""]
+- ["C11Spreadsheet7GRPrint", ""]
+- ["C11Spreadsheet12GRExpression", ""]
+- ["C11Spreadsheet16GRExpressionTail", ""]
+- ["C11Spreadsheet13GRProductTerm", ""]
+- ["C11Spreadsheet17GRProductTermTail", ""]
+- ["C11Spreadsheet14GRAbsoluteCell", ""]
+- ["C11Spreadsheet14GRRelativeCell", ""]
+- ["C11Spreadsheet15GRCellReference", ""]
+- ["C11Spreadsheet7GRValue", ""]
+- ["C11Spreadsheet14GRQoutedString", ""]
+provides-dynamic-lookup:
+depends-top-level:
+- !private "!="
+- !private "&&"
+- !private "*"
+- !private "+"
+- !private "+="
+- !private "-"
+- !private "-="
+- !private "..."
+- !private "<"
+- !private "<="
+- !private "=="
+- !private ">"
+- !private "Array"
+- "AssignmentPrecedence"
+- !private "Character"
+- !private "Epsilon"
+- "GRAbsoluteCell"
+- "GRAssignment"
+- "GRCellReference"
+- "GRColumnLabel"
+- "GRExpression"
+- "GRExpressionTail"
+- "GRInteger"
+- "GRLiteral"
+- "GRPositiveInteger"
+- "GRPrint"
+- "GRProductTerm"
+- "GRProductTermTail"
+- "GRQoutedString"
+- "GRRelativeCell"
+- "GRSpreadsheet"
+- "GRStringNoQuote"
+- "GRValue"
+- "GrammarRule"
+- !private "Int"
+- "String"
+- "StringLiteralType"
+- "UnicodeScalarType"
+- !private "print"
+- !private "stride"
+- !private "||"
+depends-member:
+- !private ["Ps9AnyObject", "Array"]
+- !private ["Ps9AnyObject", "Character"]
+- !private ["Ps9AnyObject", "Epsilon"]
+- ["Ps9AnyObject", "GRAbsoluteCell"]
+- ["Ps9AnyObject", "GRAssignment"]
+- ["Ps9AnyObject", "GRCellReference"]
+- ["Ps9AnyObject", "GRColumnLabel"]
+- ["Ps9AnyObject", "GRExpression"]
+- ["Ps9AnyObject", "GRExpressionTail"]
+- ["Ps9AnyObject", "GRInteger"]
+- ["Ps9AnyObject", "GRLiteral"]
+- ["Ps9AnyObject", "GRPositiveInteger"]
+- ["Ps9AnyObject", "GRPrint"]
+- ["Ps9AnyObject", "GRProductTerm"]
+- ["Ps9AnyObject", "GRProductTermTail"]
+- ["Ps9AnyObject", "GRQoutedString"]
+- ["Ps9AnyObject", "GRRelativeCell"]
+- !private ["Ps9AnyObject", "GRSpreadsheet"]
+- ["Ps9AnyObject", "GRStringNoQuote"]
+- ["Ps9AnyObject", "GRValue"]
+- !private ["Ps9AnyObject", "GrammarRule"]
+- !private ["Ps9AnyObject", "Int"]
+- !private ["Ps9AnyObject", "String"]
+- !private ["Ps9AnyObject", "abs"]
+- !private ["Ps9AnyObject", "append"]
+- !private ["Ps9AnyObject", "c"]
+- !private ["Ps9AnyObject", "calculatedValue"]
+- !private ["Ps9AnyObject", "characters"]
+- !private ["Ps9AnyObject", "col"]
+- !private ["Ps9AnyObject", "contains"]
+- !private ["Ps9AnyObject", "currCell"]
+- !private ["Ps9AnyObject", "currentCell"]
+- !private ["Ps9AnyObject", "dictionaryExpr"]
+- !private ["Ps9AnyObject", "dictionaryValue"]
+- !private ["Ps9AnyObject", "dictionaryWorking"]
+- !private ["Ps9AnyObject", "expr"]
+- !private ["Ps9AnyObject", "exprTail"]
+- ["Ps9AnyObject", "init"]
+- !private ["Ps9AnyObject", "myGRAssign"]
+- !private ["Ps9AnyObject", "myGRPrint"]
+- !private ["Ps9AnyObject", "num"]
+- !private ["Ps9AnyObject", "parse"]
+- !private ["Ps9AnyObject", "plus"]
+- !private ["Ps9AnyObject", "print"]
+- !private ["Ps9AnyObject", "printExpr"]
+- !private ["Ps9AnyObject", "printValue"]
+- !private ["Ps9AnyObject", "product"]
+- !private ["Ps9AnyObject", "productTail"]
+- !private ["Ps9AnyObject", "quote"]
+- !private ["Ps9AnyObject", "r"]
+- !private ["Ps9AnyObject", "range"]
+- !private ["Ps9AnyObject", "ref"]
+- !private ["Ps9AnyObject", "rel"]
+- !private ["Ps9AnyObject", "replacingOccurrences"]
+- !private ["Ps9AnyObject", "row"]
+- !private ["Ps9AnyObject", "sign"]
+- !private ["Ps9AnyObject", "stride"]
+- !private ["Ps9AnyObject", "string"]
+- !private ["Ps9AnyObject", "stringValue"]
+- !private ["Ps9AnyObject", "substring"]
+- !private ["Ps9AnyObject", "theEpsilon"]
+- !private ["Ps9AnyObject", "times"]
+- !private ["Ps9AnyObject", "val"]
+- !private ["Ps9AnyObject", "value"]
+- ["Ps9AnyObject", ""]
+- !private ["Sa", "append"]
+- !private ["Sa", "count"]
+- !private ["Sa", "dropLast"]
+- !private ["Sa", "index"]
+- !private ["Sa", "init"]
+- !private ["Sa", "subscript"]
+- !private ["Ps23BidirectionalCollection", "append"]
+- !private ["Ps23BidirectionalCollection", "count"]
+- !private ["Ps23BidirectionalCollection", "dropLast"]
+- !private ["Ps23BidirectionalCollection", "index"]
+- !private ["Ps23BidirectionalCollection", "init"]
+- !private ["Ps23BidirectionalCollection", "subscript"]
+- !private ["Ps17BitwiseOperations", "description"]
+- !private ["Ps17BitwiseOperations", "init"]
+- !private ["Sb", "_getBuiltinLogicValue"]
+- !private ["Ps7CVarArg", "append"]
+- !private ["Ps7CVarArg", "characters"]
+- !private ["Ps7CVarArg", "contains"]
+- !private ["Ps7CVarArg", "count"]
+- !private ["Ps7CVarArg", "description"]
+- !private ["Ps7CVarArg", "dropLast"]
+- !private ["Ps7CVarArg", "index"]
+- ["Ps7CVarArg", "init"]
+- !private ["Ps7CVarArg", "range"]
+- !private ["Ps7CVarArg", "replacingOccurrences"]
+- !private ["Ps7CVarArg", "subscript"]
+- !private ["Ps7CVarArg", "substring"]
+- !private ["Vs9Character", "init"]
+- !private ["Ps10Collection", "append"]
+- !private ["Ps10Collection", "count"]
+- !private ["Ps10Collection", "dropLast"]
+- !private ["Ps10Collection", "index"]
+- !private ["Ps10Collection", "init"]
+- !private ["Ps10Collection", "subscript"]
+- !private ["Ps10Comparable", "append"]
+- !private ["Ps10Comparable", "characters"]
+- !private ["Ps10Comparable", "contains"]
+- !private ["Ps10Comparable", "description"]
+- ["Ps10Comparable", "init"]
+- !private ["Ps10Comparable", "range"]
+- !private ["Ps10Comparable", "replacingOccurrences"]
+- !private ["Ps10Comparable", "substring"]
+- !private ["Ps28CustomDebugStringConvertible", "append"]
+- !private ["Ps28CustomDebugStringConvertible", "characters"]
+- !private ["Ps28CustomDebugStringConvertible", "contains"]
+- !private ["Ps28CustomDebugStringConvertible", "count"]
+- !private ["Ps28CustomDebugStringConvertible", "dropLast"]
+- !private ["Ps28CustomDebugStringConvertible", "index"]
+- ["Ps28CustomDebugStringConvertible", "init"]
+- !private ["Ps28CustomDebugStringConvertible", "lowerBound"]
+- !private ["Ps28CustomDebugStringConvertible", "range"]
+- !private ["Ps28CustomDebugStringConvertible", "replacingOccurrences"]
+- !private ["Ps28CustomDebugStringConvertible", "subscript"]
+- !private ["Ps28CustomDebugStringConvertible", "substring"]
+- !private ["Ps28CustomDebugStringConvertible", "upperBound"]
+- !private ["Ps29CustomPlaygroundQuickLookable", "_getBuiltinLogicValue"]
+- !private ["Ps29CustomPlaygroundQuickLookable", "append"]
+- !private ["Ps29CustomPlaygroundQuickLookable", "characters"]
+- !private ["Ps29CustomPlaygroundQuickLookable", "contains"]
+- !private ["Ps29CustomPlaygroundQuickLookable", "description"]
+- ["Ps29CustomPlaygroundQuickLookable", "init"]
+- !private ["Ps29CustomPlaygroundQuickLookable", "range"]
+- !private ["Ps29CustomPlaygroundQuickLookable", "replacingOccurrences"]
+- !private ["Ps29CustomPlaygroundQuickLookable", "substring"]
+- !private ["Ps17CustomReflectable", "_getBuiltinLogicValue"]
+- !private ["Ps17CustomReflectable", "append"]
+- !private ["Ps17CustomReflectable", "characters"]
+- !private ["Ps17CustomReflectable", "contains"]
+- !private ["Ps17CustomReflectable", "count"]
+- !private ["Ps17CustomReflectable", "description"]
+- !private ["Ps17CustomReflectable", "dropLast"]
+- !private ["Ps17CustomReflectable", "index"]
+- ["Ps17CustomReflectable", "init"]
+- !private ["Ps17CustomReflectable", "lowerBound"]
+- !private ["Ps17CustomReflectable", "range"]
+- !private ["Ps17CustomReflectable", "replacingOccurrences"]
+- !private ["Ps17CustomReflectable", "subscript"]
+- !private ["Ps17CustomReflectable", "substring"]
+- !private ["Ps17CustomReflectable", "upperBound"]
+- !private ["Ps23CustomStringConvertible", "_getBuiltinLogicValue"]
+- !private ["Ps23CustomStringConvertible", "append"]
+- !private ["Ps23CustomStringConvertible", "characters"]
+- !private ["Ps23CustomStringConvertible", "contains"]
+- !private ["Ps23CustomStringConvertible", "count"]
+- !private ["Ps23CustomStringConvertible", "description"]
+- !private ["Ps23CustomStringConvertible", "dropLast"]
+- !private ["Ps23CustomStringConvertible", "index"]
+- ["Ps23CustomStringConvertible", "init"]
+- !private ["Ps23CustomStringConvertible", "lowerBound"]
+- !private ["Ps23CustomStringConvertible", "range"]
+- !private ["Ps23CustomStringConvertible", "replacingOccurrences"]
+- !private ["Ps23CustomStringConvertible", "subscript"]
+- !private ["Ps23CustomStringConvertible", "substring"]
+- !private ["Ps23CustomStringConvertible", "upperBound"]
+- !private ["Vs10Dictionary", "subscript"]
+- !private ["C11Spreadsheet7Epsilon", "theEpsilon"]
+- !private ["Ps9Equatable", "_getBuiltinLogicValue"]
+- !private ["Ps9Equatable", "append"]
+- !private ["Ps9Equatable", "characters"]
+- !private ["Ps9Equatable", "contains"]
+- !private ["Ps9Equatable", "description"]
+- ["Ps9Equatable", "init"]
+- !private ["Ps9Equatable", "lowerBound"]
+- !private ["Ps9Equatable", "range"]
+- !private ["Ps9Equatable", "replacingOccurrences"]
+- !private ["Ps9Equatable", "substring"]
+- !private ["Ps9Equatable", "upperBound"]
+- !private ["Ps25ExpressibleByArrayLiteral", "append"]
+- !private ["Ps25ExpressibleByArrayLiteral", "count"]
+- !private ["Ps25ExpressibleByArrayLiteral", "dropLast"]
+- !private ["Ps25ExpressibleByArrayLiteral", "index"]
+- !private ["Ps25ExpressibleByArrayLiteral", "init"]
+- !private ["Ps25ExpressibleByArrayLiteral", "subscript"]
+- !private ["Ps27ExpressibleByBooleanLiteral", "_getBuiltinLogicValue"]
+- !private ["Ps30ExpressibleByDictionaryLiteral", "subscript"]
+- !private ["Ps43ExpressibleByExtendedGraphemeClusterLiteral", "append"]
+- !private ["Ps43ExpressibleByExtendedGraphemeClusterLiteral", "characters"]
+- !private ["Ps43ExpressibleByExtendedGraphemeClusterLiteral", "contains"]
+- ["Ps43ExpressibleByExtendedGraphemeClusterLiteral", "init"]
+- !private ["Ps43ExpressibleByExtendedGraphemeClusterLiteral", "range"]
+- !private ["Ps43ExpressibleByExtendedGraphemeClusterLiteral", "replacingOccurrences"]
+- !private ["Ps43ExpressibleByExtendedGraphemeClusterLiteral", "substring"]
+- !private ["Ps27ExpressibleByIntegerLiteral", "description"]
+- !private ["Ps27ExpressibleByIntegerLiteral", "init"]
+- !private ["Ps26ExpressibleByStringLiteral", "append"]
+- !private ["Ps26ExpressibleByStringLiteral", "characters"]
+- !private ["Ps26ExpressibleByStringLiteral", "contains"]
+- ["Ps26ExpressibleByStringLiteral", "init"]
+- !private ["Ps26ExpressibleByStringLiteral", "range"]
+- !private ["Ps26ExpressibleByStringLiteral", "replacingOccurrences"]
+- !private ["Ps26ExpressibleByStringLiteral", "substring"]
+- !private ["Ps33ExpressibleByUnicodeScalarLiteral", "append"]
+- !private ["Ps33ExpressibleByUnicodeScalarLiteral", "characters"]
+- !private ["Ps33ExpressibleByUnicodeScalarLiteral", "contains"]
+- ["Ps33ExpressibleByUnicodeScalarLiteral", "init"]
+- !private ["Ps33ExpressibleByUnicodeScalarLiteral", "range"]
+- !private ["Ps33ExpressibleByUnicodeScalarLiteral", "replacingOccurrences"]
+- !private ["Ps33ExpressibleByUnicodeScalarLiteral", "substring"]
+- ["C11Spreadsheet14GRAbsoluteCell", "GRColumnLabel"]
+- ["C11Spreadsheet14GRAbsoluteCell", "GRPositiveInteger"]
+- !private ["C11Spreadsheet14GRAbsoluteCell", "GrammarRule"]
+- ["C11Spreadsheet14GRAbsoluteCell", "String"]
+- ["C11Spreadsheet14GRAbsoluteCell", "col"]
+- ["C11Spreadsheet14GRAbsoluteCell", "deinit"]
+- ["C11Spreadsheet14GRAbsoluteCell", "init"]
+- ["C11Spreadsheet14GRAbsoluteCell", "parse"]
+- ["C11Spreadsheet14GRAbsoluteCell", "row"]
+- !private ["C11Spreadsheet14GRAbsoluteCell", "stringValue"]
+- ["C11Spreadsheet12GRAssignment", "GRAbsoluteCell"]
+- !private ["C11Spreadsheet12GRAssignment", "GRAssignment"]
+- ["C11Spreadsheet12GRAssignment", "GRExpression"]
+- ["C11Spreadsheet12GRAssignment", "GRLiteral"]
+- !private ["C11Spreadsheet12GRAssignment", "GRSpreadsheet"]
+- !private ["C11Spreadsheet12GRAssignment", "GrammarRule"]
+- ["C11Spreadsheet12GRAssignment", "String"]
+- ["C11Spreadsheet12GRAssignment", "currCell"]
+- ["C11Spreadsheet12GRAssignment", "deinit"]
+- ["C11Spreadsheet12GRAssignment", "expr"]
+- ["C11Spreadsheet12GRAssignment", "init"]
+- ["C11Spreadsheet12GRAssignment", "parse"]
+- ["C11Spreadsheet12GRAssignment", "sign"]
+- !private ["C11Spreadsheet12GRAssignment", "stringValue"]
+- ["C11Spreadsheet15GRCellReference", "GRAbsoluteCell"]
+- ["C11Spreadsheet15GRCellReference", "GRRelativeCell"]
+- ["C11Spreadsheet15GRCellReference", "String"]
+- ["C11Spreadsheet15GRCellReference", "abs"]
+- ["C11Spreadsheet15GRCellReference", "deinit"]
+- ["C11Spreadsheet15GRCellReference", "init"]
+- ["C11Spreadsheet15GRCellReference", "parse"]
+- ["C11Spreadsheet15GRCellReference", "rel"]
+- !private ["C11Spreadsheet15GRCellReference", "stringValue"]
+- ["C11Spreadsheet13GRColumnLabel", "init"]
+- !private ["C11Spreadsheet13GRColumnLabel", "stringValue"]
+- ["C11Spreadsheet12GRExpression", "GRExpressionTail"]
+- ["C11Spreadsheet12GRExpression", "GRProductTerm"]
+- ["C11Spreadsheet12GRExpression", "GRQoutedString"]
+- ["C11Spreadsheet12GRExpression", "String"]
+- !private ["C11Spreadsheet12GRExpression", "calculatedValue"]
+- ["C11Spreadsheet12GRExpression", "deinit"]
+- ["C11Spreadsheet12GRExpression", "exprTail"]
+- ["C11Spreadsheet12GRExpression", "init"]
+- ["C11Spreadsheet12GRExpression", "num"]
+- ["C11Spreadsheet12GRExpression", "parse"]
+- ["C11Spreadsheet12GRExpression", "quote"]
+- !private ["C11Spreadsheet12GRExpression", "stringValue"]
+- !private ["C11Spreadsheet16GRExpressionTail", "Epsilon"]
+- !private ["C11Spreadsheet16GRExpressionTail", "GRExpressionTail"]
+- ["C11Spreadsheet16GRExpressionTail", "GRLiteral"]
+- ["C11Spreadsheet16GRExpressionTail", "GRProductTerm"]
+- ["C11Spreadsheet16GRExpressionTail", "String"]
+- !private ["C11Spreadsheet16GRExpressionTail", "calculatedValue"]
+- ["C11Spreadsheet16GRExpressionTail", "deinit"]
+- ["C11Spreadsheet16GRExpressionTail", "init"]
+- ["C11Spreadsheet16GRExpressionTail", "parse"]
+- ["C11Spreadsheet16GRExpressionTail", "plus"]
+- ["C11Spreadsheet16GRExpressionTail", "product"]
+- !private ["C11Spreadsheet16GRExpressionTail", "stringValue"]
+- !private ["C11Spreadsheet9GRInteger", "calculatedValue"]
+- ["C11Spreadsheet9GRInteger", "init"]
+- !private ["C11Spreadsheet9GRInteger", "stringValue"]
+- ["C11Spreadsheet9GRLiteral", "init"]
+- !private ["C11Spreadsheet9GRLiteral", "stringValue"]
+- !private ["C11Spreadsheet17GRPositiveInteger", "calculatedValue"]
+- ["C11Spreadsheet17GRPositiveInteger", "init"]
+- !private ["C11Spreadsheet17GRPositiveInteger", "stringValue"]
+- ["C11Spreadsheet7GRPrint", "GRAbsoluteCell"]
+- ["C11Spreadsheet7GRPrint", "GRLiteral"]
+- !private ["C11Spreadsheet7GRPrint", "GrammarRule"]
+- ["C11Spreadsheet7GRPrint", "String"]
+- ["C11Spreadsheet7GRPrint", "abs"]
+- !private ["C11Spreadsheet7GRPrint", "calculatedValue"]
+- ["C11Spreadsheet7GRPrint", "deinit"]
+- ["C11Spreadsheet7GRPrint", "init"]
+- ["C11Spreadsheet7GRPrint", "parse"]
+- !private ["C11Spreadsheet7GRPrint", "print"]
+- ["C11Spreadsheet7GRPrint", "printExpr"]
+- ["C11Spreadsheet7GRPrint", "printValue"]
+- !private ["C11Spreadsheet7GRPrint", "stringValue"]
+- ["C11Spreadsheet13GRProductTerm", "GRProductTermTail"]
+- ["C11Spreadsheet13GRProductTerm", "GRValue"]
+- ["C11Spreadsheet13GRProductTerm", "String"]
+- !private ["C11Spreadsheet13GRProductTerm", "calculatedValue"]
+- ["C11Spreadsheet13GRProductTerm", "deinit"]
+- ["C11Spreadsheet13GRProductTerm", "init"]
+- ["C11Spreadsheet13GRProductTerm", "parse"]
+- ["C11Spreadsheet13GRProductTerm", "productTail"]
+- ["C11Spreadsheet13GRProductTerm", "value"]
+- !private ["C11Spreadsheet17GRProductTermTail", "Epsilon"]
+- ["C11Spreadsheet17GRProductTermTail", "GRLiteral"]
+- !private ["C11Spreadsheet17GRProductTermTail", "GRProductTermTail"]
+- ["C11Spreadsheet17GRProductTermTail", "GRValue"]
+- ["C11Spreadsheet17GRProductTermTail", "String"]
+- !private ["C11Spreadsheet17GRProductTermTail", "calculatedValue"]
+- ["C11Spreadsheet17GRProductTermTail", "deinit"]
+- ["C11Spreadsheet17GRProductTermTail", "init"]
+- ["C11Spreadsheet17GRProductTermTail", "parse"]
+- !private ["C11Spreadsheet17GRProductTermTail", "stringValue"]
+- ["C11Spreadsheet17GRProductTermTail", "times"]
+- ["C11Spreadsheet17GRProductTermTail", "value"]
+- ["C11Spreadsheet14GRQoutedString", "GRLiteral"]
+- ["C11Spreadsheet14GRQoutedString", "GRStringNoQuote"]
+- ["C11Spreadsheet14GRQoutedString", "String"]
+- ["C11Spreadsheet14GRQoutedString", "deinit"]
+- ["C11Spreadsheet14GRQoutedString", "init"]
+- ["C11Spreadsheet14GRQoutedString", "parse"]
+- ["C11Spreadsheet14GRQoutedString", "quote"]
+- ["C11Spreadsheet14GRQoutedString", "string"]
+- !private ["C11Spreadsheet14GRQoutedString", "stringValue"]
+- !private ["C11Spreadsheet14GRRelativeCell", "Array"]
+- !private ["C11Spreadsheet14GRRelativeCell", "Character"]
+- ["C11Spreadsheet14GRRelativeCell", "GRInteger"]
+- ["C11Spreadsheet14GRRelativeCell", "GRLiteral"]
+- !private ["C11Spreadsheet14GRRelativeCell", "GrammarRule"]
+- !private ["C11Spreadsheet14GRRelativeCell", "Int"]
+- ["C11Spreadsheet14GRRelativeCell", "String"]
+- ["C11Spreadsheet14GRRelativeCell", "c"]
+- ["C11Spreadsheet14GRRelativeCell", "col"]
+- ["C11Spreadsheet14GRRelativeCell", "deinit"]
+- ["C11Spreadsheet14GRRelativeCell", "init"]
+- ["C11Spreadsheet14GRRelativeCell", "parse"]
+- !private ["C11Spreadsheet14GRRelativeCell", "print"]
+- ["C11Spreadsheet14GRRelativeCell", "r"]
+- ["C11Spreadsheet14GRRelativeCell", "row"]
+- !private ["C11Spreadsheet14GRRelativeCell", "stride"]
+- !private ["C11Spreadsheet14GRRelativeCell", "stringValue"]
+- !private ["C11Spreadsheet13GRSpreadsheet", "Epsilon"]
+- ["C11Spreadsheet13GRSpreadsheet", "GRAssignment"]
+- ["C11Spreadsheet13GRSpreadsheet", "GRPrint"]
+- !private ["C11Spreadsheet13GRSpreadsheet", "GRSpreadsheet"]
+- !private ["C11Spreadsheet13GRSpreadsheet", "GrammarRule"]
+- ["C11Spreadsheet13GRSpreadsheet", "String"]
+- ["C11Spreadsheet13GRSpreadsheet", "deinit"]
+- ["C11Spreadsheet13GRSpreadsheet", "init"]
+- ["C11Spreadsheet13GRSpreadsheet", "myGRAssign"]
+- ["C11Spreadsheet13GRSpreadsheet", "myGRPrint"]
+- ["C11Spreadsheet13GRSpreadsheet", "parse"]
+- ["C11Spreadsheet15GRStringNoQuote", "init"]
+- !private ["C11Spreadsheet15GRStringNoQuote", "stringValue"]
+- ["C11Spreadsheet7GRValue", "GRCellReference"]
+- ["C11Spreadsheet7GRValue", "GRInteger"]
+- !private ["C11Spreadsheet7GRValue", "GrammarRule"]
+- !private ["C11Spreadsheet7GRValue", "Int"]
+- ["C11Spreadsheet7GRValue", "String"]
+- !private ["C11Spreadsheet7GRValue", "calculatedValue"]
+- ["C11Spreadsheet7GRValue", "deinit"]
+- ["C11Spreadsheet7GRValue", "init"]
+- ["C11Spreadsheet7GRValue", "parse"]
+- ["C11Spreadsheet7GRValue", "ref"]
+- ["C11Spreadsheet7GRValue", "val"]
+- !private ["C11Spreadsheet11GrammarRule", "Array"]
+- !private ["C11Spreadsheet11GrammarRule", "Character"]
+- !private ["C11Spreadsheet11GrammarRule", "Epsilon"]
+- ["C11Spreadsheet11GrammarRule", "GRAbsoluteCell"]
+- ["C11Spreadsheet11GrammarRule", "GRAssignment"]
+- ["C11Spreadsheet11GrammarRule", "GRCellReference"]
+- ["C11Spreadsheet11GrammarRule", "GRColumnLabel"]
+- ["C11Spreadsheet11GrammarRule", "GRExpression"]
+- ["C11Spreadsheet11GrammarRule", "GRExpressionTail"]
+- ["C11Spreadsheet11GrammarRule", "GRInteger"]
+- ["C11Spreadsheet11GrammarRule", "GRLiteral"]
+- ["C11Spreadsheet11GrammarRule", "GRPositiveInteger"]
+- ["C11Spreadsheet11GrammarRule", "GRPrint"]
+- ["C11Spreadsheet11GrammarRule", "GRProductTerm"]
+- ["C11Spreadsheet11GrammarRule", "GRProductTermTail"]
+- ["C11Spreadsheet11GrammarRule", "GRQoutedString"]
+- ["C11Spreadsheet11GrammarRule", "GRRelativeCell"]
+- !private ["C11Spreadsheet11GrammarRule", "GRSpreadsheet"]
+- ["C11Spreadsheet11GrammarRule", "GRStringNoQuote"]
+- ["C11Spreadsheet11GrammarRule", "GRValue"]
+- !private ["C11Spreadsheet11GrammarRule", "GrammarRule"]
+- !private ["C11Spreadsheet11GrammarRule", "Int"]
+- ["C11Spreadsheet11GrammarRule", "String"]
+- ["C11Spreadsheet11GrammarRule", "abs"]
+- ["C11Spreadsheet11GrammarRule", "c"]
+- !private ["C11Spreadsheet11GrammarRule", "calculatedValue"]
+- ["C11Spreadsheet11GrammarRule", "col"]
+- ["C11Spreadsheet11GrammarRule", "currCell"]
+- !private ["C11Spreadsheet11GrammarRule", "currentCell"]
+- !private ["C11Spreadsheet11GrammarRule", "dictionaryExpr"]
+- !private ["C11Spreadsheet11GrammarRule", "dictionaryValue"]
+- !private ["C11Spreadsheet11GrammarRule", "dictionaryWorking"]
+- ["C11Spreadsheet11GrammarRule", "expr"]
+- ["C11Spreadsheet11GrammarRule", "exprTail"]
+- ["C11Spreadsheet11GrammarRule", "init"]
+- ["C11Spreadsheet11GrammarRule", "myGRAssign"]
+- ["C11Spreadsheet11GrammarRule", "myGRPrint"]
+- ["C11Spreadsheet11GrammarRule", "num"]
+- ["C11Spreadsheet11GrammarRule", "parse"]
+- ["C11Spreadsheet11GrammarRule", "plus"]
+- !private ["C11Spreadsheet11GrammarRule", "print"]
+- ["C11Spreadsheet11GrammarRule", "printExpr"]
+- ["C11Spreadsheet11GrammarRule", "printValue"]
+- ["C11Spreadsheet11GrammarRule", "product"]
+- ["C11Spreadsheet11GrammarRule", "productTail"]
+- ["C11Spreadsheet11GrammarRule", "quote"]
+- ["C11Spreadsheet11GrammarRule", "r"]
+- ["C11Spreadsheet11GrammarRule", "ref"]
+- ["C11Spreadsheet11GrammarRule", "rel"]
+- ["C11Spreadsheet11GrammarRule", "row"]
+- ["C11Spreadsheet11GrammarRule", "sign"]
+- !private ["C11Spreadsheet11GrammarRule", "stride"]
+- ["C11Spreadsheet11GrammarRule", "string"]
+- !private ["C11Spreadsheet11GrammarRule", "stringValue"]
+- !private ["C11Spreadsheet11GrammarRule", "theEpsilon"]
+- ["C11Spreadsheet11GrammarRule", "times"]
+- ["C11Spreadsheet11GrammarRule", "val"]
+- ["C11Spreadsheet11GrammarRule", "value"]
+- ["C11Spreadsheet11GrammarRule", ""]
+- !private ["Ps8Hashable", "_getBuiltinLogicValue"]
+- !private ["Ps8Hashable", "append"]
+- !private ["Ps8Hashable", "characters"]
+- !private ["Ps8Hashable", "contains"]
+- !private ["Ps8Hashable", "description"]
+- ["Ps8Hashable", "init"]
+- !private ["Ps8Hashable", "range"]
+- !private ["Ps8Hashable", "replacingOccurrences"]
+- !private ["Ps8Hashable", "substring"]
+- !private ["Si", "description"]
+- !private ["Si", "init"]
+- !private ["Ps7Integer", "description"]
+- !private ["Ps7Integer", "init"]
+- !private ["Ps17IntegerArithmetic", "description"]
+- !private ["Ps17IntegerArithmetic", "init"]
+- !private ["Ps25LosslessStringConvertible", "_getBuiltinLogicValue"]
+- !private ["Ps25LosslessStringConvertible", "append"]
+- !private ["Ps25LosslessStringConvertible", "characters"]
+- !private ["Ps25LosslessStringConvertible", "contains"]
+- ["Ps25LosslessStringConvertible", "init"]
+- !private ["Ps25LosslessStringConvertible", "range"]
+- !private ["Ps25LosslessStringConvertible", "replacingOccurrences"]
+- !private ["Ps25LosslessStringConvertible", "substring"]
+- !private ["Ps10MirrorPath", "append"]
+- !private ["Ps10MirrorPath", "characters"]
+- !private ["Ps10MirrorPath", "contains"]
+- !private ["Ps10MirrorPath", "description"]
+- ["Ps10MirrorPath", "init"]
+- !private ["Ps10MirrorPath", "range"]
+- !private ["Ps10MirrorPath", "replacingOccurrences"]
+- !private ["Ps10MirrorPath", "substring"]
+- !private ["Ps17MutableCollection", "append"]
+- !private ["Ps17MutableCollection", "count"]
+- !private ["Ps17MutableCollection", "dropLast"]
+- !private ["Ps17MutableCollection", "index"]
+- !private ["Ps17MutableCollection", "init"]
+- !private ["Ps17MutableCollection", "subscript"]
+- !private ["PSo8NSCoding", "append"]
+- !private ["PSo8NSCoding", "characters"]
+- !private ["PSo8NSCoding", "contains"]
+- ["PSo8NSCoding", "init"]
+- !private ["PSo8NSCoding", "range"]
+- !private ["PSo8NSCoding", "replacingOccurrences"]
+- !private ["PSo8NSCoding", "substring"]
+- !private ["PSo9NSCopying", "append"]
+- !private ["PSo9NSCopying", "characters"]
+- !private ["PSo9NSCopying", "contains"]
+- ["PSo9NSCopying", "init"]
+- !private ["PSo9NSCopying", "range"]
+- !private ["PSo9NSCopying", "replacingOccurrences"]
+- !private ["PSo9NSCopying", "substring"]
+- !private ["PSo16NSMutableCopying", "append"]
+- !private ["PSo16NSMutableCopying", "characters"]
+- !private ["PSo16NSMutableCopying", "contains"]
+- ["PSo16NSMutableCopying", "init"]
+- !private ["PSo16NSMutableCopying", "range"]
+- !private ["PSo16NSMutableCopying", "replacingOccurrences"]
+- !private ["PSo16NSMutableCopying", "substring"]
+- !private ["CSo8NSObject", "append"]
+- !private ["CSo8NSObject", "characters"]
+- !private ["CSo8NSObject", "contains"]
+- !private ["CSo8NSObject", "range"]
+- !private ["CSo8NSObject", "replacingOccurrences"]
+- !private ["CSo8NSObject", "substring"]
+- !private ["PSo16NSObjectProtocol", "append"]
+- !private ["PSo16NSObjectProtocol", "characters"]
+- !private ["PSo16NSObjectProtocol", "contains"]
+- ["PSo16NSObjectProtocol", "init"]
+- !private ["PSo16NSObjectProtocol", "range"]
+- !private ["PSo16NSObjectProtocol", "replacingOccurrences"]
+- !private ["PSo16NSObjectProtocol", "substring"]
+- !private ["PSo14NSSecureCoding", "append"]
+- !private ["PSo14NSSecureCoding", "characters"]
+- !private ["PSo14NSSecureCoding", "contains"]
+- ["PSo14NSSecureCoding", "init"]
+- !private ["PSo14NSSecureCoding", "range"]
+- !private ["PSo14NSSecureCoding", "replacingOccurrences"]
+- !private ["PSo14NSSecureCoding", "substring"]
+- !private ["CSo8NSString", "append"]
+- !private ["CSo8NSString", "characters"]
+- !private ["CSo8NSString", "contains"]
+- ["CSo8NSString", "init"]
+- !private ["CSo8NSString", "range"]
+- !private ["CSo8NSString", "replacingOccurrences"]
+- !private ["CSo8NSString", "substring"]
+- !private ["Ps22RandomAccessCollection", "append"]
+- !private ["Ps22RandomAccessCollection", "count"]
+- !private ["Ps22RandomAccessCollection", "dropLast"]
+- !private ["Ps22RandomAccessCollection", "index"]
+- !private ["Ps22RandomAccessCollection", "init"]
+- !private ["Ps22RandomAccessCollection", "subscript"]
+- !private ["Vs5Range", "lowerBound"]
+- !private ["Vs5Range", "upperBound"]
+- !private ["Ps26RangeReplaceableCollection", "append"]
+- !private ["Ps26RangeReplaceableCollection", "count"]
+- !private ["Ps26RangeReplaceableCollection", "dropLast"]
+- !private ["Ps26RangeReplaceableCollection", "index"]
+- !private ["Ps26RangeReplaceableCollection", "init"]
+- !private ["Ps26RangeReplaceableCollection", "subscript"]
+- !private ["Ps8Sequence", "append"]
+- !private ["Ps8Sequence", "count"]
+- !private ["Ps8Sequence", "dropLast"]
+- !private ["Ps8Sequence", "index"]
+- !private ["Ps8Sequence", "init"]
+- !private ["Ps8Sequence", "subscript"]
+- !private ["Ps13SignedInteger", "description"]
+- !private ["Ps13SignedInteger", "init"]
+- !private ["Ps12SignedNumber", "description"]
+- !private ["Ps12SignedNumber", "init"]
+- !private ["Vs12StaticString", "init"]
+- !private ["Ps10Strideable", "description"]
+- !private ["Ps10Strideable", "init"]
+- !private ["SS", "append"]
+- !private ["SS", "characters"]
+- !private ["SS", "contains"]
+- ["SS", "init"]
+- !private ["SS", "range"]
+- !private ["SS", "replacingOccurrences"]
+- !private ["SS", "substring"]
+- !private ["Ps16TextOutputStream", "append"]
+- !private ["Ps16TextOutputStream", "characters"]
+- !private ["Ps16TextOutputStream", "contains"]
+- ["Ps16TextOutputStream", "init"]
+- !private ["Ps16TextOutputStream", "range"]
+- !private ["Ps16TextOutputStream", "replacingOccurrences"]
+- !private ["Ps16TextOutputStream", "substring"]
+- !private ["Ps20TextOutputStreamable", "append"]
+- !private ["Ps20TextOutputStreamable", "characters"]
+- !private ["Ps20TextOutputStreamable", "contains"]
+- ["Ps20TextOutputStreamable", "init"]
+- !private ["Ps20TextOutputStreamable", "range"]
+- !private ["Ps20TextOutputStreamable", "replacingOccurrences"]
+- !private ["Ps20TextOutputStreamable", "substring"]
+- !private ["C11Spreadsheet5Token", "calculatedValue"]
+- !private ["C11Spreadsheet5Token", "stringValue"]
+- !private ["Ps14_ArrayProtocol", "append"]
+- !private ["Ps14_ArrayProtocol", "count"]
+- !private ["Ps14_ArrayProtocol", "dropLast"]
+- !private ["Ps14_ArrayProtocol", "index"]
+- !private ["Ps14_ArrayProtocol", "init"]
+- !private ["Ps14_ArrayProtocol", "subscript"]
+- !private ["Ps23_BidirectionalIndexable", "append"]
+- !private ["Ps23_BidirectionalIndexable", "count"]
+- !private ["Ps23_BidirectionalIndexable", "dropLast"]
+- !private ["Ps23_BidirectionalIndexable", "index"]
+- !private ["Ps23_BidirectionalIndexable", "init"]
+- !private ["Ps23_BidirectionalIndexable", "subscript"]
+- !private ["Ps24_DestructorSafeContainer", "append"]
+- !private ["Ps24_DestructorSafeContainer", "count"]
+- !private ["Ps24_DestructorSafeContainer", "dropLast"]
+- !private ["Ps24_DestructorSafeContainer", "index"]
+- !private ["Ps24_DestructorSafeContainer", "init"]
+- !private ["Ps24_DestructorSafeContainer", "subscript"]
+- !private ["Ps35_ExpressibleByBuiltinBooleanLiteral", "_getBuiltinLogicValue"]
+- !private ["Ps51_ExpressibleByBuiltinExtendedGraphemeClusterLiteral", "append"]
+- !private ["Ps51_ExpressibleByBuiltinExtendedGraphemeClusterLiteral", "characters"]
+- !private ["Ps51_ExpressibleByBuiltinExtendedGraphemeClusterLiteral", "contains"]
+- ["Ps51_ExpressibleByBuiltinExtendedGraphemeClusterLiteral", "init"]
+- !private ["Ps51_ExpressibleByBuiltinExtendedGraphemeClusterLiteral", "range"]
+- !private ["Ps51_ExpressibleByBuiltinExtendedGraphemeClusterLiteral", "replacingOccurrences"]
+- !private ["Ps51_ExpressibleByBuiltinExtendedGraphemeClusterLiteral", "substring"]
+- !private ["Ps35_ExpressibleByBuiltinIntegerLiteral", "description"]
+- !private ["Ps35_ExpressibleByBuiltinIntegerLiteral", "init"]
+- !private ["Ps34_ExpressibleByBuiltinStringLiteral", "append"]
+- !private ["Ps34_ExpressibleByBuiltinStringLiteral", "characters"]
+- !private ["Ps34_ExpressibleByBuiltinStringLiteral", "contains"]
+- ["Ps34_ExpressibleByBuiltinStringLiteral", "init"]
+- !private ["Ps34_ExpressibleByBuiltinStringLiteral", "range"]
+- !private ["Ps34_ExpressibleByBuiltinStringLiteral", "replacingOccurrences"]
+- !private ["Ps34_ExpressibleByBuiltinStringLiteral", "substring"]
+- !private ["Ps39_ExpressibleByBuiltinUTF16StringLiteral", "append"]
+- !private ["Ps39_ExpressibleByBuiltinUTF16StringLiteral", "characters"]
+- !private ["Ps39_ExpressibleByBuiltinUTF16StringLiteral", "contains"]
+- ["Ps39_ExpressibleByBuiltinUTF16StringLiteral", "init"]
+- !private ["Ps39_ExpressibleByBuiltinUTF16StringLiteral", "range"]
+- !private ["Ps39_ExpressibleByBuiltinUTF16StringLiteral", "replacingOccurrences"]
+- !private ["Ps39_ExpressibleByBuiltinUTF16StringLiteral", "substring"]
+- !private ["Ps41_ExpressibleByBuiltinUnicodeScalarLiteral", "append"]
+- !private ["Ps41_ExpressibleByBuiltinUnicodeScalarLiteral", "characters"]
+- !private ["Ps41_ExpressibleByBuiltinUnicodeScalarLiteral", "contains"]
+- ["Ps41_ExpressibleByBuiltinUnicodeScalarLiteral", "init"]
+- !private ["Ps41_ExpressibleByBuiltinUnicodeScalarLiteral", "range"]
+- !private ["Ps41_ExpressibleByBuiltinUnicodeScalarLiteral", "replacingOccurrences"]
+- !private ["Ps41_ExpressibleByBuiltinUnicodeScalarLiteral", "substring"]
+- !private ["Ps33_ExpressibleByStringInterpolation", "append"]
+- !private ["Ps33_ExpressibleByStringInterpolation", "characters"]
+- !private ["Ps33_ExpressibleByStringInterpolation", "contains"]
+- ["Ps33_ExpressibleByStringInterpolation", "init"]
+- !private ["Ps33_ExpressibleByStringInterpolation", "range"]
+- !private ["Ps33_ExpressibleByStringInterpolation", "replacingOccurrences"]
+- !private ["Ps33_ExpressibleByStringInterpolation", "substring"]
+- !private ["Ps35_HasCustomAnyHashableRepresentation", "append"]
+- !private ["Ps35_HasCustomAnyHashableRepresentation", "characters"]
+- !private ["Ps35_HasCustomAnyHashableRepresentation", "contains"]
+- ["Ps35_HasCustomAnyHashableRepresentation", "init"]
+- !private ["Ps35_HasCustomAnyHashableRepresentation", "range"]
+- !private ["Ps35_HasCustomAnyHashableRepresentation", "replacingOccurrences"]
+- !private ["Ps35_HasCustomAnyHashableRepresentation", "substring"]
+- !private ["Ps9_Hashable", "_getBuiltinLogicValue"]
+- !private ["Ps9_Hashable", "append"]
+- !private ["Ps9_Hashable", "characters"]
+- !private ["Ps9_Hashable", "contains"]
+- !private ["Ps9_Hashable", "description"]
+- ["Ps9_Hashable", "init"]
+- !private ["Ps9_Hashable", "range"]
+- !private ["Ps9_Hashable", "replacingOccurrences"]
+- !private ["Ps9_Hashable", "substring"]
+- !private ["Ps14_Incrementable", "description"]
+- !private ["Ps14_Incrementable", "init"]
+- !private ["Ps10_Indexable", "append"]
+- !private ["Ps10_Indexable", "count"]
+- !private ["Ps10_Indexable", "dropLast"]
+- !private ["Ps10_Indexable", "index"]
+- !private ["Ps10_Indexable", "init"]
+- !private ["Ps10_Indexable", "subscript"]
+- !private ["Ps14_IndexableBase", "append"]
+- !private ["Ps14_IndexableBase", "count"]
+- !private ["Ps14_IndexableBase", "dropLast"]
+- !private ["Ps14_IndexableBase", "index"]
+- !private ["Ps14_IndexableBase", "init"]
+- !private ["Ps14_IndexableBase", "subscript"]
+- !private ["Ps8_Integer", "description"]
+- !private ["Ps8_Integer", "init"]
+- !private ["Ps18_IntegerArithmetic", "description"]
+- !private ["Ps18_IntegerArithmetic", "init"]
+- !private ["Ps17_MutableIndexable", "append"]
+- !private ["Ps17_MutableIndexable", "count"]
+- !private ["Ps17_MutableIndexable", "dropLast"]
+- !private ["Ps17_MutableIndexable", "index"]
+- !private ["Ps17_MutableIndexable", "init"]
+- !private ["Ps17_MutableIndexable", "subscript"]
+- !private ["Ps21_ObjectiveCBridgeable", "_getBuiltinLogicValue"]
+- !private ["Ps21_ObjectiveCBridgeable", "append"]
+- !private ["Ps21_ObjectiveCBridgeable", "characters"]
+- !private ["Ps21_ObjectiveCBridgeable", "contains"]
+- !private ["Ps21_ObjectiveCBridgeable", "count"]
+- !private ["Ps21_ObjectiveCBridgeable", "description"]
+- !private ["Ps21_ObjectiveCBridgeable", "dropLast"]
+- !private ["Ps21_ObjectiveCBridgeable", "index"]
+- ["Ps21_ObjectiveCBridgeable", "init"]
+- !private ["Ps21_ObjectiveCBridgeable", "range"]
+- !private ["Ps21_ObjectiveCBridgeable", "replacingOccurrences"]
+- !private ["Ps21_ObjectiveCBridgeable", "subscript"]
+- !private ["Ps21_ObjectiveCBridgeable", "substring"]
+- !private ["Ps22_RandomAccessIndexable", "append"]
+- !private ["Ps22_RandomAccessIndexable", "count"]
+- !private ["Ps22_RandomAccessIndexable", "dropLast"]
+- !private ["Ps22_RandomAccessIndexable", "index"]
+- !private ["Ps22_RandomAccessIndexable", "init"]
+- !private ["Ps22_RandomAccessIndexable", "subscript"]
+- !private ["Ps26_RangeReplaceableIndexable", "append"]
+- !private ["Ps26_RangeReplaceableIndexable", "count"]
+- !private ["Ps26_RangeReplaceableIndexable", "dropLast"]
+- !private ["Ps26_RangeReplaceableIndexable", "index"]
+- !private ["Ps26_RangeReplaceableIndexable", "init"]
+- !private ["Ps26_RangeReplaceableIndexable", "subscript"]
+- !private ["Ps14_SignedInteger", "description"]
+- !private ["Ps14_SignedInteger", "init"]
+- !private ["Ps11_Strideable", "description"]
+- !private ["Ps11_Strideable", "init"]
+depends-nominal:
+- "Ps9AnyObject"
+- !private "Sa"
+- !private "Ps23BidirectionalCollection"
+- !private "Ps17BitwiseOperations"
+- !private "Sb"
+- "Ps7CVarArg"
+- !private "Vs9Character"
+- !private "Ps10Collection"
+- "Ps10Comparable"
+- "Ps28CustomDebugStringConvertible"
+- "Ps29CustomPlaygroundQuickLookable"
+- "Ps17CustomReflectable"
+- "Ps23CustomStringConvertible"
+- !private "Vs10Dictionary"
+- !private "C11Spreadsheet7Epsilon"
+- "Ps9Equatable"
+- !private "Ps25ExpressibleByArrayLiteral"
+- !private "Ps27ExpressibleByBooleanLiteral"
+- !private "Ps30ExpressibleByDictionaryLiteral"
+- "Ps43ExpressibleByExtendedGraphemeClusterLiteral"
+- !private "Ps27ExpressibleByIntegerLiteral"
+- "Ps26ExpressibleByStringLiteral"
+- "Ps33ExpressibleByUnicodeScalarLiteral"
+- "C11Spreadsheet14GRAbsoluteCell"
+- "C11Spreadsheet12GRAssignment"
+- "C11Spreadsheet15GRCellReference"
+- "C11Spreadsheet13GRColumnLabel"
+- "C11Spreadsheet12GRExpression"
+- "C11Spreadsheet16GRExpressionTail"
+- "C11Spreadsheet9GRInteger"
+- "C11Spreadsheet9GRLiteral"
+- "C11Spreadsheet17GRPositiveInteger"
+- "C11Spreadsheet7GRPrint"
+- "C11Spreadsheet13GRProductTerm"
+- "C11Spreadsheet17GRProductTermTail"
+- "C11Spreadsheet14GRQoutedString"
+- "C11Spreadsheet14GRRelativeCell"
+- "C11Spreadsheet13GRSpreadsheet"
+- "C11Spreadsheet15GRStringNoQuote"
+- "C11Spreadsheet7GRValue"
+- "C11Spreadsheet11GrammarRule"
+- "Ps8Hashable"
+- !private "Si"
+- !private "Ps7Integer"
+- !private "Ps17IntegerArithmetic"
+- "Ps25LosslessStringConvertible"
+- "Ps10MirrorPath"
+- !private "Ps17MutableCollection"
+- "PSo8NSCoding"
+- "PSo9NSCopying"
+- "PSo16NSMutableCopying"
+- !private "CSo8NSObject"
+- "PSo16NSObjectProtocol"
+- "PSo14NSSecureCoding"
+- "CSo8NSString"
+- !private "Ps22RandomAccessCollection"
+- !private "Vs5Range"
+- !private "Ps26RangeReplaceableCollection"
+- !private "Ps8Sequence"
+- !private "Ps13SignedInteger"
+- !private "Ps12SignedNumber"
+- !private "Vs12StaticString"
+- !private "Ps10Strideable"
+- "SS"
+- "Ps16TextOutputStream"
+- "Ps20TextOutputStreamable"
+- !private "C11Spreadsheet5Token"
+- !private "Ps14_ArrayProtocol"
+- !private "Ps23_BidirectionalIndexable"
+- !private "Ps24_DestructorSafeContainer"
+- !private "Ps35_ExpressibleByBuiltinBooleanLiteral"
+- "Ps51_ExpressibleByBuiltinExtendedGraphemeClusterLiteral"
+- !private "Ps35_ExpressibleByBuiltinIntegerLiteral"
+- "Ps34_ExpressibleByBuiltinStringLiteral"
+- "Ps39_ExpressibleByBuiltinUTF16StringLiteral"
+- "Ps41_ExpressibleByBuiltinUnicodeScalarLiteral"
+- "Ps33_ExpressibleByStringInterpolation"
+- "Ps35_HasCustomAnyHashableRepresentation"
+- "Ps9_Hashable"
+- !private "Ps14_Incrementable"
+- !private "Ps10_Indexable"
+- !private "Ps14_IndexableBase"
+- !private "Ps8_Integer"
+- !private "Ps18_IntegerArithmetic"
+- !private "Ps17_MutableIndexable"
+- "Ps21_ObjectiveCBridgeable"
+- !private "Ps22_RandomAccessIndexable"
+- !private "Ps26_RangeReplaceableIndexable"
+- !private "Ps14_SignedInteger"
+- !private "Ps11_Strideable"
+depends-dynamic-lookup:
+depends-external:
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/ObjectiveC.apinotesc"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/Dispatch.apinotesc"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/Foundation.apinotesc"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/CoreGraphics.apinotesc"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/CoreText.apinotesc"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/ObjectiveC.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/Dispatch.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/Darwin.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/Foundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/CoreGraphics.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/Swift.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/IOKit.swiftmodule"
+interface-hash: "927642fd41d74e9cc9f6579a2e263bdf"

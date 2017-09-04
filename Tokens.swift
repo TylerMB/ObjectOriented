@@ -61,10 +61,10 @@ class GRInteger : Token {
     }
 }
 
-/// A Token subclass for parsing integers
+/// A Token subclass for parsing positive integers
 class GRPositiveInteger : Token {
     init(){
-        // parse integers
+        // parse positive integers only
         super.init(regExpPattern: "[0-9]+")
     }
     override func parse(input:String) -> String? {
@@ -77,17 +77,17 @@ class GRPositiveInteger : Token {
     }
 }
 
-/// A Token subclass for parsing integers
+/// A Token subclass for parsing the label of a column
 class GRColumnLabel : Token {
     init(){
-        // parse Letters
+        // parse uppercase letters
         super.init(regExpPattern: "[A-Z]+")
     }
     override func parse(input:String) -> String? {
         let returnValue = super.parse(input: input)
         if let strVal = self.stringValue {
             // if a stringValue has been parsed, we should be able to record the integer value too
-            self.calculatedValue = Int(strVal)
+           self.stringValue = strVal
         }
         return returnValue
     }
@@ -100,11 +100,11 @@ class GRLiteral : Token {
         super.init(regExpPattern: literal, options: NSRegularExpression.Options.ignoreMetacharacters )
     }
 }
-
+/// A Token subclass for parsing specifically unquoted string literals
 class GRStringNoQuote : Token {
     init(){
+        //takes anything upto, but not including, the first quotation mark it finds
         super.init(regExpPattern: "[^\"]+")
-        // "(.*?)" -> Takes everything within a string such as "2", "covefe" and "a+b"
     }
     override func parse(input:String) -> String? {
         let returnValue = super.parse(input: input)

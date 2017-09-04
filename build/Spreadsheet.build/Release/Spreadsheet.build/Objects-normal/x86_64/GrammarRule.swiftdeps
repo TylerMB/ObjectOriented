@@ -1,0 +1,111 @@
+### Swift dependencies file v0 ###
+provides-top-level:
+- "GrammarRule"
+- "Epsilon"
+provides-nominal:
+- "C11Spreadsheet11GrammarRule"
+- "C11Spreadsheet7Epsilon"
+provides-member:
+- ["C11Spreadsheet11GrammarRule", ""]
+- ["C11Spreadsheet7Epsilon", ""]
+provides-dynamic-lookup:
+depends-top-level:
+- !private "Array"
+- "AssignmentPrecedence"
+- "Epsilon"
+- !private "FloatLiteralType"
+- "GRAbsoluteCell"
+- "GrammarRule"
+- "Int"
+- !private "IntegerLiteralType"
+- "String"
+- !private "StringLiteralType"
+depends-member:
+- ["Ps9AnyObject", "Epsilon"]
+- ["Ps9AnyObject", "GRAbsoluteCell"]
+- ["Ps9AnyObject", "String"]
+- ["Ps9AnyObject", "init"]
+- !private ["Ps9AnyObject", "parse"]
+- !private ["Ps9AnyObject", "rhs"]
+- ["Ps9AnyObject", ""]
+- ["Ps7CVarArg", "init"]
+- ["Ps10Collection", "init"]
+- ["Ps28CustomDebugStringConvertible", "init"]
+- ["Ps17CustomReflectable", "init"]
+- ["Ps23CustomStringConvertible", "init"]
+- ["Vs10Dictionary", "init"]
+- ["C11Spreadsheet7Epsilon", "Epsilon"]
+- !private ["C11Spreadsheet7Epsilon", "GrammarRule"]
+- ["C11Spreadsheet7Epsilon", "String"]
+- ["C11Spreadsheet7Epsilon", "deinit"]
+- ["C11Spreadsheet7Epsilon", "init"]
+- ["C11Spreadsheet7Epsilon", "parse"]
+- ["C11Spreadsheet7Epsilon", "theEpsilon"]
+- ["Ps30ExpressibleByDictionaryLiteral", "init"]
+- !private ["Ps43ExpressibleByExtendedGraphemeClusterLiteral", "init"]
+- !private ["Ps26ExpressibleByStringLiteral", "init"]
+- !private ["Ps33ExpressibleByUnicodeScalarLiteral", "init"]
+- ["C11Spreadsheet14GRAbsoluteCell", "init"]
+- ["C11Spreadsheet11GrammarRule", "Epsilon"]
+- ["C11Spreadsheet11GrammarRule", "GRAbsoluteCell"]
+- ["C11Spreadsheet11GrammarRule", "GrammarRule"]
+- ["C11Spreadsheet11GrammarRule", "Int"]
+- ["C11Spreadsheet11GrammarRule", "String"]
+- ["C11Spreadsheet11GrammarRule", "calculatedValue"]
+- ["C11Spreadsheet11GrammarRule", "currentCell"]
+- ["C11Spreadsheet11GrammarRule", "deinit"]
+- ["C11Spreadsheet11GrammarRule", "dictionaryExpr"]
+- ["C11Spreadsheet11GrammarRule", "dictionaryValue"]
+- ["C11Spreadsheet11GrammarRule", "dictionaryWorking"]
+- ["C11Spreadsheet11GrammarRule", "init"]
+- ["C11Spreadsheet11GrammarRule", "parse"]
+- ["C11Spreadsheet11GrammarRule", "rhs"]
+- ["C11Spreadsheet11GrammarRule", "stringValue"]
+- ["C11Spreadsheet11GrammarRule", "theEpsilon"]
+- ["C11Spreadsheet11GrammarRule", ""]
+- ["Ps8Sequence", "init"]
+- !private ["Vs12StaticString", "init"]
+- !private ["Ps51_ExpressibleByBuiltinExtendedGraphemeClusterLiteral", "init"]
+- !private ["Ps34_ExpressibleByBuiltinStringLiteral", "init"]
+- !private ["Ps41_ExpressibleByBuiltinUnicodeScalarLiteral", "init"]
+- ["Ps10_Indexable", "init"]
+- ["Ps14_IndexableBase", "init"]
+- ["Ps21_ObjectiveCBridgeable", "init"]
+depends-nominal:
+- "Ps9AnyObject"
+- "Ps7CVarArg"
+- "Ps10Collection"
+- "Ps28CustomDebugStringConvertible"
+- "Ps17CustomReflectable"
+- "Ps23CustomStringConvertible"
+- "Vs10Dictionary"
+- "C11Spreadsheet7Epsilon"
+- "Ps30ExpressibleByDictionaryLiteral"
+- !private "Ps43ExpressibleByExtendedGraphemeClusterLiteral"
+- !private "Ps26ExpressibleByStringLiteral"
+- !private "Ps33ExpressibleByUnicodeScalarLiteral"
+- "C11Spreadsheet14GRAbsoluteCell"
+- "C11Spreadsheet11GrammarRule"
+- "Ps8Sequence"
+- !private "Vs12StaticString"
+- !private "Ps51_ExpressibleByBuiltinExtendedGraphemeClusterLiteral"
+- !private "Ps34_ExpressibleByBuiltinStringLiteral"
+- !private "Ps41_ExpressibleByBuiltinUnicodeScalarLiteral"
+- "Ps10_Indexable"
+- "Ps14_IndexableBase"
+- "Ps21_ObjectiveCBridgeable"
+depends-dynamic-lookup:
+depends-external:
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/ObjectiveC.apinotesc"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/Dispatch.apinotesc"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/Foundation.apinotesc"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/CoreGraphics.apinotesc"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/CoreText.apinotesc"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/ObjectiveC.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/Dispatch.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/Darwin.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/Foundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/CoreGraphics.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/Swift.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/IOKit.swiftmodule"
+interface-hash: "7c9a7fcd5fafb2ba8495c985d664a3a7"
