@@ -24,6 +24,7 @@ class GrammarRule {
     /// The list of possible right-hand-side options, each of which is a GrammarRule list (Swift will require it to be initialised).
     let rhs : [[GrammarRule]]
     
+    static var dictionaryWorking = [String: String]()
     static var dictionaryValue = [String: String]()
     static var dictionaryExpr = [String: String]()
     static var currentCell = GRAbsoluteCell()

@@ -80,6 +80,19 @@ class GRAssignment : GrammarRule {
         if expr.calculatedValue != nil {
             GrammarRule.dictionaryValue[key] = String(expr.calculatedValue!.description)
             GrammarRule.dictionaryExpr[key] = strExpr
+            GrammarRule.dictionaryWorking[key] = strExpr
+            
+            
+            //If there is an relative cell to unwrap
+            if expr.num.value.ref.rel.row.stringValue != nil && expr.num.value.ref.rel.col.stringValue != nil {
+                //If there is a relative cell in the expression to convert to absolute
+                if (GrammarRule.dictionaryWorking[key]?.contains("r\(expr.num.value.ref.rel.row.stringValue!)c\(expr.num.value.ref.rel.col.stringValue!)"))! {
+                    //Then convert the relative cell to an absolute cell in the working dictionary
+                    GrammarRule.dictionaryWorking[key] = GrammarRule.dictionaryWorking[key]?.replacingOccurrences(of: "r\(expr.num.value.ref.rel.row.stringValue!)c\(expr.num.value.ref.rel.col.stringValue!)", with: "key")
+                }
+            }
+            
+            
             for (updateThisKey, expr) in GrammarRule.dictionaryExpr {
                 if expr.contains(key) {
                     if key == updateThisKey || GrammarRule.dictionaryExpr[key]!.contains(updateThisKey) && GrammarRule.dictionaryExpr[updateThisKey]!.contains(key)  {
@@ -109,7 +122,6 @@ class GRPrint : GrammarRule{
     let printValue = GRLiteral(literal: "print_value")
     let printExpr = GRLiteral(literal: "print_expr")
     let abs = GRAbsoluteCell()
-    //let spread = GRSpreadsheet()
     
     init() {
         super.init(rhsRules: [[printValue,abs],[printExpr,abs]])
@@ -129,7 +141,6 @@ class GRPrint : GrammarRule{
             
             var key = abs.col.stringValue!
             key.append(abs.row.stringValue!)
-            //print(key)
             
             if GrammarRule.dictionaryValue[key] != nil {
             print("Value of cell \(key) is \(String(describing: GrammarRule.dictionaryValue[key]!))")

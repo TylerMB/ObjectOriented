@@ -21,7 +21,7 @@ func run() {
     
 
     print("-- Test 1 --")
-    var test: String = "A1 := 5 A2 := 15print_value A1print_value A2A3 := A1 + A2print_expr A3print_value A3A2 := 100print_value A2print_value A3A1 := \"coffee\"print_value A1print_expr A1A3 := 2*5+2*A2print_expr A3print_value A3"
+    var test: String = "A2 := 2 A1 := r1c0+1 print_value A1"
     parseInput(rule: spreadsheet, input: test)
     
     
