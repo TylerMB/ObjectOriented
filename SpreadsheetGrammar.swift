@@ -32,6 +32,17 @@ class GRSpreadsheet : GrammarRule {
     
     init(){
         super.init(rhsRules: [[myGRAssign],[myGRPrint], [Epsilon.theEpsilon]])
+        
+    }
+    override func parse(input: String) -> String? {
+        var rest = super.parse(input: input)
+        
+        GrammarRule.currentCell.stringValue = nil
+        if rest != nil, rest != input {
+            let spread = GRSpreadsheet()
+            rest = spread.parse(input: rest!)
+        }
+        return rest
     }
 }
 
@@ -39,20 +50,18 @@ class GRAssignment : GrammarRule {
     
     let sign = GRLiteral(literal: ":=")
     let expr = GRExpression()
-    let currentCell = GRAbsoluteCell()
+    let currCell = GRAbsoluteCell()
 
     init() {
-        super.init(rhsRule: [currentCell,sign,expr])
+        super.init(rhsRule: [currCell,sign,expr])
     }
     
     override func parse(input: String) -> String? {
+        
         let rest = super.parse(input: input)
         var strExpr : String = ""
         var key : String = ""
-        
         if rest != nil {
-            
-            
             if let range = input.range(of: ":= ") {
                 strExpr = input.substring(from: range.upperBound) // Splitting the input string in order to get the expression (not the calculatedValue)
                 if let range1 = strExpr.range(of: rest!) {
@@ -60,13 +69,11 @@ class GRAssignment : GrammarRule {
                 }
             }
         }
-        
-        
-        if currentCell.stringValue != nil {
-            _ = GrammarRule.currentCell.parse(input: currentCell.stringValue!)
-            GrammarRule.currentCell.stringValue = currentCell.stringValue!
-            GrammarRule.currentCell.col.stringValue = currentCell.col.stringValue!
-            GrammarRule.currentCell.row.stringValue = currentCell.row.stringValue!
+        if currCell.stringValue != nil {
+            _ = GrammarRule.currentCell.parse(input: currCell.stringValue!)
+            GrammarRule.currentCell.stringValue = currCell.stringValue!
+            GrammarRule.currentCell.col.stringValue = currCell.col.stringValue!
+            GrammarRule.currentCell.row.stringValue = currCell.row.stringValue!
             key = GrammarRule.currentCell.stringValue!
         }
         
@@ -95,6 +102,7 @@ class GRAssignment : GrammarRule {
         }
         return rest
     }
+    
 }
 
 class GRPrint : GrammarRule{
@@ -140,14 +148,8 @@ class GRPrint : GrammarRule{
                 print("Expression in cell \(key) is 0")
                 }
         }
-        if rest != nil {
-            let spreadsheet = GRSpreadsheet()
-            _ = spreadsheet.parse(input: rest!)
-        }
         return rest
     }
-    
-    
 }
 
 
